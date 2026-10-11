@@ -441,7 +441,7 @@
       "Line weight is the hierarchy: 2px sheet and title-block borders, 1.5px controls and inputs, 1px rules and dimensions.",
       "Annotation lettering at a single height across the whole set.",
       "Solid means built; dashed means proposed or in progress.",
-      "Photos are toned prints that develop on hover; event recap photos show in original colour.",
+      "Photos are toned prints that develop on hover, on every page including event recaps.",
       "Motion draws lines and never bounces; all of it is off under reduced motion."
     ],
     "rules": [
@@ -481,7 +481,7 @@
       "**Do** give each screen exactly one red-filled primary action; everything else is an ink-outline button or an arrow link.",
       "**Do** set every label, caption, date, and metadata line in annotation lettering at 0.8125rem, ranked by weight.",
       "**Do** draw proposed, pending, or not-yet-happened work with a dashed `ink-2` outline and muted text, and mark state with a stencil stamp.",
-      "**Do** run photos through the Print component so they tone to the active print and develop on hover; show recap photos in original colour.",
+      "**Do** run every photo, event recaps included, through the Print component so it tones to the active print and develops on hover.",
       "**Do** keep motion to drawing (stroke-dashoffset, scaleX from the left, clip-path feeds) on the ease-out curve, and leave everything visible and static under `prefers-reduced-motion: reduce`.",
       "**Do** keep linework to the three weights: 2px frames, 1.5px controls, 1px rules and dimensions."
     ],
@@ -490,7 +490,7 @@
       "**Don't** use box-shadows, glows, blurs, or gradients for depth.",
       "**Don't** use red fill for anything but the primary action, or red for decoration.",
       "**Don't** introduce a second annotation size or set annotation in the display face.",
-      "**Don't** show untoned colour photos on index views, or tone recap photos.",
+      "**Don't** show an untoned colour photo anywhere on the site.",
       "**Don't** add motion that bounces, overshoots, or plays when reduced motion is requested."
     ]
   }
