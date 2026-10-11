@@ -144,9 +144,9 @@ components:
 
 Every page is a sheet from one engineering drawing set for a bridge between AI development and ethics. The set exists in two print processes that share every line and differ only in exposure: Blueprint, a cyanotype with pale linework on Prussian blue, and Whiteprint, a diazo print with navy linework on cool white paper. A header control switches between them and remembers the choice in `localStorage` under the key `print`; with no stored choice the system colour scheme decides (dark gets Blueprint). An inline script in the document head applies the stored print before first paint.
 
-Drawings carry the identity: a sheet frame with a heavy border inside a thin trim line, dimension lines with filled arrowheads, leader lines to numbered balloons, section hatching, dashed outlines for work not yet built, and red stencil stamps for state. The two signature drawings (a suspension-bridge elevation and a composite-deck section) are computed SVG, not illustrations. Photographs print through the same process as the sheet and develop to full colour under the pointer. Density is moderate: generous section spacing, a rigid twelve-column grid, prose held to about seventy characters.
+Drawings carry the identity: a sheet frame with a heavy border inside a thin trim line, dimension lines with filled arrowheads, leader lines to numbered balloons, section hatching, dashed outlines for work not yet built, and red stencil stamps for state. The two signature drawings (a suspension-bridge elevation and a composite-deck section) are computed SVG, not illustrations. Photographs keep their original colours in both print themes, with no tint or hover-to-reveal effect. Density is moderate: generous section spacing, a rigid twelve-column grid, prose held to about seventy characters.
 
-The system is flat, square-cornered, and monochrome blue apart from one checker's red. Depth comes from line weight and the two paper tones, never from shadow.
+The interface is flat, square-cornered, and monochrome blue apart from one checker's red; photographs retain their original colours. Depth comes from line weight and the two paper tones, never from shadow.
 
 **Key Characteristics:**
 - Two complete themes from one token set (Whiteprint on `:root`, Blueprint under `[data-theme='blueprint']` or a dark system preference).
@@ -154,7 +154,7 @@ The system is flat, square-cornered, and monochrome blue apart from one checker'
 - Line weight is the hierarchy: 2px sheet and title-block borders, 1.5px controls and inputs, 1px rules and dimensions.
 - Annotation lettering at a single height across the whole set.
 - Solid means built; dashed means proposed or in progress.
-- Photos are toned prints that develop on hover, on every page including event recaps.
+- Photos show their original colours at all times, on every page including event recaps.
 - Motion draws lines and never bounces; all of it is off under reduced motion.
 
 ## Colors
@@ -255,8 +255,8 @@ A steel 1px line with filled arrowheads at both ends and an annotation label in 
 ### Stamp
 Stencil lettering in a 2px `red` border, rotated −3deg, used for state: REGISTRATION IS CLOSED, IN PROGRESS, DRAFTING, PROPOSED, RECEIVED, ERROR 404.
 
-### Photo Print
-Each photo is two stacked copies of the same image. The top copy is toned through the active print's SVG filter (`#print-blueprint` or `#print-whiteprint`: luminance mapped to that process's ink ramp) and fades out over 0.7s on hover or link focus, developing the colour image below. Captions sit beneath in annotation lettering. In forced-colours mode the tone layer is removed.
+### Photographs
+The Print component renders one image with responsive `srcset` and `sizes`, an aspect-ratio crop, descriptive alt text, and configurable loading priority. Photos retain their original colours in both themes and on hover or focus. No photographic filters, tone layers, or colour-reveal transitions are applied. Captions sit beneath in annotation lettering.
 
 ### Drawings
 The suspension-bridge elevation (towers labelled A AI DEVELOPMENT and B ETHICS, span dimensioned BRIDGE AIDE) and Section A-A (slab, shear studs, girder, with keynote balloons) are geometry-driven SVG. Linework is ink at 2.4, 1.6, and 1 stroke weights; construction elements are steel, with 45° hatching for cut material. On load the bridge drafts itself in construction order: ground, caissons, grid, towers, cables, hangers from midspan outward, deck, then dimensions.
@@ -271,7 +271,7 @@ Values and goals are set as ruled legend rows: a 2px ink top rule, a Big Shoulde
 - **Do** give each screen exactly one red-filled primary action; everything else is an ink-outline button or an arrow link.
 - **Do** set every label, caption, date, and metadata line in annotation lettering at 0.8125rem, ranked by weight.
 - **Do** draw proposed, pending, or not-yet-happened work with a dashed `ink-2` outline and muted text, and mark state with a stencil stamp.
-- **Do** run every photo, event recaps included, through the Print component so it tones to the active print and develops on hover.
+- **Do** use the Print component for every photo, event recaps included, to keep responsive image handling and cropping consistent while preserving original colours.
 - **Do** keep motion to drawing (stroke-dashoffset, scaleX from the left, clip-path feeds) on the ease-out curve, and leave everything visible and static under `prefers-reduced-motion: reduce`.
 - **Do** keep linework to the three weights: 2px frames, 1.5px controls, 1px rules and dimensions.
 
@@ -280,5 +280,5 @@ Values and goals are set as ruled legend rows: a 2px ink top rule, a Big Shoulde
 - **Don't** use box-shadows, glows, blurs, or gradients for depth.
 - **Don't** use red fill for anything but the primary action, or red for decoration.
 - **Don't** introduce a second annotation size or set annotation in the display face.
-- **Don't** show an untoned colour photo anywhere on the site.
+- **Don't** tint photographs or hide their original colours behind hover or focus effects.
 - **Don't** add motion that bounces, overshoots, or plays when reduced motion is requested.

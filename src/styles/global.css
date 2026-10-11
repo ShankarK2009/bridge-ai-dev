@@ -48,7 +48,6 @@
   --red: #c0392b;
   --red-fill: #c0392b;
   --on-red: #ffffff;
-  --print-photo: url('#print-whiteprint');
   --grain-opacity: 0.05;
   --grain-blend: multiply;
   color-scheme: light;
@@ -64,7 +63,6 @@
   --red: #ff7d6e;
   --red-fill: #ff5c4d;
   --on-red: #0b2a4a;
-  --print-photo: url('#print-blueprint');
   --grain-opacity: 0.07;
   --grain-blend: soft-light;
   color-scheme: dark;
@@ -81,7 +79,6 @@
     --red: #ff7d6e;
     --red-fill: #ff5c4d;
     --on-red: #0b2a4a;
-    --print-photo: url('#print-blueprint');
     --grain-opacity: 0.07;
     --grain-blend: soft-light;
     color-scheme: dark;
@@ -474,10 +471,9 @@ main > :last-child:not(.band) {
   padding-block: 0.4rem;
 }
 
-/* ---------- Photographic prints ---------- */
+/* ---------- Photographs ---------- */
 
-/* Photos print as cyanotypes (or diazo on whiteprint) and develop to full
-   colour on hover or focus. The tone layer is a second <img> of the same file. */
+/* Photos keep their original colours in both print themes. */
 .print {
   position: relative;
   display: block;
@@ -489,19 +485,6 @@ main > :last-child:not(.band) {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.print__tone {
-  position: absolute;
-  inset: 0;
-  filter: var(--print-photo);
-  transition: opacity 0.7s var(--ease-out);
-}
-
-.print--develop:hover .print__tone,
-a:focus-visible .print__tone,
-a:hover .print--develop .print__tone {
-  opacity: 0;
 }
 
 .print-caption {
@@ -625,10 +608,6 @@ a:hover .print--develop .print__tone {
 }
 
 @media (forced-colors: active) {
-  .print__tone {
-    display: none;
-  }
-
   .stamp,
   .btn {
     border-color: CanvasText;

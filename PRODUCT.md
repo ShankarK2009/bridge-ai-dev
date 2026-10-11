@@ -47,6 +47,7 @@ Confirmed by the owner on 2026-10-11:
 - Home hero keeps the bridge drawing in about two-thirds of the width with the mailing-list title block in the bottom-right corner, so Subscribe stays visible on load (chosen over a full-width bridge band).
 - Keep the additions built from existing content: the Past Workshops strip on Home, sign-up sections on inner pages, and the More Past Events list on recap pages.
 - Privacy policy updated for the new site: no Wix, no analytics, no cookies.
+- Photos keep their original colours on every page in both print themes; remove the blue tint and hover-to-reveal treatment.
 
 ## Brand Commitments
 

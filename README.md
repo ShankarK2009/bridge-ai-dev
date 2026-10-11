@@ -2,7 +2,7 @@
 
 The website for **Bridge AI Development and Ethics (Bridge AIDE)**, a student-led organization advancing AI ethics education. Built with Astro and TypeScript, it is a static replacement for the Wix site at [bridgeaide.org](https://www.bridgeaide.org), preserving the existing public page routes and workshop recaps.
 
-The design treats the site as an engineering drawing set for a bridge between AI development and ethics. Pages are drawing sheets. Photos use cyanotype or diazo effects and develop to full colour on hover. Visitors can switch between two print processes: **Blueprint** (dark) and **Whiteprint** (light). The site follows the system colour preference until a visitor chooses a theme, then saves that choice in local storage. Fonts and images are served locally, and animations respect reduced-motion preferences.
+The design treats the site as an engineering drawing set for a bridge between AI development and ethics. Pages are drawing sheets. Photos show their original colours at all times, with no tint or hover-to-reveal effect. Visitors can switch between two print processes: **Blueprint** (dark) and **Whiteprint** (light). The site follows the system colour preference until a visitor chooses a theme, then saves that choice in local storage. Fonts and images are served locally, and animations respect reduced-motion preferences.
 
 ## Pages
 
@@ -56,6 +56,7 @@ Use the local URL printed by the preview command. The available npm scripts are 
 
 - **Events:** add or edit entries in `src/data/events.ts`. Past events go in `PAST_EVENTS` (newest first). `UPCOMING_EVENTS` currently only controls whether the "No events at the moment" panel appears; displaying upcoming event details also requires updating `src/pages/events.astro`. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`.
 - **Team:** edit `src/data/team.ts`. Portraits go in `public/images/team/` as `name-320.webp` and `name-640.webp`, cropped 4:5 around the face.
+- **Photo rendering:** use `src/components/Print.astro` for responsive sources, cropping, alt text, and loading priority. Photos retain their original colours in both themes.
 - **Navigation, email, social links:** `src/data/site.ts`.
 - **Colours, type, and spacing** are design tokens at the top of `src/styles/global.css`.
 - **Page copy:** edit the corresponding file in `src/pages/`. Event detail pages are generated from `PAST_EVENTS`.

@@ -1,6 +1,5 @@
 ---
-// A photograph printed as a cyanotype (blueprint) or diazo (whiteprint).
-// `develop` lets it reveal full colour on hover/focus.
+// A responsive photograph shown in its original colours in either theme.
 interface Props {
   /** Base path without size suffix, e.g. /images/events/numpy-cover */
   src: string;
@@ -9,8 +8,6 @@ interface Props {
   widths: number[];
   sizes: string;
   ratio?: string;
-  develop?: boolean;
-  tone?: boolean;
   loading?: 'lazy' | 'eager';
   /** Mark the page's largest image so the browser fetches it first. */
   priority?: boolean;
@@ -24,8 +21,6 @@ const {
   widths,
   sizes,
   ratio = '4 / 3',
-  develop = true,
-  tone = true,
   loading = 'lazy',
   priority = false,
   class: className,
@@ -37,7 +32,7 @@ const fallback = `${src}-${widths[widths.length - 1]}.webp`;
 ---
 
 <span
-  class:list={['print', { 'print--develop': develop && tone }, className]}
+  class:list={['print', className]}
   style={`aspect-ratio: ${ratio}; --pos: ${position}`}
 >
   <img
@@ -50,19 +45,4 @@ const fallback = `${src}-${widths[widths.length - 1]}.webp`;
     decoding="async"
     style="object-position: var(--pos)"
   />
-  {
-    tone && (
-      <img
-        class="print__tone"
-        src={fallback}
-        srcset={srcset}
-        sizes={sizes}
-        alt=""
-        aria-hidden="true"
-        loading={priority ? 'eager' : loading}
-        decoding="async"
-        style="object-position: var(--pos)"
-      />
-    )
-  }
 </span>

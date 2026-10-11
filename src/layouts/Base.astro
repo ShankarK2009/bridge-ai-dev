@@ -77,32 +77,6 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- Photographic print processes: luminance mapped to cyanotype / diazo ink. -->
-    <svg class="print-filters" aria-hidden="true" focusable="false" width="0" height="0">
-      <filter id="print-blueprint" color-interpolation-filters="sRGB">
-        <feColorMatrix
-          type="matrix"
-          values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"
-        ></feColorMatrix>
-        <feComponentTransfer>
-          <feFuncR type="table" tableValues="0.03 0.13 0.42 0.93"></feFuncR>
-          <feFuncG type="table" tableValues="0.11 0.3 0.6 0.955"></feFuncG>
-          <feFuncB type="table" tableValues="0.22 0.5 0.8 0.98"></feFuncB>
-        </feComponentTransfer>
-      </filter>
-      <filter id="print-whiteprint" color-interpolation-filters="sRGB">
-        <feColorMatrix
-          type="matrix"
-          values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"
-        ></feColorMatrix>
-        <feComponentTransfer>
-          <feFuncR type="table" tableValues="0.06 0.2 0.55 0.945"></feFuncR>
-          <feFuncG type="table" tableValues="0.18 0.35 0.68 0.96"></feFuncG>
-          <feFuncB type="table" tableValues="0.33 0.55 0.82 0.98"></feFuncB>
-        </feComponentTransfer>
-      </filter>
-    </svg>
-
     <Header subscribeHref={subscribeHref} />
     <main id="main" tabindex="-1">
       <slot />
@@ -138,13 +112,6 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 </html>
 
 <style>
-  .print-filters {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-  }
-
   main:focus {
     outline: none;
   }
