@@ -15,6 +15,15 @@ npm-debug.log*
 .DS_Store
 
 # local tool state
+/.agent/
+/.agents/
+/.claude/
+/.codex/
+/.cursor/
+/.gemini/
+/.opencode/
+/skills-lock.json
 .impeccable/config.local.json
 .impeccable/review/
 .impeccable/mocks/
+.impeccable/questions/
