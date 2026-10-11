@@ -1,8 +1,8 @@
 # Bridge AIDE website
 
-The website for **Bridge AI Development and Ethics (Bridge AIDE)**, a student-led organization advancing AI ethics education. It replaces the Wix site at [bridgeaide.org](https://www.bridgeaide.org) with a fast static site that keeps every page, word, and URL.
+The website for **Bridge AI Development and Ethics (Bridge AIDE)**, a student-led organization advancing AI ethics education. Built with Astro and TypeScript, it is a static replacement for the Wix site at [bridgeaide.org](https://www.bridgeaide.org), preserving the existing public page routes and workshop recaps.
 
-The design treats the site as an engineering drawing set for a bridge between AI development and ethics. Pages are drawing sheets. Photos print as cyanotypes and develop to full colour on hover. Visitors can switch between two print processes: **Blueprint** (dark) and **Whiteprint** (light).
+The design treats the site as an engineering drawing set for a bridge between AI development and ethics. Pages are drawing sheets. Photos use cyanotype or diazo effects and develop to full colour on hover. Visitors can switch between two print processes: **Blueprint** (dark) and **Whiteprint** (light). The site follows the system colour preference until a visitor chooses a theme, then saves that choice in local storage. Fonts and images are served locally, and animations respect reduced-motion preferences.
 
 ## Pages
 
@@ -16,48 +16,66 @@ The design treats the site as an engineering drawing set for a bridge between AI
 | `/team` | `src/pages/team.astro` + `src/data/team.ts` |
 | `/privacy-policy` | `src/pages/privacy-policy.astro` |
 | `/accessibility` | `src/pages/accessibility.astro` |
+| Custom error page | `src/pages/404.astro` |
 
-URLs match the Wix site exactly, so existing links and search rankings carry over. A sitemap (`/sitemap-index.xml`) and `robots.txt` are generated.
+The existing page paths are retained, including the original `workshop-understanding-backpropogation` slug. Astro generates a sitemap at `/sitemap-index.xml`; `public/robots.txt` supplies the crawler configuration. Canonical URLs use `https://www.bridgeaide.org`.
 
 ## Run it locally
 
-Requires Node.js 22.12 or newer.
+Requires Node.js 22.12 or newer and npm. From the repository root:
 
 ```bash
-npm install
-```
-
-```bash
+npm ci
 npm run dev
 ```
 
-Then open http://localhost:4321. To build the production site into `dist/`:
+Then open [localhost:4321](http://localhost:4321). To build the production site into `dist/` and preview that build locally:
 
 ```bash
 npm run build
+npm run preview
 ```
+
+Use the local URL printed by the preview command. The available npm scripts are `dev`, `build`, and `preview`; there is no dedicated test or lint script.
+
+## Project structure
+
+| Path | Purpose |
+| --- | --- |
+| `src/pages/` | Page content and routes |
+| `src/layouts/Base.astro` | Shared page shell, metadata, fonts, and theme initialization |
+| `src/components/` | Navigation, footer, forms, and reusable drawing-sheet elements |
+| `src/data/` | Site links, events, and team members |
+| `src/styles/global.css` | Design tokens, themes, and shared styles |
+| `public/` | Images, icons, crawler configuration, and custom domain file |
+| `astro.config.mjs` | Site URL, sitemap integration, and static output settings |
+| `DESIGN.md` / `PRODUCT.md` | Design direction and product requirements |
+| `docs/wix-content-archive.md` | Original Wix content reference |
 
 ## Editing content
 
-- **Events:** add or edit entries in `src/data/events.ts`. Past events go in `PAST_EVENTS` (newest first). Put an upcoming event in `UPCOMING_EVENTS` and the "No events at the moment" panel disappears. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`.
+- **Events:** add or edit entries in `src/data/events.ts`. Past events go in `PAST_EVENTS` (newest first). `UPCOMING_EVENTS` currently only controls whether the "No events at the moment" panel appears; displaying upcoming event details also requires updating `src/pages/events.astro`. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`.
 - **Team:** edit `src/data/team.ts`. Portraits go in `public/images/team/` as `name-320.webp` and `name-640.webp`, cropped 4:5 around the face.
 - **Navigation, email, social links:** `src/data/site.ts`.
 - **Colours, type, and spacing** are design tokens at the top of `src/styles/global.css`.
+- **Page copy:** edit the corresponding file in `src/pages/`. Event detail pages are generated from `PAST_EVENTS`.
+- **Domain:** keep `astro.config.mjs`, `src/data/site.ts`, `public/CNAME`, and `public/robots.txt` consistent if the site URL changes.
 
 ## Mailing-list sign-ups
 
-Wix handled the mailing list before; the new site needs a form service. Any service that accepts a plain form POST works (for example [Formspree](https://formspree.io), Getform, or Basin):
+Wix handled the mailing list before; this static site needs an external endpoint to collect sign-ups. The endpoint must accept a browser `POST` containing `FormData`, allow cross-origin requests from the site, and return a successful HTTP status (`2xx`). The request includes `Accept: application/json`.
 
-1. Create a form with the service and copy its endpoint URL.
-2. Set `PUBLIC_SUBSCRIBE_ENDPOINT` to that URL: in a local `.env` file (see `.env.example`) and in your host's environment variables. With the GitHub Pages workflow, add it as a repository **variable** named `PUBLIC_SUBSCRIBE_ENDPOINT`.
+1. Configure the form service and copy its endpoint URL.
+2. Copy `.env.example` to `.env` and set `PUBLIC_SUBSCRIBE_ENDPOINT` locally. For deployment, set the same value in the build environment. With the GitHub Pages workflow, add it as a repository **variable** named `PUBLIC_SUBSCRIBE_ENDPOINT`.
+3. Rebuild or restart the development server after changing the value, then verify a sign-up reaches the service.
 
-The form sends `firstName` and `email`. Until an endpoint is set, it falls back to opening an email to info@bridgeaide.org with the sign-up filled in.
+The form sends `firstName` and `email`. The endpoint is embedded in the public build, so it must not contain a secret. Until an endpoint is set, the form opens a prefilled email to info@bridgeaide.org; the visitor must send that email to request a sign-up.
 
 ## Deploying
 
 ### GitHub Pages (workflow included)
 
-`.github/workflows/deploy.yml` builds and publishes the site on every push to `main`.
+`.github/workflows/deploy.yml` builds and publishes the site on every push to `main`. It also supports a manual run through **Actions → Deploy to GitHub Pages → Run workflow**. A push to another branch does not automatically deploy.
 
 1. In the repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Push to `main`.
@@ -65,21 +83,19 @@ The form sends `firstName` and `email`. Until an endpoint is set, it falls back 
 
 ### Other hosts
 
-Netlify, Vercel, and Cloudflare Pages all work with no extra config: build command `npm run build`, output directory `dist`.
+For a static host, use build command `npm run build` and output directory `dist`. Configure Node.js to satisfy `package.json`, and set `PUBLIC_SUBSCRIBE_ENDPOINT` before building if sign-ups are enabled. The build uses `.html` files with extensionless navigation links; verify direct visits to `/about` and `/event-details/workshop-intro-to-numpy` on the chosen host, along with its handling of `404.html`.
 
 ## Moving the domain off Wix
 
 1. Deploy the site and confirm it works on the host's preview URL.
 2. Export your mailing-list contacts from Wix (Contacts → Export) and import them into the new form or email service.
-3. At your domain registrar (or in Wix Domains, if Wix manages the domain), point DNS at the new host:
-   - **GitHub Pages:** a `CNAME` record for `www` → `<your-github-username>.github.io`, plus `A` records for the apex `bridgeaide.org` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-   - **Other hosts:** use the records they give you.
+3. At your domain registrar (or in Wix Domains, if Wix manages the domain), point DNS at the new host using its current custom-domain instructions. Preserve the records used for email.
 4. Turn on HTTPS in the host's settings once DNS has propagated.
 5. Only then cancel the Wix premium plan.
 
 ## Before launch: content to review
 
-These were carried over as-is from the Wix site and are worth a look:
+Review these before replacing the Wix site:
 
 - **Privacy policy** was updated for the new site (no Wix, no analytics, no cookies; effective October 11, 2026). Once you pick a mailing-list service and host, consider naming them in the "Information We Collect" section.
 - **2025 Impact Goals** on the home page are last year's goals.
