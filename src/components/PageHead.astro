@@ -1,0 +1,37 @@
+---
+// Opening sheet for inner pages: framed title, lead copy, optional figure.
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+const isLong = title.length > 32;
+const hasAside = Astro.slots.has('aside');
+---
+
+<div class="container page-head">
+  <div class:list={['sheet', 'page-head__sheet', { 'has-aside': hasAside }]}>
+    <div class="page-head__text">
+      <h1 class:list={['page-head__title', { 'title--long': isLong }]}>{title}</h1>
+      <div class="page-head__body lead"><slot /></div>
+    </div>
+    {hasAside && <div class="page-head__aside"><slot name="aside" /></div>}
+  </div>
+</div>
+
+<style>
+  .page-head__sheet {
+    display: grid;
+    gap: var(--space-7) var(--col-gap);
+  }
+
+  .page-head__body :global(p) {
+    max-width: 52ch;
+  }
+
+  @media (min-width: 960px) {
+    .page-head__sheet.has-aside {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: end;
+    }
+  }
+</style>

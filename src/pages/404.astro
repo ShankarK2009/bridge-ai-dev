@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { NAV } from '../data/site';
+---
+
+<Base
+  title="Page Not Found | Bridge AI Development and Ethics"
+  description="The page you were looking for could not be found."
+  subscribeHref="/#subscribe"
+  noindex
+>
+  <div class="container missing">
+    <div class="sheet missing__sheet">
+      <span class="stamp">Error 404</span>
+      <h1 class="missing__title">This page isn’t here.</h1>
+      <p class="lead">The link may be out of date, or the page may have moved. Try one of these instead:</p>
+      <ul class="missing__links">
+        <li><a class="btn" href="/">Home <Icon name="arrow-right" /></a></li>
+        {NAV.map((item) => <li><a class="btn" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .missing {
+    padding-block: clamp(2rem, 1rem + 4vw, 5rem) var(--section);
+  }
+
+  .missing__sheet {
+    display: grid;
+    gap: var(--space-6);
+    justify-items: start;
+    padding: clamp(1.5rem, 1rem + 3vw, 4rem);
+  }
+
+  .missing__title {
+    max-width: 14ch;
+  }
+
+  .missing__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

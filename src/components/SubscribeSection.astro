@@ -1,0 +1,68 @@
+---
+import SubscribeForm from './SubscribeForm.astro';
+
+interface Props {
+  title?: string;
+  formHeading?: string;
+}
+const { title = 'Stay Connected', formHeading = 'Join the Bridge AIDE Mailing List' } = Astro.props;
+const hasBody = Astro.slots.has('default');
+---
+
+<section class="section subscribe" id="subscribe" aria-labelledby="subscribe-title">
+  <div class="container">
+    <hr class="rule subscribe__rule" />
+    <div class="grid subscribe__grid">
+      <div class="subscribe__text">
+        <h2 id="subscribe-title">{title}</h2>
+        <div class="subscribe__body">
+          {
+            hasBody ? (
+              <slot />
+            ) : (
+              <p>
+                Join our community to be the first to hear about upcoming AI workshops and events, including ethical
+                AI speaker series and other AI community engagement events.
+              </p>
+            )
+          }
+        </div>
+      </div>
+      <div class="subscribe__form">
+        <SubscribeForm id="sub-foot" heading={formHeading} headingLevel="h3" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .subscribe__rule {
+    margin-bottom: var(--section);
+  }
+
+  .subscribe__grid {
+    row-gap: var(--space-6);
+    align-items: start;
+  }
+
+  .subscribe__text,
+  .subscribe__form {
+    grid-column: 1 / -1;
+  }
+
+  .subscribe__body {
+    margin-top: var(--space-5);
+    font-size: var(--lead);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 900px) {
+    .subscribe__text {
+      grid-column: 1 / span 6;
+    }
+
+    .subscribe__form {
+      grid-column: 8 / -1;
+    }
+  }
+</style>

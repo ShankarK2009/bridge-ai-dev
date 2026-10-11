@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-11T22:43:54+00:00",
+  "title": "Design System: Bridge AIDE",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool Diazo White",
+        "canonical": "oklch(96.9% 0.008 253.9)",
+        "tonalRamp": [
+          "oklch(15% 0.020 253.9)",
+          "oklch(25% 0.020 253.9)",
+          "oklch(35% 0.020 253.9)",
+          "oklch(45% 0.020 253.9)",
+          "oklch(55% 0.020 253.9)",
+          "oklch(68% 0.020 253.9)",
+          "oklch(82% 0.020 253.9)",
+          "oklch(95% 0.020 253.9)"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Tinted Stock",
+        "canonical": "oklch(93.7% 0.015 251.2)",
+        "tonalRamp": [
+          "oklch(15% 0.030 251.2)",
+          "oklch(25% 0.030 251.2)",
+          "oklch(35% 0.030 251.2)",
+          "oklch(45% 0.030 251.2)",
+          "oklch(55% 0.030 251.2)",
+          "oklch(68% 0.030 251.2)",
+          "oklch(82% 0.030 251.2)",
+          "oklch(95% 0.030 251.2)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Drafting Ink",
+        "canonical": "oklch(30.4% 0.078 254.8)",
+        "tonalRamp": [
+          "oklch(15% 0.078 254.8)",
+          "oklch(25% 0.078 254.8)",
+          "oklch(35% 0.078 254.8)",
+          "oklch(45% 0.078 254.8)",
+          "oklch(55% 0.078 254.8)",
+          "oklch(68% 0.078 254.8)",
+          "oklch(82% 0.078 254.8)",
+          "oklch(95% 0.078 254.8)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Secondary Ink",
+        "canonical": "oklch(47.4% 0.071 252.8)",
+        "tonalRamp": [
+          "oklch(15% 0.071 252.8)",
+          "oklch(25% 0.071 252.8)",
+          "oklch(35% 0.071 252.8)",
+          "oklch(45% 0.071 252.8)",
+          "oklch(55% 0.071 252.8)",
+          "oklch(68% 0.071 252.8)",
+          "oklch(82% 0.071 252.8)",
+          "oklch(95% 0.071 252.8)"
+        ]
+      },
+      "steel": {
+        "role": "secondary",
+        "displayName": "Brand Steel",
+        "canonical": "oklch(60.5% 0.072 243.3)",
+        "tonalRamp": [
+          "oklch(15% 0.072 243.3)",
+          "oklch(25% 0.072 243.3)",
+          "oklch(35% 0.072 243.3)",
+          "oklch(45% 0.072 243.3)",
+          "oklch(55% 0.072 243.3)",
+          "oklch(68% 0.072 243.3)",
+          "oklch(82% 0.072 243.3)",
+          "oklch(95% 0.072 243.3)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Trim Rule",
+        "canonical": "rgb(15 47 85 / 0.22)",
+        "tonalRamp": [
+          "oklch(15% 0.078 254.8)",
+          "oklch(25% 0.078 254.8)",
+          "oklch(35% 0.078 254.8)",
+          "oklch(45% 0.078 254.8)",
+          "oklch(55% 0.078 254.8)",
+          "oklch(68% 0.078 254.8)",
+          "oklch(82% 0.078 254.8)",
+          "oklch(95% 0.078 254.8)"
+        ]
+      },
+      "red": {
+        "role": "primary",
+        "displayName": "Redline",
+        "canonical": "oklch(54.3% 0.174 29.7)",
+        "tonalRamp": [
+          "oklch(15% 0.174 29.7)",
+          "oklch(25% 0.174 29.7)",
+          "oklch(35% 0.174 29.7)",
+          "oklch(45% 0.174 29.7)",
+          "oklch(55% 0.174 29.7)",
+          "oklch(68% 0.174 29.7)",
+          "oklch(82% 0.174 29.7)",
+          "oklch(95% 0.120 29.7)"
+        ]
+      },
+      "red-fill": {
+        "role": "primary",
+        "displayName": "Checker's Red",
+        "canonical": "oklch(54.3% 0.174 29.7)",
+        "tonalRamp": [
+          "oklch(15% 0.174 29.7)",
+          "oklch(25% 0.174 29.7)",
+          "oklch(35% 0.174 29.7)",
+          "oklch(45% 0.174 29.7)",
+          "oklch(55% 0.174 29.7)",
+          "oklch(68% 0.174 29.7)",
+          "oklch(82% 0.174 29.7)",
+          "oklch(95% 0.120 29.7)"
+        ]
+      },
+      "on-red": {
+        "role": "neutral",
+        "displayName": "On Red",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(25% 0.000 0)",
+          "oklch(35% 0.000 0)",
+          "oklch(45% 0.000 0)",
+          "oklch(55% 0.000 0)",
+          "oklch(68% 0.000 0)",
+          "oklch(82% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "blueprint-paper": {
+        "role": "neutral",
+        "displayName": "Prussian Ground",
+        "canonical": "oklch(31.9% 0.08 253.7)",
+        "tonalRamp": [
+          "oklch(15% 0.080 253.7)",
+          "oklch(25% 0.080 253.7)",
+          "oklch(35% 0.080 253.7)",
+          "oklch(45% 0.080 253.7)",
+          "oklch(55% 0.080 253.7)",
+          "oklch(68% 0.080 253.7)",
+          "oklch(82% 0.080 253.7)",
+          "oklch(95% 0.080 253.7)"
+        ]
+      },
+      "blueprint-paper-2": {
+        "role": "neutral",
+        "displayName": "Deep Prussian Stock",
+        "canonical": "oklch(28.1% 0.069 252.3)",
+        "tonalRamp": [
+          "oklch(15% 0.069 252.3)",
+          "oklch(25% 0.069 252.3)",
+          "oklch(35% 0.069 252.3)",
+          "oklch(45% 0.069 252.3)",
+          "oklch(55% 0.069 252.3)",
+          "oklch(68% 0.069 252.3)",
+          "oklch(82% 0.069 252.3)",
+          "oklch(95% 0.069 252.3)"
+        ]
+      },
+      "blueprint-ink": {
+        "role": "neutral",
+        "displayName": "Cyanotype White",
+        "canonical": "oklch(96.4% 0.01 247.9)",
+        "tonalRamp": [
+          "oklch(15% 0.030 247.9)",
+          "oklch(25% 0.030 247.9)",
+          "oklch(35% 0.030 247.9)",
+          "oklch(45% 0.030 247.9)",
+          "oklch(55% 0.030 247.9)",
+          "oklch(68% 0.030 247.9)",
+          "oklch(82% 0.030 247.9)",
+          "oklch(95% 0.030 247.9)"
+        ]
+      },
+      "blueprint-ink-2": {
+        "role": "neutral",
+        "displayName": "Faded Linework",
+        "canonical": "oklch(82.7% 0.04 250.7)",
+        "tonalRamp": [
+          "oklch(15% 0.040 250.7)",
+          "oklch(25% 0.040 250.7)",
+          "oklch(35% 0.040 250.7)",
+          "oklch(45% 0.040 250.7)",
+          "oklch(55% 0.040 250.7)",
+          "oklch(68% 0.040 250.7)",
+          "oklch(82% 0.040 250.7)",
+          "oklch(95% 0.040 250.7)"
+        ]
+      },
+      "blueprint-steel": {
+        "role": "secondary",
+        "displayName": "Blueprint Steel",
+        "canonical": "oklch(70.9% 0.067 246)",
+        "tonalRamp": [
+          "oklch(15% 0.067 246.0)",
+          "oklch(25% 0.067 246.0)",
+          "oklch(35% 0.067 246.0)",
+          "oklch(45% 0.067 246.0)",
+          "oklch(55% 0.067 246.0)",
+          "oklch(68% 0.067 246.0)",
+          "oklch(82% 0.067 246.0)",
+          "oklch(95% 0.067 246.0)"
+        ]
+      },
+      "blueprint-rule": {
+        "role": "neutral",
+        "displayName": "Blueprint Trim Rule",
+        "canonical": "rgb(238 244 250 / 0.22)",
+        "tonalRamp": [
+          "oklch(15% 0.030 247.9)",
+          "oklch(25% 0.030 247.9)",
+          "oklch(35% 0.030 247.9)",
+          "oklch(45% 0.030 247.9)",
+          "oklch(55% 0.030 247.9)",
+          "oklch(68% 0.030 247.9)",
+          "oklch(82% 0.030 247.9)",
+          "oklch(95% 0.030 247.9)"
+        ]
+      },
+      "blueprint-red": {
+        "role": "primary",
+        "displayName": "Blueprint Redline",
+        "canonical": "oklch(73.7% 0.161 28.3)",
+        "tonalRamp": [
+          "oklch(15% 0.161 28.3)",
+          "oklch(25% 0.161 28.3)",
+          "oklch(35% 0.161 28.3)",
+          "oklch(45% 0.161 28.3)",
+          "oklch(55% 0.161 28.3)",
+          "oklch(68% 0.161 28.3)",
+          "oklch(82% 0.161 28.3)",
+          "oklch(95% 0.120 28.3)"
+        ]
+      },
+      "blueprint-red-fill": {
+        "role": "primary",
+        "displayName": "Blueprint Checker's Red",
+        "canonical": "oklch(68.9% 0.201 28.6)",
+        "tonalRamp": [
+          "oklch(15% 0.201 28.6)",
+          "oklch(25% 0.201 28.6)",
+          "oklch(35% 0.201 28.6)",
+          "oklch(45% 0.201 28.6)",
+          "oklch(55% 0.201 28.6)",
+          "oklch(68% 0.201 28.6)",
+          "oklch(82% 0.201 28.6)",
+          "oklch(95% 0.120 28.6)"
+        ]
+      },
+      "blueprint-on-red": {
+        "role": "neutral",
+        "displayName": "On Red (Blueprint)",
+        "canonical": "oklch(28.1% 0.069 252.3)",
+        "tonalRamp": [
+          "oklch(15% 0.069 252.3)",
+          "oklch(25% 0.069 252.3)",
+          "oklch(35% 0.069 252.3)",
+          "oklch(45% 0.069 252.3)",
+          "oklch(55% 0.069 252.3)",
+          "oklch(68% 0.069 252.3)",
+          "oklch(82% 0.069 252.3)",
+          "oklch(95% 0.069 252.3)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles inside the sheet frame."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card, row, and legend terms."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Intro paragraphs and legend definitions."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running prose, max 52ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Annotation lettering at one height: labels, captions, metadata, print switch."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Buttons and nav, uppercase."
+      },
+      "stamp": {
+        "displayName": "Stamp",
+        "purpose": "Stencil state stamps only."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The only easing curve for drawn motion and state transitions (--ease-out)."
+      },
+      {
+        "name": "draft",
+        "value": "stroke-dashoffset 1 to 0, 0.6s default, staggered by --d",
+        "purpose": "Bridge elevation drafts itself in construction order on load."
+      },
+      {
+        "name": "rule-draw",
+        "value": "transform scaleX(0 to 1) 1.1s ease-out, origin left",
+        "purpose": "Rules and legend rows draw as they enter view; script adds .will-draw only when motion is allowed."
+      },
+      {
+        "name": "print-feed",
+        "value": "::view-transition-new(root) clip-path inset(0 0 100% 0 to 0) 0.75s ease-out",
+        "purpose": "Print switch feeds the new sheet in like a diazo machine."
+      },
+      {
+        "name": "develop",
+        "value": "opacity 0.7s ease-out",
+        "purpose": "Photo tone layer fades on hover or focus to develop colour."
+      },
+      {
+        "name": "button",
+        "value": "background-color/color 0.25s, transform 0.15s ease-out; icon translateX(3px) 0.3s",
+        "purpose": "Button and arrow-link hover."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "All of the above are off; content renders complete and static."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet",
+        "value": "768px"
+      },
+      {
+        "name": "nav",
+        "value": "960px"
+      },
+      {
+        "name": "desktop",
+        "value": "1024px"
+      },
+      {
+        "name": "container",
+        "value": "1320px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Every secondary action: ink outline that inverts to an ink fill on hover.",
+      "html": "<button class=\"ds-btn\">Register for an event <svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z\"/></svg></button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:0 1.25rem;border:1.5px solid var(--ink,#0f2f55);border-radius:0;background:transparent;color:var(--ink,#0f2f55);font-family:var(--font-display,'Big Shoulders Variable','Arial Narrow',sans-serif);font-size:1.1875rem;font-weight:750;letter-spacing:.045em;line-height:1;text-transform:uppercase;cursor:pointer;transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),transform .15s cubic-bezier(.16,1,.3,1)} .ds-btn svg{width:1.05em;height:1.05em;transition:transform .3s cubic-bezier(.16,1,.3,1)} .ds-btn:hover{background:var(--ink,#0f2f55);color:var(--paper,#f1f5fa);border-color:var(--ink,#0f2f55)} .ds-btn:hover svg{transform:translateX(3px)} .ds-btn:active{transform:translateY(1px)} .ds-btn:focus-visible{outline:2px solid var(--ink,#0f2f55);outline-offset:3px}"
+    },
+    {
+      "name": "Redline Button",
+      "kind": "button",
+      "refersTo": "button-redline",
+      "description": "The single primary action on a screen (Subscribe).",
+      "html": "<button class=\"ds-btn ds-btn--red\">Subscribe</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:0 1.25rem;border:1.5px solid var(--ink,#0f2f55);border-radius:0;background:transparent;color:var(--ink,#0f2f55);font-family:var(--font-display,'Big Shoulders Variable','Arial Narrow',sans-serif);font-size:1.1875rem;font-weight:750;letter-spacing:.045em;line-height:1;text-transform:uppercase;cursor:pointer;transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),transform .15s cubic-bezier(.16,1,.3,1)} .ds-btn svg{width:1.05em;height:1.05em;transition:transform .3s cubic-bezier(.16,1,.3,1)} .ds-btn:hover{background:var(--ink,#0f2f55);color:var(--paper,#f1f5fa);border-color:var(--ink,#0f2f55)} .ds-btn:hover svg{transform:translateX(3px)} .ds-btn:active{transform:translateY(1px)} .ds-btn:focus-visible{outline:2px solid var(--ink,#0f2f55);outline-offset:3px} .ds-btn--red{background:var(--red-fill,#c0392b);color:var(--on-red,#fff);border-color:var(--red-fill,#c0392b)} .ds-btn--red:hover{background:var(--ink,#0f2f55);color:var(--paper,#f1f5fa);border-color:var(--ink,#0f2f55)}"
+    },
+    {
+      "name": "Title Block Form",
+      "kind": "input",
+      "refersTo": "input-line",
+      "description": "Mailing-list form drawn as a drawing's corner title block: ruled cells, line inputs, redline action.",
+      "html": "<form class=\"ds-tb\"><div class=\"ds-tb__cell\"><h3 class=\"ds-tb__title\">Join the Bridge AIDE Mailing List</h3></div><div class=\"ds-tb__cell ds-field\"><label class=\"ds-annot\" for=\"ds-email\">Email address *</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\"></div><div class=\"ds-tb__cell\"><button class=\"ds-tb__btn\" type=\"button\">Subscribe</button></div></form>",
+      "css": ".ds-tb{display:grid;max-width:360px;border:2px solid var(--ink,#0f2f55);background:var(--paper,#f1f5fa);color:var(--ink,#0f2f55)} .ds-tb__cell{padding:1rem 1.125rem 1.125rem} .ds-tb__cell+.ds-tb__cell{border-top:1px solid var(--ink,#0f2f55)} .ds-tb__title{margin:0;font-family:var(--font-display,'Big Shoulders Variable','Arial Narrow',sans-serif);font-size:1.75rem;font-weight:750;line-height:1.02} .ds-field{display:grid;gap:.5rem} .ds-annot{font-family:var(--font-mono,'Atkinson Hyperlegible Mono Variable',ui-monospace,monospace);font-size:.8125rem;font-weight:450;letter-spacing:.06em;line-height:1.4;text-transform:uppercase;color:var(--ink-2,#3e5e83)} .ds-input{min-height:48px;padding:.65rem .85rem;border:0;border-bottom:1.5px solid var(--ink-2,#3e5e83);border-radius:0;background:var(--paper-2,#e3ebf4);color:var(--ink,#0f2f55);font:inherit;font-size:1.0625rem} .ds-input:hover{border-bottom-color:var(--ink,#0f2f55)} .ds-input:focus-visible{outline:2px solid var(--ink,#0f2f55);outline-offset:2px;border-bottom-color:var(--ink,#0f2f55)} .ds-input[aria-invalid=true]{border-bottom-color:var(--red,#c0392b)} .ds-tb__btn{width:100%;min-height:48px;border:1.5px solid var(--red-fill,#c0392b);border-radius:0;background:var(--red-fill,#c0392b);color:var(--on-red,#fff);font-family:var(--font-display,'Big Shoulders Variable','Arial Narrow',sans-serif);font-size:1.1875rem;font-weight:750;letter-spacing:.045em;text-transform:uppercase;cursor:pointer;transition:background-color .25s} .ds-tb__btn:hover{background:var(--ink,#0f2f55);border-color:var(--ink,#0f2f55);color:var(--paper,#f1f5fa)} .ds-tb__btn:focus-visible{outline:2px solid var(--ink,#0f2f55);outline-offset:3px}"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Uppercase Big Shoulders links; current page carries a 2px underline that draws in.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">About</a><a href=\"#\" aria-current=\"page\">Projects</a><a href=\"#\">Events</a><a href=\"#\">Team</a></nav>",
+      "css": ".ds-nav{display:flex;gap:2rem;border-bottom:1px solid var(--rule,rgb(15 47 85 / .22));padding:0 1rem;height:64px;align-items:center;background:var(--paper,#f1f5fa)} .ds-nav a{position:relative;padding:.5rem 0;color:var(--ink,#0f2f55);font-family:var(--font-display,'Big Shoulders Variable','Arial Narrow',sans-serif);font-size:1.25rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none} .ds-nav a::after{content:'';position:absolute;left:0;right:0;bottom:2px;height:2px;background:currentColor;transform:scaleX(0);transition:transform .35s cubic-bezier(.16,1,.3,1)} .ds-nav a:hover::after,.ds-nav a[aria-current=page]::after{transform:scaleX(1)} .ds-nav a:focus-visible{outline:2px solid var(--ink,#0f2f55);outline-offset:3px}"
+    },
+    {
+      "name": "Print Switch",
+      "kind": "custom",
+      "refersTo": "print-switch-active",
+      "description": "Blueprint / Whiteprint theme control; active print is an ink fill.",
+      "html": "<div class=\"ds-ps\" role=\"group\" aria-label=\"Colour theme\"><button type=\"button\" aria-pressed=\"false\">Blueprint</button><button type=\"button\" aria-pressed=\"true\">Whiteprint</button></div>",
+      "css": ".ds-ps{display:inline-flex;border:1px solid var(--rule,rgb(15 47 85 / .22))} .ds-ps button{min-height:36px;padding:0 .7rem;border:0;background:transparent;color:var(--ink-2,#3e5e83);cursor:pointer;font-family:var(--font-mono,'Atkinson Hyperlegible Mono Variable',ui-monospace,monospace);font-size:.8125rem;font-weight:450;letter-spacing:.06em;line-height:1.4;text-transform:uppercase;transition:background-color .2s,color .2s} .ds-ps button+button{border-left:1px solid var(--rule,rgb(15 47 85 / .22))} .ds-ps button:hover{color:var(--ink,#0f2f55)} .ds-ps button[aria-pressed=true]{background:var(--ink,#0f2f55);color:var(--paper,#f1f5fa);font-weight:750} .ds-ps button:focus-visible{outline:2px solid var(--ink,#0f2f55);outline-offset:3px}"
+    },
+    {
+      "name": "Stamp",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "Red stencil stamp for state: closed, in progress, proposed, received.",
+      "html": "<span class=\"ds-stamp\">In progress</span>",
+      "css": ".ds-stamp{display:inline-block;padding:.45em .75em .38em;border:2px solid currentColor;color:var(--red,#c0392b);font-family:var(--font-stencil,'Big Shoulders Stencil Variable','Big Shoulders Variable',sans-serif);font-size:1.125rem;font-weight:700;letter-spacing:.1em;line-height:1;text-transform:uppercase;transform:rotate(-3deg);white-space:nowrap}"
+    },
+    {
+      "name": "Sheet Frame and Proposed Cell",
+      "kind": "card",
+      "refersTo": "",
+      "description": "Built work sits in a 2px ink frame with an offset trim line; proposed work is drawn dashed.",
+      "html": "<div class=\"ds-row\"><div class=\"ds-sheet\"><h3>Workshops</h3><p>Built: drawn solid.</p></div><div class=\"ds-proposed\"><h3>Policy bill</h3><p>Pending: drawn dashed.</p></div></div>",
+      "css": ".ds-row{display:flex;gap:28px;padding:8px;flex-wrap:wrap} .ds-sheet,.ds-proposed{flex:1;min-width:200px;padding:1.5rem;background:var(--paper,#f1f5fa);color:var(--ink,#0f2f55)} .ds-sheet{border:2px solid var(--ink,#0f2f55);outline:1px solid var(--rule,rgb(15 47 85 / .22));outline-offset:5px} .ds-proposed{border:2px dashed var(--ink-2,#3e5e83)} .ds-proposed p{color:var(--ink-2,#3e5e83)} .ds-row h3{margin:0 0 .5rem;font-family:var(--font-display,'Big Shoulders Variable','Arial Narrow',sans-serif);font-size:2rem;font-weight:800;line-height:1} .ds-row p{margin:0;font-family:var(--font-body,'Atkinson Hyperlegible Next Variable',system-ui,sans-serif)}"
+    },
+    {
+      "name": "Dimension Line",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Steel line with filled arrowheads and an annotation label; dates workshops as a chain dimension.",
+      "html": "<div class=\"ds-dim\"><span class=\"ds-dim__line\"></span><span class=\"ds-dim__label\">Feb 02, 2025</span><span class=\"ds-dim__line\"></span></div>",
+      "css": ".ds-dim{display:flex;align-items:center;gap:.75rem;color:var(--steel,#5b87aa);border-inline:1px solid currentColor;padding-block:.4rem;max-width:320px} .ds-dim__line{position:relative;flex:1;height:1px;background:currentColor} .ds-dim__line::before{content:'';position:absolute;top:-4px;left:0;border-style:solid;border-width:4.5px 11px 4.5px 0;border-color:transparent currentColor transparent transparent} .ds-dim__line:last-child::before{left:auto;right:0;border-width:4.5px 0 4.5px 11px;border-color:transparent transparent transparent currentColor} .ds-dim__label{font-family:var(--font-mono,'Atkinson Hyperlegible Mono Variable',ui-monospace,monospace);font-size:.8125rem;font-weight:450;letter-spacing:.06em;line-height:1.4;text-transform:uppercase;font-weight:750;color:var(--ink-2,#3e5e83)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Checked Drawing Set",
+    "overview": "Every page is a sheet from one engineering drawing set for a bridge between AI development and ethics. The set exists in two print processes that share every line and differ only in exposure: Blueprint, a cyanotype with pale linework on Prussian blue, and Whiteprint, a diazo print with navy linework on cool white paper. A header control switches between them and remembers the choice in `localStorage` under the key `print`; with no stored choice the system colour scheme decides (dark gets Blueprint). An inline script in the document head applies the stored print before first paint.\n\nDrawings carry the identity: a sheet frame with a heavy border inside a thin trim line, dimension lines with filled arrowheads, leader lines to numbered balloons, section hatching, dashed outlines for work not yet built, and red stencil stamps for state. The two signature drawings (a suspension-bridge elevation and a composite-deck section) are computed SVG, not illustrations. Photographs print through the same process as the sheet and develop to full colour under the pointer. Density is moderate: generous section spacing, a rigid twelve-column grid, prose held to about seventy characters.\n\nThe system is flat, square-cornered, and monochrome blue apart from one checker's red. Depth comes from line weight and the two paper tones, never from shadow.",
+    "keyCharacteristics": [
+      "Two complete themes from one token set (Whiteprint on `:root`, Blueprint under `[data-theme='blueprint']` or a dark system preference).",
+      "Square corners everywhere; circles only for drafting balloons.",
+      "Line weight is the hierarchy: 2px sheet and title-block borders, 1.5px controls and inputs, 1px rules and dimensions.",
+      "Annotation lettering at a single height across the whole set.",
+      "Solid means built; dashed means proposed or in progress.",
+      "Photos are toned prints that develop on hover; event recap photos show in original colour.",
+      "Motion draws lines and never bounces; all of it is off under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The One Red Fill Rule",
+        "body": "Red fill marks the one primary action in view. Every other action is an ink outline. Red appears elsewhere only as linework: stamps, errors, and checker's marks.",
+        "section": "colors"
+      },
+      {
+        "name": "The Same Set Rule",
+        "body": "Every colour is a token with a value in both prints. A new colour that exists in only one print is wrong; add it to both theme blocks.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Grain Rule",
+        "body": "Grain is one fixed overlay on the body (5% multiply on Whiteprint, 7% soft-light on Blueprint). Never grain individual surfaces.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Lettering Height Rule",
+        "body": "All annotation is set at 0.8125rem. Rank comes from weight (450 vs 750), case, and the rule beside it, never from a second size.",
+        "section": "typography"
+      },
+      {
+        "name": "The Drawn Title Rule",
+        "body": "Big Shoulders is for titles, nav, and buttons only. It never sets running text, and annotation never borrows it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Line Weight Rule",
+        "body": "To lift something, draw it heavier. Never add a shadow, blur, or glow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** define every new colour in both the Whiteprint `:root` block and both Blueprint blocks (the `data-theme` selector and the dark-scheme media query).",
+      "**Do** give each screen exactly one red-filled primary action; everything else is an ink-outline button or an arrow link.",
+      "**Do** set every label, caption, date, and metadata line in annotation lettering at 0.8125rem, ranked by weight.",
+      "**Do** draw proposed, pending, or not-yet-happened work with a dashed `ink-2` outline and muted text, and mark state with a stencil stamp.",
+      "**Do** run photos through the Print component so they tone to the active print and develop on hover; show recap photos in original colour.",
+      "**Do** keep motion to drawing (stroke-dashoffset, scaleX from the left, clip-path feeds) on the ease-out curve, and leave everything visible and static under `prefers-reduced-motion: reduce`.",
+      "**Do** keep linework to the three weights: 2px frames, 1.5px controls, 1px rules and dimensions."
+    ],
+    "donts": [
+      "**Don't** round corners, except drafting balloons.",
+      "**Don't** use box-shadows, glows, blurs, or gradients for depth.",
+      "**Don't** use red fill for anything but the primary action, or red for decoration.",
+      "**Don't** introduce a second annotation size or set annotation in the display face.",
+      "**Don't** show untoned colour photos on index views, or tone recap photos.",
+      "**Don't** add motion that bounces, overshoots, or plays when reduced motion is requested."
+    ]
+  }
+}

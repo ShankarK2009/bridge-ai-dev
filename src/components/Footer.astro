@@ -1,0 +1,161 @@
+---
+// The site's title block: the ruled box every sheet in the set ends with.
+import { NAV, SITE } from '../data/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="titleblock">
+      <div class="tbx tbx--brand">
+        <a href="/" aria-label="Bridge AI Development and Ethics, home"><Logo height={48} /></a>
+        <p class="tbx__statement">
+          A student-led organization advancing AI ethics education.
+        </p>
+      </div>
+
+      <nav class="tbx" aria-labelledby="footer-nav">
+        <h2 class="tbx__label annot is-strong" id="footer-nav">Navigation</h2>
+        <ul>
+          {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="tbx">
+        <h2 class="tbx__label annot is-strong">Connect</h2>
+        <ul>
+          <li>
+            <a href={SITE.instagram} rel="noopener" target="_blank">
+              <Icon name="instagram" /> Instagram<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a href={SITE.x} rel="noopener" target="_blank">
+              <Icon name="x" /> X<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${SITE.email}`}><Icon name="envelope" /> {SITE.email}</a>
+          </li>
+        </ul>
+      </div>
+
+      <p class="tbx tbx--legal annot">
+        Copyright © 2025 by Bridge AI Ethics and Development. All Rights Reserved.
+      </p>
+      <p class="tbx tbx--link annot"><a href="/privacy-policy">Privacy Policy</a></p>
+      <p class="tbx tbx--link annot"><a href="/accessibility">Accessibility Statement</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .titleblock {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 2px solid var(--ink);
+  }
+
+  .tbx {
+    margin: 0;
+    max-width: none;
+    padding: var(--space-5);
+  }
+
+  .tbx + .tbx {
+    border-top: 1px solid var(--ink);
+  }
+
+  .tbx__label {
+    margin: 0 0 var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .tbx__statement {
+    margin-top: var(--space-4);
+    color: var(--ink-2);
+    font-size: 1rem;
+  }
+
+  .tbx ul {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tbx ul a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+
+  .tbx :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .tbx--legal {
+    color: var(--ink-2);
+  }
+
+  .tbx--link a {
+    font-weight: 750;
+  }
+
+  @media (min-width: 640px) {
+    .titleblock {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tbx--brand,
+    .tbx--legal {
+      grid-column: 1 / -1;
+    }
+
+    .tbx + .tbx {
+      border-top: 1px solid var(--ink);
+    }
+
+    .tbx:nth-child(3),
+    .tbx:nth-child(6) {
+      border-left: 1px solid var(--ink);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .titleblock {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    }
+
+    .tbx--brand {
+      grid-column: auto;
+    }
+
+    .tbx--legal {
+      grid-column: auto;
+    }
+
+    .tbx + .tbx {
+      border-top: 0;
+    }
+
+    .tbx:nth-child(2),
+    .tbx:nth-child(3),
+    .tbx:nth-child(5),
+    .tbx:nth-child(6) {
+      border-left: 1px solid var(--ink);
+    }
+
+    .tbx:nth-child(n + 4) {
+      border-top: 1px solid var(--ink);
+    }
+  }
+</style>

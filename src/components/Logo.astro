@@ -1,0 +1,46 @@
+---
+// The existing Bridge AIDE logo: blue on whiteprint, white on blueprint.
+interface Props {
+  height?: number;
+}
+const { height = 40 } = Astro.props;
+const width = Math.round((height * 500) / 150);
+---
+
+<span class="logo" style={`height:${height}px; width:${width}px`}>
+  <img class="logo__img logo__img--blue" src="/images/brand/logo-blue.png" width={width} height={height} alt="" />
+  <img class="logo__img logo__img--white" src="/images/brand/logo-white.png" width={width} height={height} alt="" />
+</span>
+
+<style>
+  .logo {
+    display: block;
+  }
+
+  .logo__img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo__img--white {
+    display: none;
+  }
+
+  :global(:root[data-theme='blueprint']) .logo__img--white {
+    display: block;
+  }
+
+  :global(:root[data-theme='blueprint']) .logo__img--blue {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='whiteprint'])) .logo__img--white {
+      display: block;
+    }
+
+    :global(:root:not([data-theme='whiteprint'])) .logo__img--blue {
+      display: none;
+    }
+  }
+</style>

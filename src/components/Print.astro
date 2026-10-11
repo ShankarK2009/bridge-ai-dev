@@ -1,0 +1,68 @@
+---
+// A photograph printed as a cyanotype (blueprint) or diazo (whiteprint).
+// `develop` lets it reveal full colour on hover/focus.
+interface Props {
+  /** Base path without size suffix, e.g. /images/events/numpy-cover */
+  src: string;
+  alt: string;
+  /** Available widths, smallest first. The file is `${src}-${w}.webp`. */
+  widths: number[];
+  sizes: string;
+  ratio?: string;
+  develop?: boolean;
+  tone?: boolean;
+  loading?: 'lazy' | 'eager';
+  /** Mark the page's largest image so the browser fetches it first. */
+  priority?: boolean;
+  class?: string;
+  position?: string;
+}
+
+const {
+  src,
+  alt,
+  widths,
+  sizes,
+  ratio = '4 / 3',
+  develop = true,
+  tone = true,
+  loading = 'lazy',
+  priority = false,
+  class: className,
+  position = 'center',
+} = Astro.props;
+
+const srcset = widths.map((w) => `${src}-${w}.webp ${w}w`).join(', ');
+const fallback = `${src}-${widths[widths.length - 1]}.webp`;
+---
+
+<span
+  class:list={['print', { 'print--develop': develop && tone }, className]}
+  style={`aspect-ratio: ${ratio}; --pos: ${position}`}
+>
+  <img
+    src={fallback}
+    srcset={srcset}
+    sizes={sizes}
+    alt={alt}
+    loading={priority ? 'eager' : loading}
+    fetchpriority={priority ? 'high' : undefined}
+    decoding="async"
+    style="object-position: var(--pos)"
+  />
+  {
+    tone && (
+      <img
+        class="print__tone"
+        src={fallback}
+        srcset={srcset}
+        sizes={sizes}
+        alt=""
+        aria-hidden="true"
+        loading={priority ? 'eager' : loading}
+        decoding="async"
+        style="object-position: var(--pos)"
+      />
+    )
+  }
+</span>

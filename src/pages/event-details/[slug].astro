@@ -1,0 +1,361 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Print from '../../components/Print.astro';
+import SubscribeSection from '../../components/SubscribeSection.astro';
+import { PAST_EVENTS, type PastEvent } from '../../data/events';
+import { SITE } from '../../data/site';
+
+export const getStaticPaths = (() =>
+  PAST_EVENTS.map((event) => ({ params: { slug: event.slug }, props: { event } }))) satisfies GetStaticPaths;
+
+interface Props {
+  event: PastEvent;
+}
+
+const { event } = Astro.props;
+const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
+const pageUrl = `${SITE.url}/event-details/${event.slug}`;
+const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
+const shareLinkedIn = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(pageUrl)}`;
+const isVirtual = !event.venue;
+
+const eventLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: event.title,
+  description: event.description,
+  startDate: event.start,
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: isVirtual
+    ? 'https://schema.org/OnlineEventAttendanceMode'
+    : 'https://schema.org/OfflineEventAttendanceMode',
+  location: isVirtual
+    ? { '@type': 'VirtualLocation', url: pageUrl }
+    : { '@type': 'Place', name: event.venue, address: event.address },
+  image: [`${SITE.url}${event.cover.src}-1600.webp`],
+  organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+};
+---
+
+<Base
+  title={`${event.title} | Bridge AI Development and Ethics`}
+  description={event.summary}
+  image={`${event.cover.src}-1600.webp`}
+  imageAlt={event.cover.alt}
+  jsonLd={eventLd}
+>
+  <div class="container event">
+    <a class="arrow-link event__back" href="/events">
+      <Icon name="arrow-left" /> View other events
+    </a>
+
+    <div class="sheet event__sheet">
+      <div class="event__head">
+        <h1 class:list={['event__title', { 'title--long': event.title.length > 32 }]}>{event.title}</h1>
+        <span class="stamp event__stamp">Registration is closed</span>
+      </div>
+
+      <dl class="event__block">
+        <div class="event__cell">
+          <dt class="annot">Date and time</dt>
+          <dd>
+            <time datetime={event.start}>{event.dateLabel}, {event.timeLabel}</time>
+          </dd>
+        </div>
+        <div class="event__cell">
+          <dt class="annot">Location</dt>
+          <dd>
+            {
+              isVirtual ? (
+                'Virtual Event'
+              ) : (
+                <>
+                  <strong>{event.venue}</strong>
+                  <br />
+                  {event.address}
+                </>
+              )
+            }
+          </dd>
+        </div>
+      </dl>
+
+      <Print
+        src={event.cover.src}
+        alt={event.cover.alt}
+        widths={[800, 1600]}
+        sizes="(min-width: 1320px) 1240px, 94vw"
+        ratio="16 / 9"
+        priority
+      />
+    </div>
+  </div>
+
+  <section class="section container about-event" aria-labelledby="about-title">
+    <div class="grid about-event__grid">
+      <div class="about-event__text">
+        <h2 id="about-title">About the Event</h2>
+        <p class="lead">{event.description}</p>
+      </div>
+      <div class="about-event__share">
+        <h3 class="annot is-strong share__title">Share This Event</h3>
+        <ul class="share">
+          <li>
+            <a href={shareX} target="_blank" rel="noopener">
+              <Icon name="x" /> Share on X<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a href={shareLinkedIn} target="_blank" rel="noopener">
+              <Icon name="linkedin" /> Share on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {
+      event.gallery.length > 0 && (
+        <ul class:list={['gallery', { 'gallery--single': event.gallery.length === 1 }]} aria-label="Event photos">
+          {event.gallery.map((photo) => (
+            <li>
+              <Print
+                src={photo.src}
+                alt={photo.alt}
+                widths={[800, 1600]}
+                sizes="(min-width: 960px) 46vw, 94vw"
+                ratio="16 / 9"
+              />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  <section class="section container more" aria-labelledby="more-title">
+    <hr class="rule more__rule" />
+    <h2 id="more-title" class="more__title">More Past Events</h2>
+    <ul class="more__list">
+      {
+        others.map((other) => (
+          <li>
+            <a href={`/event-details/${other.slug}`}>
+              <span class="annot">{other.dateLabel}</span>
+              <span class="more__name">{other.title}</span>
+              <Icon name="arrow-right" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <SubscribeSection />
+</Base>
+
+<style>
+  .event {
+    padding-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+
+  .event__back {
+    margin-bottom: var(--space-5);
+  }
+
+  .event__sheet {
+    display: grid;
+    gap: var(--space-6);
+    padding: clamp(1.25rem, 0.8rem + 2.4vw, 3rem);
+  }
+
+  .event__head {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+
+  .event__title {
+    max-width: 18ch;
+  }
+
+  .event__block {
+    display: grid;
+    margin: 0;
+    border: 2px solid var(--ink);
+  }
+
+  .event__cell {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .event__cell + .event__cell {
+    border-top: 1px solid var(--ink);
+  }
+
+  .event__cell dt {
+    color: var(--ink-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .event__cell dd {
+    margin: 0;
+    font-size: var(--lead);
+    line-height: 1.4;
+  }
+
+  @media (min-width: 768px) {
+    .event__head {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    .event__stamp {
+      margin-bottom: var(--space-3);
+    }
+
+    .event__block {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    }
+
+    .event__cell + .event__cell {
+      border-top: 0;
+      border-left: 1px solid var(--ink);
+    }
+  }
+
+  .about-event__grid {
+    row-gap: var(--space-6);
+  }
+
+  .about-event__text,
+  .about-event__share {
+    grid-column: 1 / -1;
+  }
+
+  .about-event__text .lead {
+    margin-top: var(--space-5);
+  }
+
+  .share__title {
+    margin-bottom: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .share {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .share a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+  }
+
+  .share :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  @media (min-width: 960px) {
+    .about-event__text {
+      grid-column: 1 / span 8;
+    }
+
+    .about-event__share {
+      grid-column: 10 / -1;
+      padding-top: 0.5rem;
+    }
+  }
+
+  .gallery {
+    display: grid;
+    gap: var(--col-gap);
+    margin: var(--space-7) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 768px) {
+    .gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery--single {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    }
+  }
+
+  .more__rule {
+    margin-bottom: var(--section);
+  }
+
+  .more__title {
+    margin-bottom: var(--space-6);
+  }
+
+  .more__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--ink);
+  }
+
+  .more__list li {
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .more__list a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-2) var(--space-5);
+    align-items: center;
+    padding-block: var(--space-5);
+    text-decoration: none;
+  }
+
+  .more__list .annot {
+    grid-column: 1 / -1;
+    color: var(--ink-2);
+  }
+
+  .more__name {
+    font-family: var(--font-display);
+    font-size: var(--h3);
+    font-weight: 750;
+    line-height: 1.02;
+  }
+
+  .more__list :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .more__list a:hover .more__name {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.12em;
+  }
+
+  .more__list a:hover :global(svg) {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 768px) {
+    .more__list a {
+      grid-template-columns: 9rem minmax(0, 1fr) auto;
+    }
+
+    .more__list .annot {
+      grid-column: auto;
+    }
+  }
+</style>

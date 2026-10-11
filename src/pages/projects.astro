@@ -1,0 +1,247 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Print from '../components/Print.astro';
+import Icon from '../components/Icon.astro';
+import SubscribeSection from '../components/SubscribeSection.astro';
+---
+
+<Base
+  title="Projects and AI Education Initiatives | Bridge AI Development and Ethics"
+  description="Discover Bridge AIDE’s AI education initiatives featuring ethical AI policy projects, student-led AI workshops, and AI access and equity programs driving responsible technology."
+>
+  <PageHead title="Our Projects: Leading the Way in AI Education Initiatives">
+    <p>
+      At Bridge AIDE, our AI education initiatives are rooted in action and inquiry. We don’t just teach students what
+      AI is; we support them as they shape how it’s used and governed. Every project reflects our core belief: that
+      young people can be watchdogs, architects, and conscience-keepers of technology.
+    </p>
+  </PageHead>
+
+  <section class="section container work" aria-label="Projects">
+    <div class="work__legend annot" aria-label="Line types">
+      <span class="work__key"><span class="work__swatch"></span> Active</span>
+      <span class="work__key"><span class="work__swatch work__swatch--dashed"></span> In progress or proposed</span>
+    </div>
+
+    <div class="work__grid">
+      <article class="cell cell--workshops" aria-labelledby="p-workshops">
+        <a class="cell__media" href="/events" tabindex="-1" aria-hidden="true">
+          <Print
+            src="/images/events/numpy-cover"
+            alt=""
+            widths={[800, 1600]}
+            sizes="(min-width: 960px) 55vw, 92vw"
+            ratio="3 / 2"
+          />
+        </a>
+        <div class="cell__body">
+          <h2 id="p-workshops" class="cell__title">Workshops: Code Meets Conscience</h2>
+          <p>
+            Our student-led AI workshops combine technical skill-building with ethical exploration. Whether students
+            are learning to code with NumPy or unpacking algorithmic bias, every session empowers them to think
+            critically and act responsibly. From foundational AI and machine learning concepts to hands-on model
+            training, our workshops are designed by and for youth.
+          </p>
+        </div>
+      </article>
+
+      <article class="cell cell--speakers" aria-labelledby="p-speakers">
+        <div class="cell__body">
+          <h2 id="p-speakers" class="cell__title">Speakers: Real Voices, Real Impact</h2>
+          <p>
+            We regularly invite guest speakers from academia, activism, and tech industries to engage with students in
+            honest, human conversations about AI. These talks help demystify AI careers and explore ethical challenges
+            and opportunities.
+          </p>
+        </div>
+      </article>
+
+      <article class="cell cell--policy proposed" aria-labelledby="p-policy">
+        <div class="cell__body">
+          <div class="cell__top">
+            <span class="stamp">Drafting</span>
+          </div>
+          <h2 id="p-policy" class="cell__title">Policy: Student-Led Advocacy</h2>
+          <p>
+            We’re currently drafting a student-informed bill aimed at encouraging ethical AI education in public
+            schools. Through research, peer discussion, and collaboration with mentors and policy experts, our team is
+            advancing ethical AI policy projects that ensure AI education is grounded in justice and accountability,
+            not just functionality.
+          </p>
+        </div>
+      </article>
+
+      <article class="cell cell--hack proposed" aria-labelledby="p-hack">
+        <div class="cell__body">
+          <div class="cell__top">
+            <span class="stamp">Proposed</span>
+          </div>
+          <h2 id="p-hack" class="cell__title">Hackathons: Still Taking Shape</h2>
+          <p>
+            While not a current focus, we are exploring how hackathons could support ethical innovation and inclusion.
+            Instead of fast-paced coding sprints, we envision events where ethics, empathy, and real-world impact lead
+            the design process.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="spotlight-title">
+    <div class="spotlight proposed">
+      <h2 id="spotlight-title" class="spotlight__title">Student Spotlight</h2>
+      <p class="lead">
+        Check back soon to see how our students are launching their own AI policy campaigns and tools to promote
+        accessibility in tech, part of our commitment to AI access and equity programs.
+      </p>
+    </div>
+  </section>
+
+  <section class="section container ready" aria-labelledby="ready-title">
+    <hr class="rule ready__rule" />
+    <h2 id="ready-title" class="ready__title">Ready to Shape the Future of AI?</h2>
+    <p class="lead ready__lead">
+      Join our community of student leaders working to make AI more ethical, inclusive, and accountable.
+    </p>
+    <div class="btn-row">
+      <a class="btn" href="/events">Join an event <Icon name="arrow-right" /></a>
+      <a class="btn" href="#subscribe">Get updates</a>
+    </div>
+  </section>
+
+  <SubscribeSection />
+</Base>
+
+<style>
+  .work__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+    margin-bottom: var(--space-5);
+    color: var(--ink-2);
+  }
+
+  .work__key {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .work__swatch {
+    display: inline-block;
+    width: 2.5rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .work__swatch--dashed {
+    border-top: 2px dashed var(--ink-2);
+  }
+
+  .work__grid {
+    display: grid;
+    gap: var(--col-gap);
+  }
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .cell.proposed {
+    border: 2px dashed var(--ink-2);
+  }
+
+  .cell__media {
+    display: block;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .cell__body {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+    padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+  }
+
+  .cell__top {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cell__title {
+    font-size: clamp(1.875rem, 1.5rem + 1.2vw, 2.75rem);
+    font-weight: 800;
+    line-height: 0.98;
+    max-width: 16ch;
+  }
+
+  .cell p {
+    color: var(--ink);
+  }
+
+  .cell.proposed p {
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 960px) {
+    .work__grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .cell--workshops {
+      grid-column: 1 / span 7;
+      grid-row: span 2;
+    }
+
+    .cell--speakers {
+      grid-column: 8 / -1;
+      background: var(--paper-2);
+    }
+
+    .cell--policy {
+      grid-column: 8 / -1;
+    }
+
+    .cell--hack {
+      grid-column: 1 / -1;
+    }
+
+    .cell--hack .cell__body {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--col-gap);
+      align-items: start;
+    }
+
+    .cell--hack .cell__top {
+      grid-column: 1 / -1;
+    }
+
+    .cell--hack p {
+      max-width: 52ch;
+    }
+  }
+
+  .spotlight {
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  }
+
+  .spotlight__title {
+    margin-bottom: var(--space-5);
+  }
+
+  .ready__rule {
+    margin-bottom: var(--section);
+  }
+
+  .ready__title {
+    max-width: 14ch;
+    font-size: clamp(3rem, 1.9rem + 4vw, 5.5rem);
+  }
+
+  .ready__lead {
+    margin-block: var(--space-5) var(--space-6);
+  }
+</style>
