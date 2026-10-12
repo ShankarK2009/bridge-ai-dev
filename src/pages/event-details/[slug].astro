@@ -18,9 +18,8 @@ interface Props {
 }
 
 const { event } = Astro.props;
-const registrationUrl = UPCOMING_EVENTS.some((upcoming) => upcoming.slug === event.slug)
-  ? event.registrationUrl
-  : undefined;
+const isUpcoming = UPCOMING_EVENTS.some((upcoming) => upcoming.slug === event.slug);
+const registrationUrl = isUpcoming ? event.registrationUrl : undefined;
 const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
 const pageUrl = `${SITE.url}/event-details/${event.slug}`;
 const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
@@ -64,7 +63,9 @@ const eventLd = {
           registrationUrl ? (
             <a class="btn btn--red" href={registrationUrl}>Register for this event</a>
           ) : (
-            <span class="stamp event__stamp">Registration is closed</span>
+            <span class="stamp event__stamp">
+              {isUpcoming ? 'Registration is unavailable' : 'Registration is closed'}
+            </span>
           )
         }
       </div>

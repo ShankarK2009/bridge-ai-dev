@@ -54,7 +54,7 @@ const goals = [
       </p>
       <div class="btn-row hero__actions">
         <a class="btn" href="/events">
-          {UPCOMING_EVENTS.length ? 'Register for an event' : 'Explore events'} <Icon name="arrow-right" />
+          {UPCOMING_EVENTS.some((event) => event.registrationUrl) ? 'Register for an event' : 'Explore events'} <Icon name="arrow-right" />
         </a>
         <a class="btn" href="/projects">Explore projects</a>
       </div>
