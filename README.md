@@ -54,7 +54,7 @@ Use the local URL printed by the preview command. The available npm scripts are 
 
 ## Editing content
 
-- **Events:** add or edit entries in `src/data/events.ts`. Add events to `EVENTS` with an ISO `start` time including its UTC offset and a public `registrationUrl` when registration is available. Each build derives upcoming events (soonest first) and past events (newest first) from `start`; registration closes once the start time is reached. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`.
+- **Events:** add or edit entries in `src/data/events.ts`. Add events to `EVENTS` with an ISO `start` time including its UTC offset and a public `registrationUrl` when registration is available. Each build derives upcoming events (soonest first) and past events (newest first) from `start`; registration closes once the start time is reached. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`. Each cover also needs a `name-share.jpg` for social previews.
 - **Team:** edit `src/data/team.ts`. Portraits go in `public/images/team/` as `name-320.webp` and `name-640.webp`, cropped 4:5 around the face.
 - **Photo rendering:** use `src/components/Print.astro` for responsive sources, cropping, alt text, and loading priority. Photos retain their original colours in both themes.
 - **Navigation, email, social links:** `src/data/site.ts`.

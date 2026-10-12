@@ -40,7 +40,7 @@ const eventLd = {
   location: isVirtual
     ? { '@type': 'VirtualLocation', name: 'Virtual Event' }
     : { '@type': 'Place', name: event.venue, address: event.address },
-  image: [`${SITE.url}${event.cover.src}-1600.webp`],
+  image: [`${SITE.url}${event.cover.src}-share.jpg`],
   organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 };
 ---
@@ -48,7 +48,7 @@ const eventLd = {
 <Base
   title={`${event.title} | Bridge AI Development and Ethics`}
   description={event.summary}
-  image={`${event.cover.src}-1600.webp`}
+  image={`${event.cover.src}-share.jpg`}
   imageAlt={event.cover.alt}
   jsonLd={eventLd}
 >
