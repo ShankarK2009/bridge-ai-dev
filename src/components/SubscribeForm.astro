@@ -27,9 +27,9 @@ const {
   data-subscribe
   data-endpoint={SITE.subscribeEndpoint}
   data-email={SITE.email}
-  action={SITE.subscribeEndpoint || undefined}
+  action={SITE.subscribeEndpoint || `mailto:${SITE.email}?subject=Mailing%20list%20sign-up`}
   method="post"
-  novalidate
+  enctype={SITE.subscribeEndpoint ? undefined : 'text/plain'}
   aria-labelledby={label ? undefined : `${id}-title`}
   aria-label={label}
 >
@@ -239,6 +239,7 @@ const {
   }
 
   for (const form of document.querySelectorAll<HTMLFormElement>('form[data-subscribe]')) {
+    form.noValidate = true;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
 
     form.querySelectorAll<HTMLInputElement>('input').forEach((input) => {

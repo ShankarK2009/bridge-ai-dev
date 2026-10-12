@@ -4,17 +4,21 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Print from '../../components/Print.astro';
 import SubscribeSection from '../../components/SubscribeSection.astro';
-import { PAST_EVENTS, type PastEvent } from '../../data/events';
+import { PAST_EVENTS, UPCOMING_EVENTS, type SiteEvent, type UpcomingEvent } from '../../data/events';
 import { SITE } from '../../data/site';
 
 export const getStaticPaths = (() =>
-  PAST_EVENTS.map((event) => ({ params: { slug: event.slug }, props: { event } }))) satisfies GetStaticPaths;
+  [...PAST_EVENTS, ...UPCOMING_EVENTS].map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }))) satisfies GetStaticPaths;
 
 interface Props {
-  event: PastEvent;
+  event: SiteEvent | UpcomingEvent;
 }
 
 const { event } = Astro.props;
+const registrationUrl = 'registrationUrl' in event ? event.registrationUrl : undefined;
 const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
 const pageUrl = `${SITE.url}/event-details/${event.slug}`;
 const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
@@ -32,7 +36,7 @@ const eventLd = {
     ? 'https://schema.org/OnlineEventAttendanceMode'
     : 'https://schema.org/OfflineEventAttendanceMode',
   location: isVirtual
-    ? { '@type': 'VirtualLocation', url: pageUrl }
+    ? { '@type': 'VirtualLocation', name: 'Virtual Event' }
     : { '@type': 'Place', name: event.venue, address: event.address },
   image: [`${SITE.url}${event.cover.src}-1600.webp`],
   organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
@@ -54,7 +58,13 @@ const eventLd = {
     <div class="sheet event__sheet">
       <div class="event__head">
         <h1 class:list={['event__title', { 'title--long': event.title.length > 32 }]}>{event.title}</h1>
-        <span class="stamp event__stamp">Registration is closed</span>
+        {
+          registrationUrl ? (
+            <a class="btn btn--red" href={registrationUrl}>Register for this event</a>
+          ) : (
+            <span class="stamp event__stamp">Registration is closed</span>
+          )
+        }
       </div>
 
       <dl class="event__block">

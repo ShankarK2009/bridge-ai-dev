@@ -4,7 +4,7 @@ export interface Photo {
   alt: string;
 }
 
-export interface PastEvent {
+export interface SiteEvent {
   slug: string;
   title: string;
   /** Short form used in lists and the timeline. */
@@ -21,8 +21,13 @@ export interface PastEvent {
   gallery: Photo[];
 }
 
+export interface UpcomingEvent extends SiteEvent {
+  /** Public sign-up page for this event. */
+  registrationUrl: string;
+}
+
 // Newest first, matching the order on the original Events page.
-export const PAST_EVENTS: PastEvent[] = [
+export const PAST_EVENTS: SiteEvent[] = [
   {
     slug: 'workshop-intro-to-numpy',
     title: 'Workshop: Intro to NumPy',
@@ -119,4 +124,4 @@ export const PAST_EVENTS: PastEvent[] = [
   },
 ];
 
-export const UPCOMING_EVENTS: PastEvent[] = [];
+export const UPCOMING_EVENTS: UpcomingEvent[] = [];

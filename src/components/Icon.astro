@@ -33,8 +33,10 @@ interface Props {
 }
 
 const { name, class: className, label } = Astro.props;
-const a11y = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true" focusable="false"';
-const svg = ICONS[name].replace('<svg ', `<svg ${a11y} class="icon ${className ?? ''}" `);
+const escapeAttribute = (value: string) =>
+  value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const a11y = label ? `role="img" aria-label="${escapeAttribute(label)}"` : 'aria-hidden="true" focusable="false"';
+const svg = ICONS[name].replace('<svg ', () => `<svg ${a11y} class="icon ${escapeAttribute(className ?? '')}" `);
 ---
 
 <Fragment set:html={svg} />

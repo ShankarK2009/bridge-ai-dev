@@ -31,13 +31,31 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
       </div>
       <div class="upcoming__slot">
         {
-          UPCOMING_EVENTS.length === 0 && (
+          UPCOMING_EVENTS.length === 0 ? (
             <div class="empty proposed">
               <p class="empty__title">No events at the moment</p>
               <a class="arrow-link" href="#subscribe">
                 Join the mailing list <Icon name="arrow-right" />
               </a>
             </div>
+          ) : (
+            <ul class="upcoming__list">
+              {UPCOMING_EVENTS.map((event) => (
+                <li class="empty proposed">
+                  <h3 class="empty__title">
+                    <a href={`/event-details/${event.slug}`}>{event.title}</a>
+                  </h3>
+                  <p class="annot">
+                    <time datetime={event.start}>{event.dateLabel} / {event.timeLabel}</time>
+                  </p>
+                  <p>{event.venue ?? 'Virtual Event'}</p>
+                  <p>{event.summary}</p>
+                  <a class="arrow-link" href={`/event-details/${event.slug}`}>
+                    Event details and registration <Icon name="arrow-right" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           )
         }
       </div>
@@ -109,6 +127,14 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
     justify-items: start;
     gap: var(--space-4);
     padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+
+  .upcoming__list {
+    display: grid;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .empty__title {
