@@ -1,0 +1,184 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Print from '../components/Print.astro';
+import ValueLegend from '../components/ValueLegend.astro';
+import Icon from '../components/Icon.astro';
+import SubscribeSection from '../components/SubscribeSection.astro';
+import { TEAM } from '../data/team';
+import { SITE } from '../data/site';
+---
+
+<Base
+  title="Meet Our Team of Student AI Leaders | Bridge AI Development and Ethics"
+  description="Meet the dedicated student AI leaders driving Bridge AIDE’s mission: passionate youth AI advocates committed to advancing ethical AI education."
+>
+  <PageHead title="Leadership at Bridge AIDE">
+    <p>
+      At Bridge AI Development and Ethics, our strength lies in the passion, expertise, and leadership of our student
+      AI leaders. Each team member brings unique skills and perspectives, united by a shared commitment to empower
+      youth and transform how AI is understood, taught, and governed.
+    </p>
+  </PageHead>
+
+  <section class="section container roster" aria-label="Team members">
+    {
+      TEAM.map((group, gi) => (
+        <div class="group" data-draw-group>
+          <h2 class="group__title">{group.title}</h2>
+          <ul class="group__members">
+            {group.members.map((member) => (
+              <li class="member">
+                <Print
+                  src={member.photo}
+                  alt={`Portrait of ${member.name}`}
+                  widths={member.smallSource ? [320] : [320, 640]}
+                  sizes="(min-width: 1200px) 220px, (min-width: 640px) 30vw, 45vw"
+                  ratio="4 / 5"
+                  loading={gi === 0 ? 'eager' : 'lazy'}
+                  position="center 35%"
+                />
+                <p class="member__name">{member.name}</p>
+                <p class="member__role annot">{member.role}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="section band" aria-labelledby="team-values-title">
+    <div class="container">
+      <h2 id="team-values-title" class="tv__title">Our Team Values</h2>
+      <ValueLegend
+        items={[
+          {
+            title: 'Youth Leadership',
+            text: 'We believe in the power of students as innovators and leaders. Our team reflects this ethos, with young voices guiding Bridge AIDE’s mission.',
+          },
+          {
+            title: 'Collaboration',
+            text: 'Working closely with our community, we create meaningful, ethical AI education initiatives.',
+          },
+          {
+            title: 'Transparency',
+            text: 'As we pursue nonprofit status, we commit to open communication about our goals, progress, and challenges.',
+          },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section container join" aria-labelledby="join-title">
+    <div class="grid join__grid">
+      <h2 id="join-title" class="join__title">Join Our Team</h2>
+      <div class="join__body">
+        <p class="lead">
+          Interested in becoming part of Bridge AIDE? Whether you’re a student, educator, or AI professional, there are
+          many ways to contribute. Reach out to learn more about volunteer roles, partnerships, and future
+          opportunities to join our network of student AI leaders.
+        </p>
+        <a class="btn join__cta" href={`mailto:${SITE.email}`}>
+          Contact us <Icon name="envelope" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <SubscribeSection />
+</Base>
+
+<style>
+  .group {
+    position: relative;
+    display: grid;
+    gap: var(--space-5) var(--col-gap);
+    padding-block: var(--space-6) var(--space-7);
+    border-top: 2px solid var(--ink);
+  }
+
+  .group__title {
+    font-size: var(--h3);
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .group__members {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--col-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .member__name {
+    margin-top: var(--space-4);
+    font-family: var(--font-display);
+    font-size: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem);
+    font-weight: 750;
+    line-height: 1.05;
+  }
+
+  .member__role {
+    margin-top: var(--space-2);
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 640px) {
+    .group__members {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .group {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .group__title {
+      grid-column: 1 / span 3;
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-5));
+      align-self: start;
+    }
+
+    .group__members {
+      grid-column: 4 / -1;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .roster {
+    padding-bottom: var(--space-4);
+  }
+
+  .tv__title {
+    margin-bottom: var(--space-7);
+  }
+
+  .join__grid {
+    row-gap: var(--space-5);
+  }
+
+  .join__title,
+  .join__body {
+    grid-column: 1 / -1;
+  }
+
+  .join__cta {
+    margin-top: var(--space-6);
+  }
+
+  @media (min-width: 960px) {
+    .join__title {
+      grid-column: 1 / span 5;
+    }
+
+    .join__body {
+      grid-column: 6 / -1;
+      padding-top: var(--space-2);
+    }
+  }
+</style>

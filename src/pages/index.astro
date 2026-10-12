@@ -1,0 +1,579 @@
+---
+import Base from '../layouts/Base.astro';
+import BridgeElevation from '../components/BridgeElevation.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+import Print from '../components/Print.astro';
+import Icon from '../components/Icon.astro';
+import { PAST_EVENTS } from '../data/events';
+import { SITE } from '../data/site';
+
+const chronological = [...PAST_EVENTS].reverse();
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  alternateName: SITE.shortName,
+  url: SITE.url,
+  logo: `${SITE.url}/images/brand/logo-blue.png`,
+  email: SITE.email,
+  description:
+    'Bridge AIDE is a student-led organization advancing AI ethics education through ethical AI learning, inclusive AI education, and responsible AI development.',
+  sameAs: [SITE.instagram, SITE.x],
+};
+
+const goals = [
+  {
+    qty: '100+',
+    text: 'students engaged across workshops, projects, and events focused on AI ethics education',
+  },
+  { qty: '4+', text: 'workshops on AI coding, ethics, and social impact, promoting ethical AI learning' },
+  {
+    qty: '3',
+    text: 'student-led initiatives launched, from advocacy to tool-building for responsible AI development',
+  },
+];
+---
+
+<Base
+  title="Bridge AI Development and Ethics | Student-Led AI Ethics Education"
+  description="Bridge AIDE is a student-led organization advancing AI ethics education through ethical AI learning, inclusive AI education, and responsible AI development. Join us to shape the future of technology."
+  jsonLd={organization}
+>
+  <!-- Sheet 1: the bridge -->
+  <section class="container hero" aria-labelledby="hero-title">
+    <div class="sheet hero__sheet">
+      <h1 class="hero__title" id="hero-title">
+        Building the Future of AI Starts with Ethical, <span class="nowrap">Youth-Led</span> Voices.
+      </h1>
+
+      <p class="lead hero__intro">
+        <strong>Bridge AI Development and Ethics (Bridge AIDE)</strong> is a student-led organization advancing AI
+        ethics education through ethical, inclusive AI education programs. We’re making sure that youth lead the
+        future of responsible AI development.
+      </p>
+      <div class="btn-row hero__actions">
+        <a class="btn" href="/events">Register for an event <Icon name="arrow-right" /></a>
+        <a class="btn" href="/projects">Explore projects</a>
+      </div>
+
+      <div class="hero__drawing">
+        <BridgeElevation id="hero-bridge" />
+      </div>
+
+      <div class="hero__tb" id="subscribe">
+        <SubscribeForm id="sub-hero" variant="corner" label="Mailing list sign-up" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="section container mission" aria-labelledby="mission-title">
+    <div class="grid">
+      <div class="mission__text">
+        <h2 id="mission-title">Our Mission</h2>
+        <p class="lead mission__lead">
+          At Bridge AIDE, we believe that young people must be more than passive recipients of technology; they should
+          be its <strong>watchdogs, architects, and conscience</strong>. Through hands-on learning, ethical
+          exploration, and policy innovation, we equip students to not only understand artificial intelligence but to
+          challenge it, reform it, and reimagine it for good.
+        </p>
+        <p class="mission__body">
+          Our work centers around making inclusive AI education accessible to diverse youth, especially those who
+          haven’t historically had a seat at the table in tech. We want every student to feel empowered to ask big
+          questions, challenge biases, and lead.
+        </p>
+      </div>
+      <figure class="mission__figure">
+        <a href="/event-details/workshop-introduction-to-responsible-ai" class="mission__link">
+          <Print
+            src="/images/events/rai-1"
+            alt="Students at the Ela Area Public Library listen to a presentation titled “Ethical Principles in Action.”"
+            widths={[800, 1600]}
+            sizes="(min-width: 960px) 34vw, 92vw"
+            ratio="4 / 5"
+            position="40% center"
+          />
+        </a>
+        <figcaption class="annot print-caption">
+          Introduction to Responsible AI. Ela Area Public Library, Feb 02, 2025.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2025 impact goals, set as a drawing schedule -->
+  <section class="section container impact" aria-labelledby="impact-title">
+    <hr class="rule impact__rule" />
+    <div class="grid impact__grid">
+      <div class="impact__head">
+        <h2 id="impact-title">2025 Impact Goals</h2>
+        <p class="lead">We’re just getting started! Here’s what we aim to achieve this year:</p>
+      </div>
+      <div class="schedule">
+        <div class="schedule__head annot" aria-hidden="true">
+          <span>Target</span>
+          <span>Goal</span>
+        </div>
+        <dl class="schedule__list">
+          {
+            goals.map((goal) => (
+              <div class="schedule__row" data-draw-group>
+                <dt class="schedule__qty">{goal.qty}</dt>
+                <dd class="schedule__text">{goal.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Past workshops on a chain dimension -->
+  <section class="section band workshops" aria-labelledby="ws-title">
+    <div class="container">
+      <div class="workshops__head">
+        <h2 id="ws-title">Past Workshops</h2>
+        <a class="arrow-link" href="/events">All events <Icon name="arrow-right" /></a>
+      </div>
+      <ol class="workshops__list" data-draw-group>
+        {
+          chronological.map((event) => (
+            <li class="ws">
+              <div class="dim dim--ext ws__dim" aria-hidden="true">
+                <span class="dim__line" data-draw="center" />
+                <span class="dim__label annot is-strong">{event.dateLabel}</span>
+                <span class="dim__line" data-draw="center" />
+              </div>
+              <a class="ws__link" href={`/event-details/${event.slug}`}>
+                <Print
+                  src={event.cover.src}
+                  alt=""
+                  widths={[800]}
+                  sizes="(min-width: 960px) 24vw, 78vw"
+                  ratio="4 / 3"
+                />
+                <span class="ws__meta annot">
+                  <time datetime={event.start}>{event.dateLabel}</time>
+                  <span aria-hidden="true"> / </span>
+                  {event.venue ?? 'Virtual'}
+                </span>
+                <span class="ws__title">{event.shortTitle}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Get involved -->
+  <section class="section container involve" id="get-involved" aria-labelledby="involve-title">
+    <div class="grid involve__grid">
+      <div class="involve__text">
+        <h2 id="involve-title">Get Involved</h2>
+        <ul class="involve__qs">
+          <li>
+            <span class="leader" aria-hidden="true"></span>
+            <span>Are you a student curious about how AI is shaping your world?</span>
+          </li>
+          <li>
+            <span class="leader" aria-hidden="true"></span>
+            <span>An educator seeking fresh tools to teach ethics and code together?</span>
+          </li>
+          <li>
+            <span class="leader" aria-hidden="true"></span>
+            <span>A policymaker or community leader looking for youth insights?</span>
+          </li>
+        </ul>
+        <p class="lead involve__lead">
+          We want to connect with you. Sign up for our mailing list to stay in the loop or join one of our upcoming
+          events. Bridge AIDE is where youth leadership meets tech accountability through AI ethics education.
+        </p>
+      </div>
+      <div class="involve__form">
+        <SubscribeForm id="sub-involve" headingLevel="h3" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Hero sheet ---------- */
+  .hero {
+    padding-top: clamp(1rem, 0.5rem + 1.5vw, 1.75rem);
+  }
+
+  .hero__sheet {
+    --pad: clamp(1.25rem, 0.6rem + 2.4vw, 2.75rem);
+    display: grid;
+    gap: var(--space-6) var(--col-gap);
+    padding: var(--pad) var(--pad) 0;
+  }
+
+  .hero__title {
+    font-size: clamp(3rem, 1.5rem + 4vw, 5.25rem);
+    font-weight: 800;
+    line-height: 0.98;
+    max-width: 22ch;
+  }
+
+  .hero__intro {
+    font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  }
+
+  .hero__drawing {
+    min-width: 0;
+  }
+
+  /* The title block sits on the sheet border, like the corner box of a drawing. */
+  .hero__tb {
+    margin-inline: calc(var(--pad) * -1);
+  }
+
+  .hero__tb :global(.tb) {
+    border-width: 2px 0 0;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__sheet {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      row-gap: var(--space-6);
+    }
+
+    .hero__title {
+      grid-column: 1 / -1;
+      max-width: none;
+    }
+
+    .hero__intro {
+      grid-column: 1 / span 8;
+      align-self: end;
+    }
+
+    .hero__actions {
+      grid-column: 9 / -1;
+      align-self: end;
+    }
+
+    .hero__drawing {
+      grid-column: 1 / span 8;
+      align-self: end;
+      padding-bottom: var(--space-5);
+    }
+
+    .hero__tb {
+      grid-column: 9 / -1;
+      align-self: end;
+      margin-left: 0;
+    }
+
+    .hero__tb :global(.tb) {
+      border-width: 2px 0 0 2px;
+    }
+  }
+
+  /* ---------- Mission ---------- */
+  .mission .grid {
+    row-gap: var(--space-7);
+  }
+
+  .mission__text,
+  .mission__figure {
+    grid-column: 1 / -1;
+  }
+
+  .mission__lead {
+    margin-top: var(--space-6);
+    max-width: 38ch;
+    font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
+    line-height: 1.4;
+  }
+
+  .mission__lead strong {
+    font-weight: 750;
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+
+  .mission__body {
+    margin-top: var(--space-5);
+    color: var(--ink-2);
+  }
+
+  .mission__figure {
+    margin: 0;
+  }
+
+  .mission__link {
+    display: block;
+  }
+
+  @media (min-width: 960px) {
+    .mission__text {
+      grid-column: 1 / span 7;
+    }
+
+    .mission__figure {
+      grid-column: 9 / -1;
+      margin-top: var(--space-8);
+    }
+  }
+
+  /* ---------- Impact schedule ---------- */
+  .impact__rule {
+    margin-bottom: var(--section);
+  }
+
+  .impact__grid {
+    row-gap: var(--space-6);
+  }
+
+  .impact__head,
+  .schedule {
+    grid-column: 1 / -1;
+  }
+
+  .impact__head .lead {
+    margin-top: var(--space-5);
+  }
+
+  .schedule__head,
+  .schedule__row {
+    display: grid;
+    grid-template-columns: minmax(6rem, 10rem) minmax(0, 1fr);
+    column-gap: clamp(1.25rem, 3vw, 3rem);
+  }
+
+  .schedule__head {
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--ink);
+    color: var(--ink-2);
+  }
+
+  .schedule__list {
+    margin: 0;
+  }
+
+  .schedule__row {
+    position: relative;
+    align-items: baseline;
+    padding-block: var(--space-5) var(--space-6);
+  }
+
+  /* Row rule, drawn left to right as the row enters view. */
+  .schedule__row::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 1.5px dashed var(--ink-2);
+    transform-origin: left center;
+    transition: transform 1.1s var(--ease-out);
+  }
+
+  .schedule__row:global(.will-draw)::after {
+    transform: scaleX(0);
+  }
+
+  .schedule__row:global(.will-draw.is-drawn)::after {
+    transform: scaleX(1);
+  }
+
+  .schedule__qty {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2.2rem + 2.6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 0.85;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .schedule__text {
+    margin: 0;
+    max-width: 40ch;
+    font-size: var(--lead);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 559px) {
+    .schedule__head {
+      display: none;
+    }
+
+    .schedule__row {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-3);
+    }
+  }
+
+  @media (min-width: 960px) {
+    .impact__head {
+      grid-column: 1 / span 4;
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-6));
+      align-self: start;
+    }
+
+    .schedule {
+      grid-column: 6 / -1;
+    }
+  }
+
+  /* ---------- Past workshops ---------- */
+  .workshops {
+    margin-top: var(--section);
+  }
+
+  .workshops__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
+  }
+
+  .workshops__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(16rem, 78%);
+    gap: var(--col-gap);
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) var(--space-4);
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .ws {
+    scroll-snap-align: start;
+  }
+
+  .ws__dim {
+    margin-bottom: var(--space-4);
+  }
+
+  .ws__link {
+    display: grid;
+    gap: var(--space-3);
+    text-decoration: none;
+  }
+
+  .ws__meta {
+    margin-top: var(--space-2);
+    color: var(--ink-2);
+  }
+
+  .ws__title {
+    font-family: var(--font-display);
+    font-size: var(--h3);
+    font-weight: 750;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .ws__link:hover .ws__title {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.12em;
+  }
+
+  @media (min-width: 960px) {
+    .workshops__list {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    /* One continuous chain dimension across the four columns. */
+    .ws__dim {
+      margin-inline: calc(var(--col-gap) / -2);
+      padding-inline: calc(var(--col-gap) / 2);
+    }
+
+    .ws:first-child .ws__dim {
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .ws:last-child .ws__dim {
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    .ws + .ws .ws__dim {
+      border-left: 0;
+    }
+  }
+
+  /* ---------- Get involved ---------- */
+  .involve__grid {
+    row-gap: var(--space-7);
+  }
+
+  .involve__text,
+  .involve__form {
+    grid-column: 1 / -1;
+  }
+
+  .involve__qs {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .involve__qs li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+    font-family: var(--font-display);
+    font-size: var(--h3);
+    font-weight: 700;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  /* Drafting leader: a short line ending in an arrowhead that points at the note. */
+  .leader {
+    position: relative;
+    width: 2.5rem;
+    height: 1.5px;
+    margin-top: 0.55em;
+    background: var(--steel);
+  }
+
+  .leader::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    border-style: solid;
+    border-width: 4.75px 0 4.75px 11px;
+    border-color: transparent transparent transparent var(--steel);
+  }
+
+  .involve__lead {
+    margin-top: var(--space-6);
+  }
+
+  @media (min-width: 960px) {
+    .involve__text {
+      grid-column: 1 / span 7;
+    }
+
+    .involve__form {
+      grid-column: 9 / -1;
+      align-self: end;
+    }
+  }
+</style>

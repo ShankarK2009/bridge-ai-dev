@@ -1,0 +1,24 @@
+{
+  "name": "bridgeaide-website",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Website for Bridge AI Development and Ethics (Bridge AIDE).",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/atkinson-hyperlegible-mono": "^5.3.0",
+    "@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
+    "@fontsource-variable/big-shoulders": "^5.3.0",
+    "@fontsource-variable/big-shoulders-stencil": "^5.3.0",
+    "@phosphor-icons/core": "^2.1.1",
+    "astro": "^7.3.8"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

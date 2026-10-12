@@ -1,0 +1,296 @@
+---
+// Elevation of a suspension bridge, computed from its geometry so the
+// linework stays exact. Drafts itself in construction order on load.
+interface Props {
+  id?: string;
+  class?: string;
+}
+const { id = 'bridge', class: className } = Astro.props;
+
+const W = 1000;
+const H = 400;
+const TA = 250; // tower A axis
+const TB = 750; // tower B axis
+const TT = 64; // tower top
+const DY = 230; // deck top
+const DB = 244; // deck bottom chord
+const WY = 300; // water line
+const BY = 348; // river bed
+const CY = 216; // main cable low point
+const MID = (TA + TB) / 2;
+const HALF = (TB - TA) / 2;
+const r = (n: number) => Math.round(n * 10) / 10;
+
+// Main span parabola: vertex (MID, CY), passes through both tower tops.
+const mainCableY = (x: number) => CY - (CY - TT) * ((x - MID) / HALF) ** 2;
+const mainCable = `M${TA},${TT} Q${MID},${2 * CY - TT} ${TB},${TT}`;
+
+// Side spans: quadratic from tower top to anchorage, control x at chord midpoint.
+const ANCHOR_L = 62;
+const ANCHOR_R = W - ANCHOR_L;
+const ANCHOR_Y = DY - 2;
+const SIDE_SAG = 14;
+const sideCtrlY = (TT + ANCHOR_Y) / 2 + 2 * SIDE_SAG;
+const sideCableL = `M${TA},${TT} Q${(TA + ANCHOR_L) / 2},${sideCtrlY} ${ANCHOR_L},${ANCHOR_Y}`;
+const sideCableR = `M${TB},${TT} Q${(TB + ANCHOR_R) / 2},${sideCtrlY} ${ANCHOR_R},${ANCHOR_Y}`;
+const sideCableY = (x: number, tower: number, anchor: number) => {
+  const t = (tower - x) / (tower - anchor);
+  return (1 - t) ** 2 * TT + 2 * t * (1 - t) * sideCtrlY + t ** 2 * ANCHOR_Y;
+};
+
+// Hangers, ordered from midspan outward so they draw like a crew working out.
+const hangers: { x: number; y: number; d: number }[] = [];
+for (let x = TA + 25; x <= TB - 25; x += 25) {
+  hangers.push({ x, y: r(mainCableY(x)), d: Math.abs(x - MID) });
+}
+for (let x = TA - 25; x >= 100; x -= 25) {
+  hangers.push({ x, y: r(sideCableY(x, TA, ANCHOR_L)), d: HALF + (TA - x) });
+  const xr = W - x;
+  hangers.push({ x: xr, y: r(sideCableY(xr, TB, ANCHOR_R)), d: HALF + (TA - x) });
+}
+
+// Warren truss in the deck.
+let truss = `M20,${DB}`;
+for (let x = 27, up = true; x <= 980; x += 7, up = !up) truss += ` L${x},${up ? DY : DB}`;
+
+// Towers, slightly tapered, with panel bands.
+const tower = (cx: number) =>
+  `M${cx - 9},${WY} L${cx - 6},${TT - 6} L${cx + 6},${TT - 6} L${cx + 9},${WY} Z`;
+const bands = (cx: number) =>
+  [104, 150, 196, 270]
+    .map((y) => {
+      const hw = 6 + (3 * (y - (TT - 6))) / (WY - (TT - 6));
+      return `M${r(cx - hw)},${y} H${r(cx + hw)}`;
+    })
+    .join(' ');
+
+// Earth hatch below the river bed.
+let earth = '';
+for (let x = 4; x < W; x += 12) earth += `M${x},${BY + 9} L${x + 7},${BY + 1} `;
+---
+
+<figure class:list={['bridge', className]}>
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    role="img"
+    aria-labelledby={`${id}-title ${id}-desc`}
+    class="bridge__svg"
+  >
+    <title id={`${id}-title`}>Elevation of a suspension bridge</title>
+    <desc id={`${id}-desc`}>
+      Two towers carry the bridge. Tower A is labelled AI Development and tower B is labelled Ethics.
+      The span between them is dimensioned Bridge AIDE.
+    </desc>
+    <defs>
+      <pattern
+        id={`${id}-hatch`}
+        width="7"
+        height="7"
+        patternUnits="userSpaceOnUse"
+        patternTransform="rotate(45)"
+      >
+        <line x1="0" y1="0" x2="0" y2="7" class="c-hatch"></line>
+      </pattern>
+    </defs>
+
+    <!-- Ground and river bed -->
+    <path class="ln ln--med dl" style="--d:.0s" pathLength="1" d={`M0,${BY} H${W}`}></path>
+    <path class="ln ln--fine c-steel fade" style="--d:.15s" d={earth}></path>
+
+    <!-- Abutments and pier caissons, in section -->
+    <g class="fade" style="--d:.2s">
+      <path class="hatched" fill={`url(#${id}-hatch)`} d={`M14,${DY - 4} H80 L98,${BY} H14 Z`}></path>
+      <path class="hatched" fill={`url(#${id}-hatch)`} d={`M986,${DY - 4} H920 L902,${BY} H986 Z`}></path>
+      <rect class="hatched" fill={`url(#${id}-hatch)`} x={TA - 26} y={WY} width="52" height={BY - WY}></rect>
+      <rect class="hatched" fill={`url(#${id}-hatch)`} x={TB - 26} y={WY} width="52" height={BY - WY}></rect>
+    </g>
+    <path class="ln ln--med dl" style="--d:.15s" pathLength="1" d={`M14,${DY - 4} H80 L98,${BY}`}></path>
+    <path class="ln ln--med dl" style="--d:.15s" pathLength="1" d={`M986,${DY - 4} H920 L902,${BY}`}></path>
+    <path class="ln ln--med dl" style="--d:.25s" pathLength="1" d={`M${TA - 26},${BY} V${WY} H${TA + 26} V${BY}`}></path>
+    <path class="ln ln--med dl" style="--d:.25s" pathLength="1" d={`M${TB - 26},${BY} V${WY} H${TB + 26} V${BY}`}></path>
+
+    <!-- Structural grid: centre lines and bubbles -->
+    <g class="fade" style="--d:.3s">
+      <path class="ln ln--fine c-steel center" d={`M${TA},40 V${BY + 18} M${TB},40 V${BY + 18}`}></path>
+      <circle class="ln ln--fine c-steel" cx={TA} cy="22" r="17" fill="none"></circle>
+      <circle class="ln ln--fine c-steel" cx={TB} cy="22" r="17" fill="none"></circle>
+      <text class="t-bubble" x={TA} y="28" text-anchor="middle">A</text>
+      <text class="t-bubble" x={TB} y="28" text-anchor="middle">B</text>
+      <text class="t-label lbl-wide" x={TA + 28} y="28">AI DEVELOPMENT</text>
+      <text class="t-label lbl-wide" x={TB + 28} y="28">ETHICS</text>
+    </g>
+
+    <!-- Towers -->
+    <path class="ln ln--heavy dl" style="--d:.4s; --dur:.8s" pathLength="1" d={tower(TA)}></path>
+    <path class="ln ln--heavy dl" style="--d:.5s; --dur:.8s" pathLength="1" d={tower(TB)}></path>
+    <path class="ln ln--fine dl" style="--d:.9s" pathLength="1" d={bands(TA)}></path>
+    <path class="ln ln--fine dl" style="--d:.95s" pathLength="1" d={bands(TB)}></path>
+    <path class="ln ln--med dl" style="--d:.9s" pathLength="1" d={`M${TA - 10},${TT - 6} h20 v-8 h-20 z M${TB - 10},${TT - 6} h20 v-8 h-20 z`}></path>
+
+    <!-- Cables -->
+    <path class="ln ln--heavy dl" style="--d:1s; --dur:1s" pathLength="1" d={mainCable}></path>
+    <path class="ln ln--heavy dl" style="--d:1.05s; --dur:.8s" pathLength="1" d={sideCableL}></path>
+    <path class="ln ln--heavy dl" style="--d:1.05s; --dur:.8s" pathLength="1" d={sideCableR}></path>
+
+    <!-- Hangers -->
+    {
+      hangers.map((h) => (
+        <path
+          class="ln ln--fine dl"
+          style={`--d:${(1.35 + h.d / 900).toFixed(2)}s; --dur:.35s`}
+          pathLength="1"
+          d={`M${h.x},${h.y} V${DY}`}
+        />
+      ))
+    }
+
+    <!-- Deck -->
+    <path class="ln ln--heavy dl" style="--d:1.5s; --dur:.9s" pathLength="1" d={`M14,${DY} H986`}></path>
+    <path class="ln ln--med dl" style="--d:1.55s; --dur:.9s" pathLength="1" d={`M20,${DB} H980`}></path>
+    <path class="ln ln--fine fade" style="--d:1.8s" d={truss}></path>
+
+    <!-- Water line with level symbol -->
+    <g class="fade" style="--d:1.9s">
+      <path class="ln ln--fine c-steel" d={`M98,${WY} H${TA - 26} M${TA + 26},${WY} H${TB - 26} M${TB + 26},${WY} H902`}></path>
+      <path class="ln ln--fine c-steel" d={`M612,${WY - 13} H628 L620,${WY - 1} Z M613,${WY + 6} H627 M616.5,${WY + 11} H623.5`}></path>
+    </g>
+
+    <!-- Dimension: the span between A and B -->
+    <g class="fade" style="--d:2.05s">
+      <path class="ln ln--fine c-steel" d={`M${TA},${BY + 22} V${H - 4} M${TB},${BY + 22} V${H - 4} M${TA + 1},388 H${TB - 1}`}></path>
+      <path class="c-steel-fill" d={`M${TA + 1},388 l11,-4 v8 z M${TB - 1},388 l-11,-4 v8 z`}></path>
+      <text class="t-label t-dim" x={MID} y="380" text-anchor="middle">BRIDGE AIDE</text>
+    </g>
+  </svg>
+  <figcaption class="bridge__legend annot">
+    <span><span class="bridge__key">A</span> AI Development</span>
+    <span><span class="bridge__key">B</span> Ethics</span>
+  </figcaption>
+</figure>
+
+<style>
+  .bridge {
+    margin: 0;
+  }
+
+  .bridge__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .ln {
+    fill: none;
+    stroke: var(--ink);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ln--heavy {
+    stroke-width: 2.4;
+  }
+
+  .ln--med {
+    stroke-width: 1.6;
+  }
+
+  .ln--fine {
+    stroke-width: 1;
+  }
+
+  .c-steel {
+    stroke: var(--steel);
+  }
+
+  .c-steel-fill {
+    fill: var(--steel);
+  }
+
+  .c-hatch {
+    stroke: var(--steel);
+    stroke-width: 1;
+  }
+
+  .hatched {
+    stroke: none;
+  }
+
+  .center {
+    stroke-dasharray: 16 5 3 5;
+  }
+
+  .t-bubble {
+    fill: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 17px;
+    font-weight: 750;
+  }
+
+  .t-label {
+    fill: var(--ink-2);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: 0.08em;
+  }
+
+  .t-dim {
+    font-weight: 750;
+    fill: var(--ink);
+  }
+
+  .bridge__legend {
+    display: none;
+    gap: var(--space-5);
+    margin-top: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .bridge__key {
+    display: inline-grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 0.35rem;
+    border: 1px solid var(--steel);
+    border-radius: 50%;
+    color: var(--ink);
+    font-weight: 750;
+  }
+
+  @media (max-width: 767px) {
+    .lbl-wide {
+      display: none;
+    }
+
+    .bridge__legend {
+      display: flex;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dl {
+      stroke-dasharray: 1 1;
+      stroke-dashoffset: 1;
+      animation: draft var(--dur, 0.6s) var(--ease-out) forwards;
+      animation-delay: var(--d, 0s);
+    }
+
+    .fade {
+      opacity: 0;
+      animation: develop 0.7s ease-out forwards;
+      animation-delay: var(--d, 0s);
+    }
+  }
+
+  @keyframes draft {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes develop {
+    to {
+      opacity: 1;
+    }
+  }
+</style>

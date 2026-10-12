@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import ReadSheet from '../components/ReadSheet.astro';
+import { SITE } from '../data/site';
+
+const sections = [
+  { id: 'what-were-doing', title: 'What We’re Doing' },
+  { id: 'still-encountering-a-barrier', title: 'Still Encountering a Barrier?' },
+];
+const mail = `mailto:${SITE.email}?subject=${encodeURIComponent('Accessibility Inquiry')}`;
+---
+
+<Base
+  title="Accessibility Statement | Bridge AI Development and Ethics"
+  description="Bridge AIDE is committed to making our site accessible to all. Read how we’re working to provide an inclusive digital experience."
+  subscribeHref="/#subscribe"
+>
+  <ReadSheet title="Accessibility Statement" sections={sections}>
+    <p class="lead">
+      At Bridge AI Development and Ethics, we believe ethical technology starts with inclusive design, and that
+      includes our website.
+    </p>
+    <p>
+      We’re committed to making our digital spaces accessible to everyone, including people with disabilities. Our
+      goal is to ensure that all visitors can engage fully with our content, events, and resources regardless of
+      ability, device, or assistive technology.
+    </p>
+
+    <h2 id="what-were-doing">What We’re Doing</h2>
+    <p>
+      We aim to meet or exceed <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">WCAG 2.1 AA accessibility standards</a>.
+      This means we’re working to:
+    </p>
+    <ul>
+      <li>Provide clear, consistent navigation across our site</li>
+      <li>Use descriptive alt text for images and meaningful link text</li>
+      <li>Ensure readable contrast and scalable text</li>
+      <li>Make forms and buttons screen-reader-friendly</li>
+      <li>Design with keyboard navigation in mind</li>
+    </ul>
+
+    <h2 id="still-encountering-a-barrier">Still Encountering a Barrier?</h2>
+    <p>
+      We’re a student-led organization, and we’re learning as we go. If you experience any difficulty accessing our
+      content or have suggestions for how we can improve, we want to hear from you.
+    </p>
+    <p>Please reach out to us at <a href={mail}>{SITE.email}</a> with:</p>
+    <ul>
+      <li>The page or content you were trying to access</li>
+      <li>The issue you encountered</li>
+      <li>Any assistive technology or browser you’re using (if applicable)</li>
+    </ul>
+    <p>We’ll do our best to fix the issue promptly and keep learning along the way.</p>
+  </ReadSheet>
+</Base>

@@ -1,0 +1,210 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Print from '../components/Print.astro';
+import CompositeSection from '../components/CompositeSection.astro';
+import ValueLegend from '../components/ValueLegend.astro';
+import SubscribeSection from '../components/SubscribeSection.astro';
+---
+
+<Base
+  title="About Bridge AI Development and Ethics | Student-Led AI Organization"
+  description="Learn about Bridge AIDE, a student-led AI organization promoting youth-driven AI ethics and student advocacy in tech to promote AI equity and inclusion."
+>
+  <PageHead title="About Bridge AIDE">
+    <p>
+      Bridge AI Development and Ethics is a student-led AI organization fueled by the shared urgency that young people
+      must have a seat at the table in designing and governing artificial intelligence. We are coders, policy nerds,
+      question-askers, and future-builders tired of waiting for a more ethical tech future, so we’re building it
+      ourselves.
+    </p>
+    <figure slot="aside" class="about-photo">
+      <Print
+        src="/images/events/numpy-1"
+        alt="Students around a library table reading handouts during a Bridge AIDE workshop."
+        widths={[800, 1600]}
+        sizes="(min-width: 960px) 38vw, 90vw"
+        ratio="4 / 3"
+        loading="eager"
+      />
+      <figcaption class="annot print-caption">Intro to NumPy. Aspen Drive Library, Apr 13, 2025.</figcaption>
+    </figure>
+  </PageHead>
+
+  <section class="section container why-room" aria-label="Why Bridge AIDE exists">
+    <div class="grid why-room__grid">
+      <p class="why-room__statement">
+        We exist because too many AI conversations happen without students in the room.
+      </p>
+      <p class="lead why-room__body">
+        Bridge AIDE creates space for youth to engage critically, creatively, and collaboratively with AI technologies
+        through education, policy, and peer-led exploration. This commitment to youth-driven AI ethics sets us apart
+        in the field.
+      </p>
+    </div>
+  </section>
+
+  <section class="section container why" aria-labelledby="why-title">
+    <hr class="rule why__rule" />
+    <div class="grid why__grid">
+      <div class="why__text">
+        <h2 id="why-title">Why Ethics, Why Now?</h2>
+        <p class="lead why__lead">
+          As AI shapes everything from healthcare to hiring, bias and exclusion can no longer be dismissed as glitches.
+          Ethics must be embedded from the ground up, starting with how we teach and learn about AI.
+        </p>
+        <p class="why__body">
+          At Bridge AIDE, we don’t separate code from conscience. Our workshops teach students how algorithms work and
+          why they sometimes fail. Learning about AI includes examining who it serves, who it overlooks, and how it can
+          be redesigned for equity, a core focus of our student advocacy in tech.
+        </p>
+      </div>
+      <div class="why__drawing">
+        <CompositeSection />
+      </div>
+    </div>
+  </section>
+
+  <section class="section band values" aria-labelledby="values-title">
+    <div class="container">
+    <div class="values__head">
+      <h2 id="values-title">Our Organizational Values</h2>
+      <p class="lead">
+        At Bridge AIDE, our core values guide every partnership and project. We’re proud to uphold the following
+        principles:
+      </p>
+    </div>
+    <ValueLegend
+      items={[
+        { title: 'Access', text: 'We reach students across skill levels, backgrounds, and geographies' },
+        { title: 'Ethics', text: 'Our work centers justice, inclusion, and public accountability' },
+        {
+          title: 'Youth-Led',
+          text: 'Students don’t just participate; we lead the charge for AI equity and inclusion',
+        },
+      ]}
+    />
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="status-title">
+    <div class="status proposed">
+      <span class="stamp status__stamp">In progress</span>
+      <h2 id="status-title" class="status__title">Nonprofit Status</h2>
+      <p class="lead">
+        We are currently in the process of becoming a 501(c)(3) nonprofit organization. Our EIN and related
+        documentation will be available as soon as registration is complete. In the meantime, we are committed to full
+        transparency as we grow.
+      </p>
+    </div>
+  </section>
+
+  <SubscribeSection />
+</Base>
+
+<style>
+  .about-photo {
+    margin: 0;
+  }
+
+  .why-room__grid {
+    row-gap: var(--space-5);
+    align-items: end;
+  }
+
+  .why-room__statement,
+  .why-room__body {
+    grid-column: 1 / -1;
+  }
+
+  .why-room__statement {
+    max-width: 20ch;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 1.5rem + 2.8vw, 4.25rem);
+    font-weight: 800;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 960px) {
+    .why-room__statement {
+      grid-column: 1 / span 7;
+    }
+
+    .why-room__body {
+      grid-column: 8 / -1;
+    }
+  }
+
+  .why__rule {
+    margin-bottom: var(--section);
+  }
+
+  .why__grid {
+    row-gap: var(--space-7);
+    align-items: start;
+  }
+
+  .why__text,
+  .why__drawing {
+    grid-column: 1 / -1;
+  }
+
+  .why__lead {
+    margin-top: var(--space-5);
+  }
+
+  .why__body {
+    margin-top: var(--space-5);
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 960px) {
+    .why__text {
+      grid-column: 1 / span 5;
+    }
+
+    .why__drawing {
+      grid-column: 7 / -1;
+    }
+  }
+
+  .values {
+    margin-top: var(--section);
+  }
+
+  .values__head {
+    margin-bottom: var(--space-7);
+  }
+
+  .values__head .lead {
+    margin-top: var(--space-5);
+  }
+
+  .status {
+    position: relative;
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  }
+
+  .status__stamp {
+    position: absolute;
+    top: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+    right: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+  }
+
+  .status__title {
+    margin-bottom: var(--space-5);
+    padding-right: 9rem;
+  }
+
+  @media (max-width: 559px) {
+    .status__stamp {
+      position: static;
+      margin-bottom: var(--space-5);
+    }
+
+    .status__title {
+      padding-right: 0;
+    }
+  }
+</style>

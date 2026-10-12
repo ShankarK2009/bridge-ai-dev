@@ -1,0 +1,126 @@
+---
+// Layout for policy and statement pages: a framed title, a contents rail,
+// and a readable column.
+interface Props {
+  title: string;
+  meta?: string;
+  sections: { id: string; title: string }[];
+}
+const { title, meta, sections } = Astro.props;
+---
+
+<div class="container read">
+  <div class="sheet read__head">
+    <h1 class:list={['read__title', { 'title--long': title.length > 32 }]}>{title}</h1>
+    {meta && <p class="annot read__meta">{meta}</p>}
+  </div>
+
+  <div class="read__grid">
+    <nav class="read__toc" aria-labelledby="toc-title">
+      <h2 id="toc-title" class="annot is-strong read__toc-title">On this page</h2>
+      <ol>
+        {sections.map((s) => <li><a href={`#${s.id}`}>{s.title}</a></li>)}
+      </ol>
+    </nav>
+    <div class="read__body prose">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .read {
+    padding-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+  }
+
+  .read__head {
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+  }
+
+  .read__title {
+    max-width: 16ch;
+  }
+
+  .read__meta {
+    margin-top: var(--space-5);
+    color: var(--ink-2);
+  }
+
+  .read__grid {
+    display: grid;
+    gap: var(--space-7) var(--col-gap);
+    padding-top: var(--section);
+  }
+
+  .read__toc {
+    padding: var(--space-5);
+    border: 1.5px solid var(--rule);
+    align-self: start;
+  }
+
+  .read__toc-title {
+    margin-bottom: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .read__toc ol {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .read__toc li::marker {
+    font-family: var(--font-mono);
+    font-size: var(--annot);
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 1024px) {
+    .read__grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .read__toc {
+      grid-column: 1 / span 3;
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-5));
+    }
+
+    .read__body {
+      grid-column: 5 / span 7;
+    }
+  }
+
+  .prose > :global(* + *) {
+    margin-top: var(--space-5);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink);
+    font-size: clamp(2rem, 1.6rem + 1.4vw, 2.75rem);
+    scroll-margin-top: calc(var(--header-h) + var(--space-5));
+  }
+
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .prose :global(ul) {
+    display: grid;
+    gap: var(--space-3);
+    margin-block: var(--space-5) 0;
+    padding-left: 1.4rem;
+  }
+
+  .prose :global(li::marker) {
+    color: var(--steel);
+  }
+
+  .prose :global(.lead) {
+    font-size: var(--lead);
+  }
+</style>

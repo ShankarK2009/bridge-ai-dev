@@ -1,0 +1,93 @@
+---
+// Theme switch, named for the two print processes the site is drawn in.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={['print-switch', className]} role="group" aria-label="Colour theme">
+  <button type="button" class="annot" data-print="blueprint" aria-pressed="false">
+    Blueprint<span class="visually-hidden"> (dark)</span>
+  </button>
+  <button type="button" class="annot" data-print="whiteprint" aria-pressed="false">
+    Whiteprint<span class="visually-hidden"> (light)</span>
+  </button>
+</div>
+
+<style>
+  .print-switch {
+    display: inline-flex;
+    border: 1px solid var(--rule);
+  }
+
+  button {
+    min-height: 36px;
+    padding: 0 0.7rem;
+    border: 0;
+    background: transparent;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+
+  button + button {
+    border-left: 1px solid var(--rule);
+  }
+
+  button:hover {
+    color: var(--ink);
+  }
+
+  button[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 750;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const dark = window.matchMedia('(prefers-color-scheme: dark)');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const current = () =>
+    (root.dataset.theme as 'blueprint' | 'whiteprint' | undefined) ??
+    (dark.matches ? 'blueprint' : 'whiteprint');
+
+  function sync() {
+    const theme = current();
+    document.querySelectorAll<HTMLButtonElement>('[data-print]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.print === theme));
+    });
+    const meta = document.querySelector('meta[name="theme-color"]');
+    meta?.setAttribute('content', getComputedStyle(root).getPropertyValue('--paper').trim());
+  }
+
+  function setTheme(theme: string) {
+    root.dataset.theme = theme;
+    try {
+      localStorage.setItem('print', theme);
+    } catch {
+      /* storage unavailable: the choice lasts for this page only */
+    }
+    sync();
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-print]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const theme = button.dataset.print!;
+      if (theme === current()) return;
+      if (document.startViewTransition && !reduced.matches) {
+        document.startViewTransition(() => setTheme(theme));
+      } else {
+        setTheme(theme);
+      }
+    });
+  });
+
+  dark.addEventListener('change', sync);
+  sync();
+</script>

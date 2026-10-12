@@ -1,0 +1,32 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# logs and OS files
+npm-debug.log*
+.DS_Store
+
+# image-tool metadata
+*.webp.json
+
+# local tool state
+/.agent/
+/.agents/
+/.claude/
+/.codex/
+/.cursor/
+/.gemini/
+/.opencode/
+/skills-lock.json
+.impeccable/config.local.json
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/questions/
