@@ -4,7 +4,7 @@ import BridgeElevation from '../components/BridgeElevation.astro';
 import SubscribeForm from '../components/SubscribeForm.astro';
 import Print from '../components/Print.astro';
 import Icon from '../components/Icon.astro';
-import { PAST_EVENTS } from '../data/events';
+import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
 import { SITE } from '../data/site';
 
 const chronological = [...PAST_EVENTS].reverse();
@@ -53,7 +53,9 @@ const goals = [
         future of responsible AI development.
       </p>
       <div class="btn-row hero__actions">
-        <a class="btn" href="/events">Register for an event <Icon name="arrow-right" /></a>
+        <a class="btn" href="/events">
+          {UPCOMING_EVENTS.length ? 'Register for an event' : 'Explore events'} <Icon name="arrow-right" />
+        </a>
         <a class="btn" href="/projects">Explore projects</a>
       </div>
 

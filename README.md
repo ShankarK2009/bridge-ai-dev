@@ -54,12 +54,12 @@ Use the local URL printed by the preview command. The available npm scripts are 
 
 ## Editing content
 
-- **Events:** add or edit entries in `src/data/events.ts`. Past events go in `PAST_EVENTS` (newest first). Add upcoming events to `UPCOMING_EVENTS` with a public `registrationUrl`; they appear on the Events page with a generated detail page and registration link. Move completed events to `PAST_EVENTS` and remove `registrationUrl` to close registration. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`.
+- **Events:** add or edit entries in `src/data/events.ts`. Add events to `EVENTS` with an ISO `start` time including its UTC offset and a public `registrationUrl` when registration is available. Each build derives upcoming events (soonest first) and past events (newest first) from `start`; registration closes once the start time is reached. Photos go in `public/images/events/` as `name-800.webp` and `name-1600.webp`.
 - **Team:** edit `src/data/team.ts`. Portraits go in `public/images/team/` as `name-320.webp` and `name-640.webp`, cropped 4:5 around the face.
 - **Photo rendering:** use `src/components/Print.astro` for responsive sources, cropping, alt text, and loading priority. Photos retain their original colours in both themes.
 - **Navigation, email, social links:** `src/data/site.ts`.
 - **Colours, type, and spacing** are design tokens at the top of `src/styles/global.css`.
-- **Page copy:** edit the corresponding file in `src/pages/`. Event detail pages are generated from `PAST_EVENTS` and `UPCOMING_EVENTS`.
+- **Page copy:** edit the corresponding file in `src/pages/`. Event detail pages are generated from `EVENTS`.
 - **Domain:** keep `astro.config.mjs`, `src/data/site.ts`, `public/CNAME`, and `public/robots.txt` consistent if the site URL changes.
 
 ## Mailing-list sign-ups
@@ -76,7 +76,7 @@ The form sends `firstName` and `email`. The endpoint is embedded in the public b
 
 ### GitHub Pages (workflow included)
 
-`.github/workflows/deploy.yml` builds and publishes the site on every push to `main`. It also supports a manual run through **Actions → Deploy to GitHub Pages → Run workflow**. A push to another branch does not automatically deploy.
+`.github/workflows/deploy.yml` builds and publishes the site on every push to `main` and daily at 06:17 UTC to refresh event listings and registration. Scheduled runs take effect once the workflow is on the default branch; event status stays as of the last successful build, so expiry can lag by about a day (longer if a scheduled run is delayed or disabled). It also supports a manual run through **Actions → Deploy to GitHub Pages → Run workflow**. A push to another branch does not automatically deploy.
 
 1. In the repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Push to `main`.

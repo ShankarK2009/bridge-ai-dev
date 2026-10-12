@@ -19,15 +19,11 @@ export interface SiteEvent {
   description: string;
   cover: Photo;
   gallery: Photo[];
-}
-
-export interface UpcomingEvent extends SiteEvent {
   /** Public sign-up page for this event. */
-  registrationUrl: string;
+  registrationUrl?: string;
 }
 
-// Newest first, matching the order on the original Events page.
-export const PAST_EVENTS: SiteEvent[] = [
+export const EVENTS: SiteEvent[] = [
   {
     slug: 'workshop-intro-to-numpy',
     title: 'Workshop: Intro to NumPy',
@@ -124,4 +120,11 @@ export const PAST_EVENTS: SiteEvent[] = [
   },
 ];
 
-export const UPCOMING_EVENTS: UpcomingEvent[] = [];
+// One build-time cutoff keeps listings and registration consistent across pages.
+const buildTime = Date.now();
+export const UPCOMING_EVENTS = EVENTS
+  .filter((event) => Date.parse(event.start) > buildTime)
+  .sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
+export const PAST_EVENTS = EVENTS
+  .filter((event) => Date.parse(event.start) <= buildTime)
+  .sort((a, b) => Date.parse(b.start) - Date.parse(a.start));

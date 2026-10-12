@@ -4,21 +4,23 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Print from '../../components/Print.astro';
 import SubscribeSection from '../../components/SubscribeSection.astro';
-import { PAST_EVENTS, UPCOMING_EVENTS, type SiteEvent, type UpcomingEvent } from '../../data/events';
+import { EVENTS, PAST_EVENTS, UPCOMING_EVENTS, type SiteEvent } from '../../data/events';
 import { SITE } from '../../data/site';
 
 export const getStaticPaths = (() =>
-  [...PAST_EVENTS, ...UPCOMING_EVENTS].map((event) => ({
+  EVENTS.map((event) => ({
     params: { slug: event.slug },
     props: { event },
   }))) satisfies GetStaticPaths;
 
 interface Props {
-  event: SiteEvent | UpcomingEvent;
+  event: SiteEvent;
 }
 
 const { event } = Astro.props;
-const registrationUrl = 'registrationUrl' in event ? event.registrationUrl : undefined;
+const registrationUrl = UPCOMING_EVENTS.some((upcoming) => upcoming.slug === event.slug)
+  ? event.registrationUrl
+  : undefined;
 const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
 const pageUrl = `${SITE.url}/event-details/${event.slug}`;
 const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
