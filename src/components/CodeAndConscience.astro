@@ -1,0 +1,125 @@
+<figure class="approach">
+  <figcaption class="approach__caption">
+    <span class="annot">Our approach</span>
+    <strong>Code and conscience, together.</strong>
+  </figcaption>
+
+  <div class="approach__inputs">
+    <div class="approach__input">
+      <svg class="approach__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+        <rect x="5" y="9" width="54" height="46" />
+        <path d="M5 19h54 M12 14h3 m4 0h3 M23 29l-8 8 8 8 M41 29l8 8-8 8 M35 27l-6 20" />
+      </svg>
+      <h3>Code</h3>
+      <p>How does it work?</p>
+      <p class="approach__detail">Understand algorithms.<br />Test their limits.</p>
+    </div>
+    <span class="approach__plus" aria-hidden="true">+</span>
+    <div class="approach__input">
+      <svg class="approach__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="18" r="7" />
+        <circle cx="12" cy="25" r="5" />
+        <circle cx="52" cy="25" r="5" />
+        <path d="M20 53V40a12 12 0 0 1 24 0v13 M4 49V40a8 8 0 0 1 12-7 M60 49V40a8 8 0 0 0-12-7 M27 43v10 M37 43v10" />
+      </svg>
+      <h3>Conscience</h3>
+      <p>Who does it affect?</p>
+      <p class="approach__detail">Recognize bias.<br />Ask who is left out.</p>
+    </div>
+  </div>
+
+  <svg class="approach__join" viewBox="0 0 600 72" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M142 0v28h316V0 M300 28v40" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+    <path d="m294 60 6 10 6-10" fill="currentColor" />
+  </svg>
+
+  <div class="approach__outcome">
+    <h3>Build AI responsibly</h3>
+    <p>Use technical skills and ethical questions together to make AI work better for people.</p>
+  </div>
+</figure>
+
+<style>
+  .approach {
+    margin: 0;
+    border-top: 2px solid var(--ink);
+    padding-top: var(--space-5);
+  }
+
+  .approach__caption {
+    display: grid;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .approach__caption .annot {
+    color: var(--ink-2);
+  }
+
+  .approach__caption strong {
+    font-size: var(--lead);
+    line-height: 1.35;
+  }
+
+  .approach__inputs {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .approach__input {
+    padding: var(--space-5) var(--space-2);
+    border: 1.5px solid var(--ink);
+    text-align: center;
+  }
+
+  .approach__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-4);
+  }
+
+  .approach__input h3 {
+    margin-bottom: var(--space-3);
+    font-size: clamp(1.5rem, 1.15rem + 1vw, 2rem);
+  }
+
+  .approach__input p {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .approach__input .approach__detail {
+    margin-top: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .approach__plus {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .approach__join {
+    width: 100%;
+    height: 72px;
+    color: var(--ink);
+  }
+
+  .approach__outcome {
+    padding: var(--space-5);
+    border: 2px solid var(--ink);
+    background: var(--paper-2);
+    text-align: center;
+  }
+
+  .approach__outcome p {
+    margin: var(--space-3) auto 0;
+    color: var(--ink-2);
+    max-width: 38ch;
+  }
+</style>
