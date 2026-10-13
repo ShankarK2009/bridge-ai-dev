@@ -20,7 +20,7 @@ const mail = `mailto:${SITE.email}?subject=${encodeURIComponent('Personal Inform
   description="Learn how Bridge AIDE collects, uses, and protects your information. We value transparency and your right to privacy."
   subscribeHref="/#subscribe"
 >
-  <ReadSheet title="Bridge AIDE Privacy Policy" meta="Effective Date: Sunday, October 11, 2026" sections={sections}>
+  <ReadSheet title="Bridge AIDE Privacy Policy" meta="Effective Date: Tuesday, October 13, 2026" sections={sections}>
     <p class="lead">
       Bridge AIDE values your privacy. This policy explains what personal information we collect through our website,
       how we use it, and what choices you have.
@@ -29,14 +29,17 @@ const mail = `mailto:${SITE.email}?subject=${encodeURIComponent('Personal Inform
     <h2 id="information-we-collect">Information We Collect</h2>
     <p>We collect personal information in two ways:</p>
     <ul>
-      <li><strong>Mailing List Sign-Up:</strong> First name and email address</li>
+      <li>
+        <strong>Member and Mailing List Sign-Up:</strong> Email address, first and last name, Discord membership
+        response, and any optional phone number or questions you provide through our Google Form
+      </li>
       <li><strong>Event Registration:</strong> First name, last name, and email address</li>
     </ul>
     <p>
       Our website does not use analytics or advertising trackers. Like most websites, our hosting provider may
       automatically log basic technical information, such as IP address and browser type, to keep the site secure and
-      running. If you sign up for our mailing list, your first name and email address are processed by the email
-      service we use to send updates.
+      running. Member sign-ups are collected through an embedded Google Form. Google processes the information
+      you submit, and Bridge AIDE uses your responses to manage membership, send updates, and respond to questions.
     </p>
 
     <h2 id="how-we-use-your-information">How We Use Your Information</h2>
@@ -44,12 +47,16 @@ const mail = `mailto:${SITE.email}?subject=${encodeURIComponent('Personal Inform
     <ul>
       <li>Send newsletters or updates (if you signed up for the mailing list)</li>
       <li>Manage event participation (if you registered for an event)</li>
+      <li>Manage membership (if you submitted the member sign-up form)</li>
+      <li>Respond to questions submitted through the sign-up form</li>
     </ul>
     <p>We do not sell, trade, or share your personal information with third parties for marketing purposes.</p>
 
     <h2 id="cookies-and-tracking">Cookies and Tracking</h2>
     <p>
-      Our website does not use cookies or tracking technologies. If you choose the Blueprint or Whiteprint display
+      Bridge AIDE does not add analytics or advertising cookies. The embedded Google Form may use cookies and
+      collect technical information under <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a>.
+      If you choose the Blueprint or Whiteprint display
       theme, that preference is saved only in your own browser and is never sent to us. You can clear it at any time
       through your browser settings.
     </p>
@@ -71,7 +78,10 @@ const mail = `mailto:${SITE.email}?subject=${encodeURIComponent('Personal Inform
     <p>To do so, please email us at <a href={mail}>{SITE.email}</a>.</p>
 
     <h2 id="data-storage">Data Storage</h2>
-    <p>Our site is hosted in the United States, and data is stored securely on servers based in the U.S.</p>
+    <p>
+      Sign-up responses are stored through Google Forms. Google may process data on servers outside your country,
+      as described in <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a>.
+    </p>
 
     <h2 id="changes-to-this-policy">Changes to This Policy</h2>
     <p>

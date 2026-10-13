@@ -1,6 +1,5 @@
 # Builds and publishes on pushes to main and daily to refresh event dates.
 # One-time setup: repo Settings > Pages > Source: "GitHub Actions".
-# Optional: add a repository variable PUBLIC_SUBSCRIBE_ENDPOINT for the mailing-list form.
 name: Deploy to GitHub Pages
 
 on:
@@ -31,7 +30,6 @@ jobs:
         env:
           PAGES_SITE: ${{ steps.pages.outputs.origin }}
           PAGES_BASE: ${{ steps.pages.outputs.base_path }}
-          PUBLIC_SUBSCRIBE_ENDPOINT: ${{ vars.PUBLIC_SUBSCRIBE_ENDPOINT }}
 
   deploy:
     needs: build

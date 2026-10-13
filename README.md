@@ -64,13 +64,9 @@ Use the local URL printed by the preview command. The available npm scripts are 
 
 ## Mailing-list sign-ups
 
-Wix handled the mailing list before; this static site needs an external endpoint to collect sign-ups. The endpoint must accept a browser `POST` containing `FormData`, allow cross-origin requests from the site, and return a successful HTTP status (`2xx`). The request includes `Accept: application/json`.
+Sign-ups use the embedded [Bridge AIDE member signup Google Form](https://forms.gle/PCgVT1TEGqB6HjrE9). The shared `SubscribeForm.astro` component embeds it on each page with a sign-up section and provides a direct link if the embed cannot load. The homepage Subscribe actions jump to its embedded form.
 
-1. Configure the form service and copy its endpoint URL.
-2. Copy `.env.example` to `.env` and set `PUBLIC_SUBSCRIBE_ENDPOINT` locally. For deployment, set the same value in the build environment. With the GitHub Pages workflow, add it as a repository **variable** named `PUBLIC_SUBSCRIBE_ENDPOINT`.
-3. Rebuild or restart the development server after changing the value, then verify a sign-up reaches the service.
-
-The form sends `firstName` and `email`. The endpoint is embedded in the public build, so it must not contain a secret. Until an endpoint is set, the form opens a prefilled email to info@bridgeaide.org; the visitor must send that email to request a sign-up.
+To replace the form, update `subscribeFormUrl` in `src/data/site.ts` with the full Google Forms `/viewform` URL (without query parameters). No endpoint environment variable or email app is needed. Google Forms handles fields, validation, submission, and confirmation; manage responses in Google Forms.
 
 ## Deploying
 
@@ -91,7 +87,7 @@ PAGES_SITE=https://shankark2009.github.io PAGES_BASE=/bridge-ai-dev npm run prev
 
 ### Other hosts
 
-For a static host, use build command `npm run build` and output directory `dist`. Configure Node.js to satisfy `package.json`, and set `PUBLIC_SUBSCRIBE_ENDPOINT` before building if sign-ups are enabled. The build uses `.html` files with extensionless navigation links; verify direct visits to `/about` and `/event-details/workshop-intro-to-numpy` on the chosen host, along with its handling of `404.html`.
+For a static host, use build command `npm run build` and output directory `dist`. Configure Node.js to satisfy `package.json`. The build uses `.html` files with extensionless navigation links; verify direct visits to `/about` and `/event-details/workshop-intro-to-numpy` on the chosen host, along with its handling of `404.html`.
 
 ## Moving the domain off Wix
 
@@ -105,7 +101,7 @@ For a static host, use build command `npm run build` and output directory `dist`
 
 Review these before replacing the Wix site:
 
-- **Privacy policy** was updated for the new site (no Wix, no analytics, no cookies; effective October 11, 2026). Once you pick a mailing-list service and host, consider naming them in the "Information We Collect" section.
+- **Privacy policy** describes the embedded Google Form, its fields, and Google’s handling of data and cookies (effective October 13, 2026). Review it before launch.
 - **2025 Impact Goals** on the home page are historical targets, explicitly labeled as such.
 - **Footer copyright** uses the organization's canonical name, "Bridge AI Development and Ethics," and © 2026.
 - **"Vishnu llapakurthi"** on the Team page: check the spelling (lowercase L or a capital I?).

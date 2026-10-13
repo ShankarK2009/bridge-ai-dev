@@ -5,8 +5,7 @@ export const SITE = {
   email: 'info@bridgeaide.org',
   instagram: 'https://www.instagram.com/bridge.aide/',
   x: 'https://www.x.com/bridgeaide/',
-  /** Form endpoint for mailing-list sign-ups. See .env.example. */
-  subscribeEndpoint: import.meta.env.PUBLIC_SUBSCRIBE_ENDPOINT ?? '',
+  subscribeFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfAPF2xMgBf0wekKk6zTkWojvteuvM-_49Ko8Uf-Y0kSHL4GQ/viewform',
 };
 
 /** Prefix a root-relative link or public asset with the deployed site's base path. */
