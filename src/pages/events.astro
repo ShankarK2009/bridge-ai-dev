@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../data/site';
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Print from '../components/Print.astro';
@@ -43,14 +44,14 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
               {UPCOMING_EVENTS.map((event) => (
                 <li class="empty proposed">
                   <h3 class="empty__title">
-                    <a href={`/event-details/${event.slug}`}>{event.title}</a>
+                    <a href={withBase(`/event-details/${event.slug}`)}>{event.title}</a>
                   </h3>
                   <p class="annot">
                     <time datetime={event.start}>{event.dateLabel} / {event.timeLabel}</time>
                   </p>
                   <p>{event.venue ?? 'Virtual Event'}</p>
                   <p>{event.summary}</p>
-                  <a class="arrow-link" href={`/event-details/${event.slug}`}>
+                  <a class="arrow-link" href={withBase(`/event-details/${event.slug}`)}>
                     Event details and registration <Icon name="arrow-right" />
                   </a>
                 </li>
@@ -71,7 +72,7 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
       {
         PAST_EVENTS.map((event) => (
           <li class="row" data-draw-group>
-            <a class="row__media" href={`/event-details/${event.slug}`} tabindex="-1" aria-hidden="true">
+            <a class="row__media" href={withBase(`/event-details/${event.slug}`)} tabindex="-1" aria-hidden="true">
               <Print
                 src={event.cover.src}
                 alt=""
@@ -87,14 +88,14 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
                 </time>
               </p>
               <h3 class="row__title">
-                <a href={`/event-details/${event.slug}`}>{event.title}</a>
+                <a href={withBase(`/event-details/${event.slug}`)}>{event.title}</a>
               </h3>
               <p class="row__where">
                 <Icon name={event.venue ? 'map-pin' : 'video'} />
                 <span>{event.venue ? `${event.venue}, ${event.address}` : 'Virtual Event'}</span>
               </p>
               <p class="row__summary">{event.summary}</p>
-              <a class="arrow-link" href={`/event-details/${event.slug}`} aria-label={`View event recap: ${event.title}`}>
+              <a class="arrow-link" href={withBase(`/event-details/${event.slug}`)} aria-label={`View event recap: ${event.title}`}>
                 View event recap <Icon name="arrow-right" />
               </a>
             </div>

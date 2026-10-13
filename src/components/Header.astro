@@ -1,5 +1,5 @@
 ---
-import { NAV, cleanPath } from '../data/site';
+import { NAV, cleanPath, withBase } from '../data/site';
 import Icon from './Icon.astro';
 import PrintSwitch from './PrintSwitch.astro';
 import Logo from './Logo.astro';
@@ -8,14 +8,14 @@ interface Props {
   subscribeHref: string;
 }
 const { subscribeHref } = Astro.props;
-const path = cleanPath(Astro.url.pathname);
+const path = cleanPath(Astro.url.pathname).slice(import.meta.env.BASE_URL.replace(/\/$/, '').length) || '/';
 const isCurrent = (href: string) =>
   path === href || path.startsWith(`${href}/`) || (href === '/events' && path.startsWith('/event-details'));
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href="/" aria-label="Bridge AI Development and Ethics, home">
+    <a class="site-header__brand" href={withBase('/')} aria-label="Bridge AI Development and Ethics, home">
       <Logo height={40} />
     </a>
 
@@ -25,7 +25,7 @@ const isCurrent = (href: string) =>
           NAV.map((item) => (
             <li>
               <a
-                href={item.href}
+                href={withBase(item.href)}
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
               >
                 {item.label}
@@ -60,7 +60,7 @@ const isCurrent = (href: string) =>
           {
             NAV.map((item) => (
               <li>
-                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                <a href={withBase(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
                   {item.label}
                 </a>
               </li>

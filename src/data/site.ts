@@ -1,13 +1,19 @@
 export const SITE = {
   name: 'Bridge AI Development and Ethics',
   shortName: 'Bridge AIDE',
-  url: 'https://www.bridgeaide.org',
+  url: new URL(import.meta.env.BASE_URL, import.meta.env.SITE).href.replace(/\/$/, ''),
   email: 'info@bridgeaide.org',
   instagram: 'https://www.instagram.com/bridge.aide/',
   x: 'https://www.x.com/bridgeaide/',
   /** Form endpoint for mailing-list sign-ups. See .env.example. */
   subscribeEndpoint: import.meta.env.PUBLIC_SUBSCRIBE_ENDPOINT ?? '',
 };
+
+/** Prefix a root-relative link or public asset with the deployed site's base path. */
+export const withBase = (path: string) =>
+  path.startsWith('/') && !path.startsWith('//')
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path}`
+    : path;
 
 export const NAV = [
   { href: '/about', label: 'About' },

@@ -5,7 +5,7 @@ import SubscribeForm from '../components/SubscribeForm.astro';
 import Print from '../components/Print.astro';
 import Icon from '../components/Icon.astro';
 import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
-import { SITE } from '../data/site';
+import { SITE, withBase } from '../data/site';
 
 const chronological = [...PAST_EVENTS].reverse();
 
@@ -53,10 +53,10 @@ const goals = [
         future of responsible AI development.
       </p>
       <div class="btn-row hero__actions">
-        <a class="btn" href="/events">
+        <a class="btn" href={withBase('/events')}>
           {UPCOMING_EVENTS.some((event) => event.registrationUrl) ? 'Register for an event' : 'Explore events'} <Icon name="arrow-right" />
         </a>
-        <a class="btn" href="/projects">Explore projects</a>
+        <a class="btn" href={withBase('/projects')}>Explore projects</a>
       </div>
 
       <div class="hero__drawing">
@@ -87,7 +87,7 @@ const goals = [
         </p>
       </div>
       <figure class="mission__figure">
-        <a href="/event-details/workshop-introduction-to-responsible-ai" class="mission__link">
+        <a href={withBase('/event-details/workshop-introduction-to-responsible-ai')} class="mission__link">
           <Print
             src="/images/events/rai-1"
             alt="Students at the Ela Area Public Library listen to a presentation titled “Ethical Principles in Action.”"
@@ -136,7 +136,7 @@ const goals = [
     <div class="container">
       <div class="workshops__head">
         <h2 id="ws-title">Past Workshops</h2>
-        <a class="arrow-link" href="/events">All events <Icon name="arrow-right" /></a>
+        <a class="arrow-link" href={withBase('/events')}>All events <Icon name="arrow-right" /></a>
       </div>
       <ol class="workshops__list" data-draw-group>
         {
@@ -147,7 +147,7 @@ const goals = [
                 <span class="dim__label annot is-strong">{event.dateLabel}</span>
                 <span class="dim__line" data-draw="center" />
               </div>
-              <a class="ws__link" href={`/event-details/${event.slug}`}>
+              <a class="ws__link" href={withBase(`/event-details/${event.slug}`)}>
                 <Print
                   src={event.cover.src}
                   alt=""
