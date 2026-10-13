@@ -63,8 +63,10 @@ const goals = [
         <BridgeElevation id="hero-bridge" />
       </div>
 
-      <div class="hero__tb" id="subscribe">
-        <SubscribeForm id="sub-hero" variant="corner" label="Mailing list sign-up" />
+      <div class="hero__tb">
+        <h2>Join the Bridge AIDE Mailing List</h2>
+        <p>Stay in the loop with our latest workshops and events.</p>
+        <a class="btn btn--red" href="#subscribe">Subscribe <Icon name="arrow-right" /></a>
       </div>
     </div>
   </section>
@@ -193,7 +195,7 @@ const goals = [
           events. Bridge AIDE is where youth leadership meets tech accountability through AI ethics education.
         </p>
       </div>
-      <div class="involve__form">
+      <div class="involve__form" id="subscribe">
         <SubscribeForm id="sub-involve" headingLevel="h3" />
       </div>
     </div>
@@ -231,10 +233,21 @@ const goals = [
   /* The title block sits on the sheet border, like the corner box of a drawing. */
   .hero__tb {
     margin-inline: calc(var(--pad) * -1);
+    padding: 1.125rem;
+    border-top: 2px solid var(--ink);
   }
 
-  .hero__tb :global(.tb) {
-    border-width: 2px 0 0;
+  .hero__tb h2 {
+    font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
+    line-height: 1.02;
+  }
+
+  .hero__tb p {
+    margin-block: var(--space-4);
+  }
+
+  .hero__tb .btn {
+    width: 100%;
   }
 
   @media (min-width: 1024px) {
@@ -270,8 +283,8 @@ const goals = [
       margin-left: 0;
     }
 
-    .hero__tb :global(.tb) {
-      border-width: 2px 0 0 2px;
+    .hero__tb {
+      border-left: 2px solid var(--ink);
     }
   }
 
@@ -570,12 +583,12 @@ const goals = [
 
   @media (min-width: 960px) {
     .involve__text {
-      grid-column: 1 / span 7;
+      grid-column: 1 / span 5;
     }
 
     .involve__form {
-      grid-column: 9 / -1;
-      align-self: end;
+      grid-column: 6 / -1;
+      align-self: start;
     }
   }
 </style>
