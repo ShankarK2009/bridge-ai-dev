@@ -33,12 +33,12 @@ export const TEAM: TeamGroup[] = [
     members: [
       { name: 'Tanish Potluri', role: 'VP of Policy and Outreach', photo: '/images/team/tanish' },
       { name: 'Rohan Movva', role: 'Vice President', photo: '/images/team/rohan' },
-      { name: 'Aaryn Titus', role: 'Vice President', photo: '/images/team/aaryn' },
     ],
   },
   {
     title: 'Directors',
     members: [
+      { name: 'Aaryn Titus', role: 'Director of Content', photo: '/images/team/aaryn' },
       { name: 'Shankar Krishnamurthy', role: 'Director of Technology', photo: '/images/team/shankar' },
       { name: 'Natalee Freeman', role: 'Co-Director of Social Media', photo: '/images/team/natalee' },
       { name: 'Vishnu llapakurthi', role: 'Co-Director of Social Media', photo: '/images/team/vishnu' },
