@@ -5,7 +5,7 @@ import Icon from '../../components/Icon.astro';
 import Print from '../../components/Print.astro';
 import SubscribeSection from '../../components/SubscribeSection.astro';
 import { EVENTS, PAST_EVENTS, UPCOMING_EVENTS, type SiteEvent } from '../../data/events';
-import { SITE } from '../../data/site';
+import { SITE, withBase } from '../../data/site';
 
 export const getStaticPaths = (() =>
   EVENTS.map((event) => ({
@@ -52,7 +52,7 @@ const eventLd = {
   jsonLd={eventLd}
 >
   <div class="container event">
-    <a class="arrow-link event__back" href="/events">
+    <a class="arrow-link event__back" href={withBase('/events')}>
       <Icon name="arrow-left" /> View other events
     </a>
 
@@ -155,7 +155,7 @@ const eventLd = {
       {
         others.map((other) => (
           <li>
-            <a href={`/event-details/${other.slug}`}>
+            <a href={withBase(`/event-details/${other.slug}`)}>
               <span class="annot">{other.dateLabel}</span>
               <span class="more__name">{other.title}</span>
               <Icon name="arrow-right" />

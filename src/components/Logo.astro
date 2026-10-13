@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../data/site';
 // The existing Bridge AIDE logo: blue on whiteprint, white on blueprint.
 interface Props {
   height?: number;
@@ -8,8 +9,8 @@ const width = Math.round((height * 500) / 150);
 ---
 
 <span class="logo" style={`height:${height}px; width:${width}px`}>
-  <img class="logo__img logo__img--blue" src="/images/brand/logo-blue.png" width={width} height={height} alt="" />
-  <img class="logo__img logo__img--white" src="/images/brand/logo-white.png" width={width} height={height} alt="" />
+  <img class="logo__img logo__img--blue" src={withBase('/images/brand/logo-blue.png')} width={width} height={height} alt="" />
+  <img class="logo__img logo__img--white" src={withBase('/images/brand/logo-white.png')} width={width} height={height} alt="" />
 </span>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 // The site's title block: the ruled box every sheet in the set ends with.
-import { NAV, SITE } from '../data/site';
+import { NAV, SITE, withBase } from '../data/site';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 ---
@@ -9,7 +9,7 @@ import Logo from './Logo.astro';
   <div class="container">
     <div class="titleblock">
       <div class="tbx tbx--brand">
-        <a href="/" aria-label="Bridge AI Development and Ethics, home"><Logo height={48} /></a>
+        <a href={withBase('/')} aria-label="Bridge AI Development and Ethics, home"><Logo height={48} /></a>
         <p class="tbx__statement">
           A student-led organization advancing AI ethics education.
         </p>
@@ -18,7 +18,7 @@ import Logo from './Logo.astro';
       <nav class="tbx" aria-labelledby="footer-nav">
         <h2 class="tbx__label annot is-strong" id="footer-nav">Navigation</h2>
         <ul>
-          {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          {NAV.map((item) => <li><a href={withBase(item.href)}>{item.label}</a></li>)}
         </ul>
       </nav>
 
@@ -44,8 +44,8 @@ import Logo from './Logo.astro';
       <p class="tbx tbx--legal annot">
         Copyright © 2025 by Bridge AI Ethics and Development. All Rights Reserved.
       </p>
-      <p class="tbx tbx--link annot"><a href="/privacy-policy">Privacy Policy</a></p>
-      <p class="tbx tbx--link annot"><a href="/accessibility">Accessibility Statement</a></p>
+      <p class="tbx tbx--link annot"><a href={withBase('/privacy-policy')}>Privacy Policy</a></p>
+      <p class="tbx tbx--link annot"><a href={withBase('/accessibility')}>Accessibility Statement</a></p>
     </div>
   </div>
 </footer>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../data/site';
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Print from '../components/Print.astro';
@@ -26,7 +27,7 @@ import SubscribeSection from '../components/SubscribeSection.astro';
 
     <div class="work__grid">
       <article class="cell cell--workshops" aria-labelledby="p-workshops">
-        <a class="cell__media" href="/events" tabindex="-1" aria-hidden="true">
+        <a class="cell__media" href={withBase('/events')} tabindex="-1" aria-hidden="true">
           <Print
             src="/images/events/numpy-cover"
             alt=""
@@ -105,7 +106,7 @@ import SubscribeSection from '../components/SubscribeSection.astro';
       Join our community of student leaders working to make AI more ethical, inclusive, and accountable.
     </p>
     <div class="btn-row">
-      <a class="btn" href="/events">Join an event <Icon name="arrow-right" /></a>
+      <a class="btn" href={withBase('/events')}>Join an event <Icon name="arrow-right" /></a>
       <a class="btn" href="#subscribe">Get updates</a>
     </div>
   </section>

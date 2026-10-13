@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../data/site';
 // A responsive photograph shown in its original colours in either theme.
 interface Props {
   /** Base path without size suffix, e.g. /images/events/numpy-cover */
@@ -27,8 +28,8 @@ const {
   position = 'center',
 } = Astro.props;
 
-const srcset = widths.map((w) => `${src}-${w}.webp ${w}w`).join(', ');
-const fallback = `${src}-${widths[widths.length - 1]}.webp`;
+const srcset = widths.map((w) => `${withBase(src)}-${w}.webp ${w}w`).join(', ');
+const fallback = `${withBase(src)}-${widths[widths.length - 1]}.webp`;
 ---
 
 <span

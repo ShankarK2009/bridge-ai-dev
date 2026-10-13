@@ -18,7 +18,7 @@ The design treats the site as an engineering drawing set for a bridge between AI
 | `/accessibility` | `src/pages/accessibility.astro` |
 | Custom error page | `src/pages/404.astro` |
 
-The existing page paths are retained, including the original `workshop-understanding-backpropogation` slug. Astro generates a sitemap at `/sitemap-index.xml`; `public/robots.txt` supplies the crawler configuration. Canonical URLs use `https://www.bridgeaide.org`.
+The existing page paths are retained, including the original `workshop-understanding-backpropogation` slug. Astro generates a sitemap at `/sitemap-index.xml`; `src/pages/robots.txt.ts` supplies the crawler configuration. Canonical URLs, social previews, and the sitemap use the deployed site's address. GitHub Pages prefixes the routes above with `/bridge-ai-dev` until a custom domain is configured.
 
 ## Run it locally
 
@@ -47,7 +47,7 @@ Use the local URL printed by the preview command. The available npm scripts are 
 | `src/components/` | Navigation, footer, forms, and reusable drawing-sheet elements |
 | `src/data/` | Site links, events, and team members |
 | `src/styles/global.css` | Design tokens, themes, and shared styles |
-| `public/` | Images, icons, crawler configuration, and custom domain file |
+| `public/` | Images, icons, and custom domain file |
 | `astro.config.mjs` | Site URL, sitemap integration, and static output settings |
 | `DESIGN.md` / `PRODUCT.md` | Design direction and product requirements |
 | `docs/wix-content-archive.md` | Original Wix content reference |
@@ -60,7 +60,7 @@ Use the local URL printed by the preview command. The available npm scripts are 
 - **Navigation, email, social links:** `src/data/site.ts`.
 - **Colours, type, and spacing** are design tokens at the top of `src/styles/global.css`.
 - **Page copy:** edit the corresponding file in `src/pages/`. Event detail pages are generated from `EVENTS`.
-- **Domain:** keep `astro.config.mjs`, `src/data/site.ts`, `public/CNAME`, and `public/robots.txt` consistent if the site URL changes.
+- **Domain:** the GitHub Pages workflow reads the domain and base path from the repository's Pages settings. For other hosts, set `PAGES_SITE` to the site origin and `PAGES_BASE` to its path prefix (or `/`). Without those variables, builds use `https://www.bridgeaide.org` at `/`.
 
 ## Mailing-list sign-ups
 
@@ -79,8 +79,15 @@ The form sends `firstName` and `email`. The endpoint is embedded in the public b
 `.github/workflows/deploy.yml` builds and publishes the site on every push to `main` and daily at 06:17 UTC to refresh event listings and registration. Scheduled runs take effect once the workflow is on the default branch; event status stays as of the last successful build, so expiry can lag by about a day (longer if a scheduled run is delayed or disabled). It also supports a manual run through **Actions → Deploy to GitHub Pages → Run workflow**. A push to another branch does not automatically deploy.
 
 1. In the repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
-2. Push to `main`.
-3. Under **Settings → Pages → Custom domain**, enter `www.bridgeaide.org` (`public/CNAME` already contains it).
+2. Push to `main`. The workflow reads the site's origin and base path using `actions/configure-pages`, then builds links, assets, metadata, and crawler files for that address. With the current settings, the site is served at [shankark2009.github.io/bridge-ai-dev/](https://shankark2009.github.io/bridge-ai-dev/).
+3. When ready to move the domain, configure its DNS and enter `www.bridgeaide.org` under **Settings → Pages → Custom domain**. Run the workflow again so the build picks up the new domain and removes the repository prefix. The `public/CNAME` file alone does not set the domain for a deployment through GitHub Actions.
+
+To check the repository-path build locally:
+
+```bash
+PAGES_SITE=https://shankark2009.github.io PAGES_BASE=/bridge-ai-dev npm run build
+npm run preview -- --base /bridge-ai-dev
+```
 
 ### Other hosts
 
