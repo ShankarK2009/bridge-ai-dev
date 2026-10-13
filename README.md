@@ -106,7 +106,7 @@ For a static host, use build command `npm run build` and output directory `dist`
 Review these before replacing the Wix site:
 
 - **Privacy policy** was updated for the new site (no Wix, no analytics, no cookies; effective October 11, 2026). Once you pick a mailing-list service and host, consider naming them in the "Information We Collect" section.
-- **2025 Impact Goals** on the home page are last year's goals.
-- **Footer copyright** reads "Bridge AI Ethics and Development" (words reversed from the organization's name) and © 2025.
+- **2025 Impact Goals** on the home page are historical targets, explicitly labeled as such.
+- **Footer copyright** uses the organization's canonical name, "Bridge AI Development and Ethics," and © 2026.
 - **"Vishnu llapakurthi"** on the Team page: check the spelling (lowercase L or a capital I?).
 - The three co-founder headshots were 240 px at the source and look soft on large screens. Higher-resolution photos would help.
