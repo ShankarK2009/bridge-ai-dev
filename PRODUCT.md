@@ -59,7 +59,7 @@ Confirmed by the owner on 2026-10-11:
 
 ## Evidence on Hand
 
-- 2025 impact goals: 100+ students engaged, 4+ workshops, 3 student-led initiatives (framed as goals on the live site).
+- 2026 impact goals: 100+ students engaged, 4+ workshops, 3 student-led initiatives (framed as goals on the live site).
 - Four past workshops with real photos (Wix media, migrated to `public/images/events/`).
 - Team of 12 with headshots (migrated to `public/images/team/`).
 - No testimonials, partners, press, or sponsor logos exist. Do not fabricate any.
