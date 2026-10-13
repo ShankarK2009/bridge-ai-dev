@@ -86,7 +86,7 @@ To check the repository-path build locally:
 
 ```bash
 PAGES_SITE=https://shankark2009.github.io PAGES_BASE=/bridge-ai-dev npm run build
-npm run preview -- --base /bridge-ai-dev
+PAGES_SITE=https://shankark2009.github.io PAGES_BASE=/bridge-ai-dev npm run preview
 ```
 
 ### Other hosts
