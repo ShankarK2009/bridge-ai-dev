@@ -255,15 +255,35 @@ const isCurrent = (href: string) =>
   const menu = document.getElementById('mobile-menu');
 
   if (toggle && menu) {
+    const header = toggle.closest('header')!;
+    const background = document.querySelectorAll<HTMLElement>('.skip-link, main, .site-footer');
     const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
       menu.hidden = !open;
       document.body.style.overflow = open ? 'hidden' : '';
+      background.forEach((element) => (element.inert = open));
     };
 
     toggle.addEventListener('click', () => setOpen(menu.hidden));
     menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
     document.addEventListener('keydown', (event) => {
+      if (menu.hidden) return;
+
+      if (event.key === 'Tab') {
+        const controls = Array.from(header.querySelectorAll<HTMLElement>('a[href], button')).filter(
+          (element) => element.getClientRects().length > 0,
+        );
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
       if (event.key === 'Escape' && !menu.hidden) {
         setOpen(false);
         toggle.focus();
