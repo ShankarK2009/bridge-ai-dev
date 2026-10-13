@@ -4,21 +4,22 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Print from '../../components/Print.astro';
 import SubscribeSection from '../../components/SubscribeSection.astro';
-import { PAST_EVENTS, UPCOMING_EVENTS, type SiteEvent, type UpcomingEvent } from '../../data/events';
+import { EVENTS, PAST_EVENTS, UPCOMING_EVENTS, type SiteEvent } from '../../data/events';
 import { SITE } from '../../data/site';
 
 export const getStaticPaths = (() =>
-  [...PAST_EVENTS, ...UPCOMING_EVENTS].map((event) => ({
+  EVENTS.map((event) => ({
     params: { slug: event.slug },
     props: { event },
   }))) satisfies GetStaticPaths;
 
 interface Props {
-  event: SiteEvent | UpcomingEvent;
+  event: SiteEvent;
 }
 
 const { event } = Astro.props;
-const registrationUrl = 'registrationUrl' in event ? event.registrationUrl : undefined;
+const isUpcoming = UPCOMING_EVENTS.some((upcoming) => upcoming.slug === event.slug);
+const registrationUrl = isUpcoming ? event.registrationUrl : undefined;
 const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
 const pageUrl = `${SITE.url}/event-details/${event.slug}`;
 const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
@@ -38,7 +39,7 @@ const eventLd = {
   location: isVirtual
     ? { '@type': 'VirtualLocation', name: 'Virtual Event' }
     : { '@type': 'Place', name: event.venue, address: event.address },
-  image: [`${SITE.url}${event.cover.src}-1600.webp`],
+  image: [`${SITE.url}${event.cover.src}-share.jpg`],
   organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 };
 ---
@@ -46,7 +47,7 @@ const eventLd = {
 <Base
   title={`${event.title} | Bridge AI Development and Ethics`}
   description={event.summary}
-  image={`${event.cover.src}-1600.webp`}
+  image={`${event.cover.src}-share.jpg`}
   imageAlt={event.cover.alt}
   jsonLd={eventLd}
 >
@@ -62,7 +63,9 @@ const eventLd = {
           registrationUrl ? (
             <a class="btn btn--red" href={registrationUrl}>Register for this event</a>
           ) : (
-            <span class="stamp event__stamp">Registration is closed</span>
+            <span class="stamp event__stamp">
+              {isUpcoming ? 'Registration is unavailable' : 'Registration is closed'}
+            </span>
           )
         }
       </div>

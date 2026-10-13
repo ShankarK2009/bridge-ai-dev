@@ -71,7 +71,7 @@ const {
   <div class="tb__cell tb__action">
     <button class="btn btn--red" type="submit" data-label="Subscribe">Subscribe</button>
   </div>
-  <div class="tb__status" role="status" aria-live="polite" hidden>
+  <div class="tb__status visually-hidden" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">
     <span class="stamp" data-stamp></span>
     <p data-message></p>
   </div>
@@ -119,7 +119,7 @@ const {
     border-bottom-color: var(--red);
   }
 
-  .tb__status {
+  .tb__status:not(.visually-hidden) {
     grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
@@ -127,10 +127,6 @@ const {
     gap: var(--space-4) var(--space-5);
     padding: 1.125rem;
     border-top: 1px solid var(--ink);
-  }
-
-  .tb__status[hidden] {
-    display: none;
   }
 
   .tb__status p {
@@ -234,8 +230,9 @@ const {
     stampEl.textContent = stamp;
     stampEl.hidden = !stamp;
     status.querySelector<HTMLElement>('[data-message]')!.textContent = message;
-    status.hidden = false;
+    status.classList.toggle('visually-hidden', !message);
     form.classList.toggle('is-done', done);
+    if (done) status.focus();
   }
 
   for (const form of document.querySelectorAll<HTMLFormElement>('form[data-subscribe]')) {
@@ -250,6 +247,7 @@ const {
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      showStatus(form, '', '', false);
       const { ok, first, email } = validate(form);
       if (!ok) return;
 
