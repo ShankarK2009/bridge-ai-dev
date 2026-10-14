@@ -31,7 +31,7 @@ export const TEAM: TeamGroup[] = [
   {
     title: 'Vice Presidents',
     members: [
-      { name: 'Tanish Potluri', role: 'VP of Policy and Outreach', photo: '/images/team/tanish' },
+      { name: 'Tanish Potluri', role: 'Vice President', photo: '/images/team/tanish' },
       { name: 'Rohan Movva', role: 'Vice President', photo: '/images/team/rohan' },
     ],
   },
