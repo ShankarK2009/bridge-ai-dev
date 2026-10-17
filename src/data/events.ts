@@ -2,6 +2,8 @@ export interface Photo {
   /** Base path without the size suffix, e.g. /images/events/numpy-cover */
   src: string;
   alt: string;
+  /** Preserve wide webinar screenshots on the recap page. */
+  ratio?: string;
 }
 
 export interface SiteEvent {
@@ -24,6 +26,37 @@ export interface SiteEvent {
 }
 
 export const EVENTS: SiteEvent[] = [
+  {
+    slug: 'bridge-ai-code4change-virtual-ai-workshop',
+    title: 'Bridge AI × Code4Change: Virtual AI Workshop',
+    shortTitle: 'AI with Professor Serina Chang',
+    start: '2026-09-25T18:00:00-05:00',
+    dateLabel: 'Sep 25, 2026',
+    timeLabel: '6:00–7:00 PM CT',
+    venue: null,
+    address: null,
+    summary:
+      'Bridge AI and Code4Change hosted Professor Serina Chang of UC Berkeley for a virtual workshop on AI, human behavior, and responsible development.',
+    description:
+      'Presented by Bridge AI Development and Ethics × Code4Change, this virtual workshop for high school students ages 14–17 explored how artificial intelligence works, where it is used today, and why ethical development matters. Featured speaker Professor Serina Chang, an Assistant Professor at UC Berkeley, shared perspectives from her research in machine learning and human behavior. Her work focuses on human-centered AI, modeling human behavior, and using AI to support real-world decision-making. The session covered an introduction to AI and machine learning, real-world applications, AI and human behavior, and ethical and responsible AI development.',
+    cover: {
+      src: '/images/events/code4change-cover',
+      alt: 'Professor Serina Chang presents a summary of human interaction in AI evaluation and training during the virtual workshop.',
+      ratio: '1907 / 726',
+    },
+    gallery: [
+      {
+        src: '/images/events/code4change-interactive-ai',
+        alt: 'A workshop slide compares a static multiple-choice math question with an interactive conversation between a user and an AI assistant.',
+        ratio: '1266 / 699',
+      },
+      {
+        src: '/images/events/code4change-discussion',
+        alt: 'Professor Serina Chang and workshop participants join the virtual discussion.',
+        ratio: '1908 / 815',
+      },
+    ],
+  },
   {
     slug: 'workshop-intro-to-numpy',
     title: 'Workshop: Intro to NumPy',

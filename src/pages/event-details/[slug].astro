@@ -100,7 +100,7 @@ const eventLd = {
         alt={event.cover.alt}
         widths={[800, 1600]}
         sizes="(min-width: 1320px) 1240px, 94vw"
-        ratio="16 / 9"
+        ratio={event.cover.ratio ?? '16 / 9'}
         priority
       />
     </div>
@@ -139,7 +139,7 @@ const eventLd = {
                 alt={photo.alt}
                 widths={[800, 1600]}
                 sizes="(min-width: 960px) 46vw, 94vw"
-                ratio="16 / 9"
+                ratio={photo.ratio ?? '16 / 9'}
               />
             </li>
           ))}
