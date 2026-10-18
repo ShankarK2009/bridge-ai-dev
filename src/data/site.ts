@@ -2,9 +2,8 @@ export const SITE = {
   name: 'Bridge AI Development and Ethics',
   shortName: 'Bridge AIDE',
   url: new URL(import.meta.env.BASE_URL, import.meta.env.SITE).href.replace(/\/$/, ''),
-  email: 'info@bridgeaide.org',
-  instagram: 'https://www.instagram.com/bridge.aide/',
-  x: 'https://www.x.com/bridgeaide/',
+  email: 'bridgeaide@gmail.com',
+  instagram: 'https://www.instagram.com/bridgeaide/',
   subscribeFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfAPF2xMgBf0wekKk6zTkWojvteuvM-_49Ko8Uf-Y0kSHL4GQ/viewform',
 };
 
