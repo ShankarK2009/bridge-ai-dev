@@ -22,17 +22,6 @@ const organization = {
   sameAs: [SITE.instagram, SITE.x],
 };
 
-const goals = [
-  {
-    qty: '100+',
-    text: 'students engaged across workshops, projects, and events focused on AI ethics education',
-  },
-  { qty: '4+', text: 'workshops on AI coding, ethics, and social impact, promoting ethical AI learning' },
-  {
-    qty: '3',
-    text: 'student-led initiatives launched, from advocacy to tool-building for responsible AI development',
-  },
-];
 ---
 
 <Base
@@ -103,32 +92,6 @@ const goals = [
           Introduction to Responsible AI. Ela Area Public Library, Feb 02, 2025.
         </figcaption>
       </figure>
-    </div>
-  </section>
-
-  <!-- 2026 impact goals, set as a drawing schedule -->
-  <section class="section container impact" aria-labelledby="impact-title">
-    <hr class="rule impact__rule" />
-    <div class="grid impact__grid">
-      <div class="impact__head">
-        <h2 id="impact-title">2026 Impact Goals</h2>
-      </div>
-      <div class="schedule">
-        <div class="schedule__head annot" aria-hidden="true">
-          <span>Target</span>
-          <span>Goal</span>
-        </div>
-        <dl class="schedule__list">
-          {
-            goals.map((goal) => (
-              <div class="schedule__row" data-draw-group>
-                <dt class="schedule__qty">{goal.qty}</dt>
-                <dd class="schedule__text">{goal.text}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
     </div>
   </section>
 
@@ -333,107 +296,6 @@ const goals = [
     .mission__figure {
       grid-column: 9 / -1;
       margin-top: var(--space-8);
-    }
-  }
-
-  /* ---------- Impact schedule ---------- */
-  .impact__rule {
-    margin-bottom: var(--section);
-  }
-
-  .impact__grid {
-    row-gap: var(--space-6);
-  }
-
-  .impact__head,
-  .schedule {
-    grid-column: 1 / -1;
-  }
-
-  .impact__head .lead {
-    margin-top: var(--space-5);
-  }
-
-  .schedule__head,
-  .schedule__row {
-    display: grid;
-    grid-template-columns: minmax(6rem, 10rem) minmax(0, 1fr);
-    column-gap: clamp(1.25rem, 3vw, 3rem);
-  }
-
-  .schedule__head {
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid var(--ink);
-    color: var(--ink-2);
-  }
-
-  .schedule__list {
-    margin: 0;
-  }
-
-  .schedule__row {
-    position: relative;
-    align-items: baseline;
-    padding-block: var(--space-5) var(--space-6);
-  }
-
-  /* Row rule, drawn left to right as the row enters view. */
-  .schedule__row::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-top: 1.5px dashed var(--ink-2);
-    transform-origin: left center;
-    transition: transform 1.1s var(--ease-out);
-  }
-
-  .schedule__row:global(.will-draw)::after {
-    transform: scaleX(0);
-  }
-
-  .schedule__row:global(.will-draw.is-drawn)::after {
-    transform: scaleX(1);
-  }
-
-  .schedule__qty {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 2.2rem + 2.6vw, 4.5rem);
-    font-weight: 800;
-    line-height: 0.85;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .schedule__text {
-    margin: 0;
-    max-width: 40ch;
-    font-size: var(--lead);
-    line-height: 1.45;
-  }
-
-  @media (max-width: 559px) {
-    .schedule__head {
-      display: none;
-    }
-
-    .schedule__row {
-      grid-template-columns: 1fr;
-      row-gap: var(--space-3);
-    }
-  }
-
-  @media (min-width: 960px) {
-    .impact__head {
-      grid-column: 1 / span 4;
-      position: sticky;
-      top: calc(var(--header-h) + var(--space-6));
-      align-self: start;
-    }
-
-    .schedule {
-      grid-column: 6 / -1;
     }
   }
 
