@@ -28,17 +28,17 @@ export interface SiteEvent {
 export const EVENTS: SiteEvent[] = [
   {
     slug: 'bridge-ai-code4change-virtual-ai-workshop',
-    title: 'Bridge AI × Code4Change: Virtual AI Workshop',
-    shortTitle: 'AI with Professor Serina Chang',
+    title: 'AI Workshop with UC Berkeley Professor Serina Chang',
+    shortTitle: 'AI with UC Berkeley Professor Serina Chang',
     start: '2026-09-25T18:00:00-05:00',
     dateLabel: 'Sep 25, 2026',
     timeLabel: '6:00–7:00 PM CT',
     venue: null,
     address: null,
     summary:
-      'Bridge AI and Code4Change hosted Professor Serina Chang of UC Berkeley for a virtual workshop on AI, human behavior, and responsible development.',
+      'Bridge AIDE hosted UC Berkeley Professor Serina Chang for a virtual workshop on AI, human behavior, and responsible development.',
     description:
-      'Presented by Bridge AI Development and Ethics × Code4Change, this virtual workshop for high school students ages 14–17 explored how artificial intelligence works, where it is used today, and why ethical development matters. Featured speaker Professor Serina Chang, an Assistant Professor at UC Berkeley, shared perspectives from her research in machine learning and human behavior. Her work focuses on human-centered AI, modeling human behavior, and using AI to support real-world decision-making. The session covered an introduction to AI and machine learning, real-world applications, AI and human behavior, and ethical and responsible AI development.',
+      'Presented by Bridge AI Development and Ethics, this virtual workshop for high school students ages 14–17 explored how artificial intelligence works, where it is used today, and why ethical development matters. Featured speaker Professor Serina Chang, an Assistant Professor at UC Berkeley, shared perspectives from her research in machine learning and human behavior. Her work focuses on human-centered AI, modeling human behavior, and using AI to support real-world decision-making. The session covered an introduction to AI and machine learning, real-world applications, AI and human behavior, and ethical and responsible AI development.',
     cover: {
       src: '/images/events/code4change-cover',
       alt: 'Professor Serina Chang presents a summary of human interaction in AI evaluation and training during the virtual workshop.',
