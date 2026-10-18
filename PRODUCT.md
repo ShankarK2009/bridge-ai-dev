@@ -21,7 +21,7 @@ delegated: Astro (static output) with hand-written CSS. Eleven pages share one h
 
 ## Product Purpose
 
-Bridge AI Development and Ethics (Bridge AIDE) is a student-led organization advancing AI ethics education. It runs workshops, speaker talks, and student-led policy work so that young people act as AI's "watchdogs, architects, and conscience." The site exists to explain the mission, show real past work, collect mailing-list sign-ups, route people to events, and make it easy to contact the team. Success: visitors subscribe, register for events, or email info@bridgeaide.org.
+Bridge AI Development and Ethics (Bridge AIDE) is a student-led organization advancing AI ethics education. It runs workshops, speaker talks, and student-led policy work so that young people act as AI's "watchdogs, architects, and conscience." The site exists to explain the mission, show real past work, collect mailing-list sign-ups, route people to events, and make it easy to contact the team. Success: visitors subscribe, register for events, or email bridgeaide@gmail.com.
 
 ## Positioning
 
@@ -31,7 +31,7 @@ Students teach students both how AI is built (NumPy, backpropagation, model trai
 
 - Workshops held in public libraries (Aspen Drive Library, Vernon Hills, IL; Ela Area Public Library, Lake Zurich, IL) and virtually.
 - Mailing list sign-up collects first name + email. Event registration collects first name, last name, email.
-- Contact: info@bridgeaide.org. Social: Instagram @bridge.aide, X @bridgeaide.
+- Contact: bridgeaide@gmail.com. Social: Instagram @bridgeaide.
 
 ## Capabilities and Constraints
 
@@ -59,7 +59,6 @@ Confirmed by the owner on 2026-10-11:
 
 ## Evidence on Hand
 
-- 2026 impact goals: 100+ students engaged, 4+ workshops, 3 student-led initiatives (framed as goals on the live site).
 - Four past workshops with real photos (Wix media, migrated to `public/images/events/`).
 - Team of 12 with headshots (migrated to `public/images/team/`).
 - No testimonials, partners, press, or sponsor logos exist. Do not fabricate any.
