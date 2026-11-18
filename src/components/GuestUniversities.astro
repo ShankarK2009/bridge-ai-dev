@@ -1,0 +1,89 @@
+---
+const universities = [
+  'Carnegie Mellon University',
+  'Princeton University',
+  'UC Berkeley',
+  'UC Santa Barbara',
+  'UCLA',
+  'University of Minnesota Twin Cities',
+  'University of Southern California',
+];
+---
+
+<section class="section container guest-universities" aria-labelledby="guest-universities-title">
+  <div class="grid guest-universities__grid">
+    <div class="guest-universities__intro">
+      <h2 id="guest-universities-title">Where Our Guest Professors Teach</h2>
+      <p>Bridge AIDE has hosted professors from these universities or plans to welcome them at future events.</p>
+    </div>
+    <ul class="guest-universities__list" role="list">
+      {universities.map((university) => <li>{university}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .guest-universities__grid {
+    row-gap: var(--space-6);
+    align-items: start;
+  }
+
+  .guest-universities__intro,
+  .guest-universities__list {
+    grid-column: 1 / -1;
+  }
+
+  .guest-universities__intro h2 {
+    max-width: 20ch;
+    font-size: clamp(2.5rem, 1.9rem + 1.8vw, 3.5rem);
+  }
+
+  .guest-universities__intro p {
+    margin-top: var(--space-4);
+    color: var(--ink-2);
+  }
+
+  .guest-universities__list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--ink);
+    background: var(--paper-2);
+  }
+
+  .guest-universities__list li {
+    display: flex;
+    align-items: center;
+    padding: var(--space-4) clamp(var(--space-4), 2.5vw, var(--space-6));
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-display);
+    font-size: var(--h3);
+    font-weight: 750;
+    line-height: 1.15;
+  }
+
+  @media (min-width: 600px) {
+    .guest-universities__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .guest-universities__list li:nth-child(even) {
+      border-left: 1px solid var(--rule);
+    }
+
+    .guest-universities__list li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .guest-universities__intro {
+      grid-column: 1 / span 5;
+    }
+
+    .guest-universities__list {
+      grid-column: 6 / -1;
+    }
+  }
+</style>
