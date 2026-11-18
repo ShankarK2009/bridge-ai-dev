@@ -14,6 +14,10 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
   description="Sign up for Bridge AIDE’s next student AI workshops and events focused on interactive AI learning sessions, ethical AI speaker series, and AI community engagement events."
 >
   <PageHead title="Join Our AI Workshops and Events">
+    <section class="events-notice proposed" aria-labelledby="events-notice-title">
+      <h2 id="events-notice-title" class="stamp">Work in progress</h2>
+      <p>We’re still updating this page. Some events may be missing or out of date.</p>
+    </section>
     <p>
       At Bridge AIDE, our AI workshops and events are more than just gatherings; they’re dynamic opportunities for
       students, educators, and community members to dive deep into ethical AI. From hands-on learning to insightful
@@ -112,6 +116,25 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
 </Base>
 
 <style>
+  .events-notice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin-bottom: var(--space-5);
+    padding: var(--space-4);
+    background: var(--paper-2);
+    font-size: var(--body);
+  }
+
+  .events-notice .stamp {
+    white-space: normal;
+  }
+
+  .events-notice p {
+    max-width: none;
+  }
+
   .upcoming__grid {
     row-gap: var(--space-6);
     align-items: end;
