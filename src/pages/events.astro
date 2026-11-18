@@ -28,7 +28,7 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
   <section class="section container upcoming" aria-labelledby="upcoming-title">
     <div class="grid upcoming__grid">
       <div class="upcoming__text">
-        <h2 id="upcoming-title">Upcoming Bridge AIDE Events</h2>
+        <h2 id="upcoming-title">Upcoming and Recent Bridge AIDE Events</h2>
         <p class="lead">
           We’re planning new interactive AI learning sessions, speaker series, and community discussions throughout
           the year. Stay informed and learn about upcoming AI workshops and events by signing up for our mailing list
@@ -36,7 +36,7 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
         </p>
       </div>
       <div class="upcoming__slot">
-        <div class="empty proposed" id="upcoming-empty" hidden={UPCOMING_EVENTS.length > 0}>
+        <div class="empty proposed" hidden={UPCOMING_EVENTS.length > 0}>
           <p class="empty__title">No events at the moment</p>
           <a class="arrow-link" href="#subscribe">
             Join the mailing list <Icon name="arrow-right" />
@@ -46,7 +46,7 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
           UPCOMING_EVENTS.length > 0 && (
             <ul class="upcoming__list">
               {UPCOMING_EVENTS.map((event) => (
-                <li class="empty proposed" data-event-start={event.start}>
+                <li class="empty proposed">
                   <h3 class="empty__title">
                     <a href={withBase(`/event-details/${event.slug}`)}>{event.title}</a>
                   </h3>
@@ -56,7 +56,10 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
                   <p>{event.venue ?? 'Virtual Event'}</p>
                   <p>{event.summary}</p>
                   <a class="arrow-link" href={withBase(`/event-details/${event.slug}`)}>
-                    {event.registrationUrl ? 'Event details and registration' : 'Event details'} <Icon name="arrow-right" />
+                    <span data-event-start={event.registrationUrl ? event.start : undefined}>
+                      {event.registrationUrl ? 'Event details and registration' : 'Event details'}
+                    </span>
+                    <Icon name="arrow-right" />
                   </a>
                 </li>
               ))}
@@ -117,22 +120,14 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
 <script>
   import { onEventStart } from '../scripts/on-event-start';
 
-  const list = document.querySelector('.upcoming__list');
-  const empty = document.getElementById('upcoming-empty');
-  if (list && empty) {
-    list.querySelectorAll<HTMLElement>('[data-event-start]').forEach((card) => {
-      const start = card.dataset.eventStart;
-      if (start) {
-        onEventStart(start, () => {
-          card.remove();
-          if (!list.childElementCount) {
-            list.remove();
-            empty.hidden = false;
-          }
-        });
-      }
-    });
-  }
+  document.querySelectorAll<HTMLElement>('.upcoming__list [data-event-start]').forEach((label) => {
+    const start = label.dataset.eventStart;
+    if (start) {
+      onEventStart(start, () => {
+        label.textContent = 'Event details';
+      });
+    }
+  });
 </script>
 
 <style>
