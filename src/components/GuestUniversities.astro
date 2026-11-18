@@ -13,14 +13,18 @@ const universities = [
 ];
 ---
 
-<section class="section container" aria-labelledby="guest-universities-title" aria-roledescription="carousel">
+<section class="section container" aria-labelledby="guest-universities-title" aria-roledescription="carousel" data-university-carousel>
   <div class="guest-universities__header">
     <div class="guest-universities__intro">
       <h2 id="guest-universities-title">Where Our Guest Professors Teach</h2>
       <p>Bridge AIDE has hosted professors from these universities or plans to welcome them at future events.</p>
     </div>
     <div class="guest-universities__controls" data-university-controls hidden>
-      <button class="btn" type="button" aria-label="Previous university" aria-controls="guest-universities-logos" aria-disabled="true" data-university-previous>
+      <button class="btn guest-universities__playback" type="button" aria-label="Play university logo scrolling" aria-controls="guest-universities-logos" data-university-playback>
+        <span class="guest-universities__play"><Icon name="play" /> Play</span>
+        <span class="guest-universities__pause"><Icon name="pause" /> Pause</span>
+      </button>
+      <button class="btn" type="button" aria-label="Previous university" aria-controls="guest-universities-logos" data-university-previous>
         <Icon name="arrow-left" />
       </button>
       <button class="btn" type="button" aria-label="Next university" aria-controls="guest-universities-logos" data-university-next>
@@ -38,34 +42,108 @@ const universities = [
 </section>
 
 <script>
-  const track = document.getElementById('guest-universities-logos');
-  const controls = document.querySelector<HTMLElement>('[data-university-controls]');
+  const carousel = document.querySelector<HTMLElement>('[data-university-carousel]');
+  const track = carousel?.querySelector<HTMLElement>('#guest-universities-logos');
+  const controls = carousel?.querySelector<HTMLElement>('[data-university-controls]');
+  const playback = controls?.querySelector<HTMLButtonElement>('[data-university-playback]');
   const previous = controls?.querySelector<HTMLButtonElement>('[data-university-previous]');
   const next = controls?.querySelector<HTMLButtonElement>('[data-university-next]');
-  const firstSlide = track?.firstElementChild;
 
-  if (track && controls && previous && next && firstSlide) {
-    const updateControls = () => {
-      const remaining = track.scrollWidth - track.clientWidth - track.scrollLeft;
-      previous.setAttribute('aria-disabled', String(track.scrollLeft <= 1));
-      next.setAttribute('aria-disabled', String(remaining <= 1));
+  if (carousel && track && controls && playback && previous && next && track.children.length) {
+    const slides = Array.from(track.children);
+    const copies = slides.map((slide) => {
+      const copy = slide.cloneNode(true) as HTMLElement;
+      copy.setAttribute('aria-hidden', 'true');
+      return copy;
+    });
+    track.append(...copies);
+    track.dataset.loop = '';
+
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const speed = 48; // CSS pixels per second.
+    let playing = false;
+    let visible = false;
+    let hovered = false;
+    let frame = 0;
+    let lastTime: number | undefined;
+    let position = 0;
+    let loopWidth = 0;
+
+    const advance = (time: number) => {
+      if (lastTime !== undefined) {
+        // Keep fractional pixels and cap elapsed time after a tab has been inactive.
+        const elapsed = Math.min(time - lastTime, 50);
+        position = (position + elapsed * speed / 1000) % loopWidth;
+        track.scrollLeft = position;
+      }
+      lastTime = time;
+      frame = requestAnimationFrame(advance);
     };
 
-    previous.addEventListener('click', () => {
-      if (previous.getAttribute('aria-disabled') !== 'true') {
-        track.scrollBy({ left: -firstSlide.getBoundingClientRect().width });
+    const updateAnimation = () => {
+      if (!playing || !visible || hovered || !loopWidth) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else if (!frame) {
+        lastTime = undefined;
+        position = track.scrollLeft;
+        frame = requestAnimationFrame(advance);
       }
-    });
-    next.addEventListener('click', () => {
-      if (next.getAttribute('aria-disabled') !== 'true') {
-        track.scrollBy({ left: firstSlide.getBoundingClientRect().width });
-      }
-    });
+    };
 
-    track.addEventListener('scroll', updateControls, { passive: true });
-    new ResizeObserver(updateControls).observe(track);
-    updateControls();
-    track.dataset.snap = '';
+    const setPlaying = (enabled: boolean) => {
+      playing = enabled;
+      playback.toggleAttribute('data-playing', playing);
+      playback.setAttribute('aria-label', playing ? 'Pause university logo scrolling' : 'Play university logo scrolling');
+      updateAnimation();
+    };
+
+    const move = (direction: -1 | 1) => {
+      setPlaying(false);
+      const width = slides[0].getBoundingClientRect().width;
+      const offset = track.scrollLeft;
+      const index = direction === 1 ? Math.floor((offset + 1) / width) : Math.ceil((offset - 1) / width);
+      const target = (index + direction) * width;
+
+      // Shift to the matching copy when the next tile is beyond the scrollable area.
+      let shift = 0;
+      if (target < 0) shift = loopWidth;
+      if (target > track.scrollWidth - track.clientWidth + 1) shift = -loopWidth;
+      if (shift) track.scrollLeft = offset + shift;
+      track.scrollTo({ left: target + shift, behavior: motion.matches ? 'instant' : 'smooth' });
+    };
+
+    new ResizeObserver(() => {
+      loopWidth = copies[0].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+      position = track.scrollLeft;
+      updateAnimation();
+    }).observe(track);
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      updateAnimation();
+    }).observe(track);
+
+    playback.addEventListener('click', () => setPlaying(!playing));
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    carousel.addEventListener('focusin', (event) => {
+      if (event.target instanceof Element && event.target.matches(':focus-visible')) setPlaying(false);
+    });
+    track.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      hovered = true;
+      updateAnimation();
+    });
+    track.addEventListener('pointerleave', () => {
+      hovered = false;
+      updateAnimation();
+    });
+    track.addEventListener('pointerdown', () => setPlaying(false), { passive: true });
+    motion.addEventListener('change', () => {
+      if (motion.matches) setPlaying(false);
+    });
+    setPlaying(!motion.matches);
     controls.hidden = false;
   }
 </script>
@@ -95,23 +173,33 @@ const universities = [
     margin-inline-start: auto;
   }
 
-  .guest-universities__controls .btn {
+  .guest-universities__controls .btn:not(.guest-universities__playback) {
     width: 3rem;
     padding-inline: 0;
   }
 
-  .guest-universities__controls .btn[aria-disabled='true'] {
-    background: transparent;
-    color: var(--ink);
-    cursor: default;
+  .guest-universities__playback {
+    width: 7rem;
+    padding-inline: 0;
+  }
+
+  .guest-universities__playback span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+  }
+
+  .guest-universities__playback:not([data-playing]) .guest-universities__pause,
+  .guest-universities__playback[data-playing] .guest-universities__play {
+    display: none;
+  }
+
+  .guest-universities__playback:hover :global(svg) {
+    transform: none;
   }
 
   .guest-universities__controls [data-university-previous]:hover :global(svg) {
     transform: translateX(-3px);
-  }
-
-  .guest-universities__controls .btn[aria-disabled='true'] :global(svg) {
-    transform: none;
   }
 
   .guest-universities__track {
@@ -129,8 +217,8 @@ const universities = [
     scrollbar-width: thin;
   }
 
-  .guest-universities__track[data-snap] {
-    scroll-snap-type: x mandatory;
+  .guest-universities__track[data-loop] {
+    scrollbar-width: none;
   }
 
   .guest-universities__slide {
@@ -140,11 +228,6 @@ const universities = [
     padding: var(--space-5) clamp(var(--space-4), 3vw, var(--space-6));
     background: #fff;
     border-inline-end: 1px solid #d5dfeb;
-    scroll-snap-align: start;
-  }
-
-  .guest-universities__slide:last-child {
-    border-inline-end: 0;
   }
 
   .guest-universities__slide img {
@@ -156,12 +239,6 @@ const universities = [
 
   .guest-universities__slide--compact img {
     max-width: 10rem;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .guest-universities__track {
-      scroll-behavior: smooth;
-    }
   }
 
   @media (min-width: 600px) {
