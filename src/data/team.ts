@@ -41,7 +41,7 @@ export const TEAM: TeamGroup[] = [
       { name: 'Aaryn Titus', role: 'Director of Content', photo: '/images/team/aaryn' },
       { name: 'Shankar Krishnamurthy', role: 'Director of Technology', photo: '/images/team/shankar' },
       { name: 'Natalee Freeman', role: 'Co-Director of Social Media', photo: '/images/team/natalee' },
-      { name: 'Vishnu llapakurthi', role: 'Co-Director of Social Media', photo: '/images/team/vishnu' },
+      { name: 'Vishnu Illapakurthi', role: 'Co-Director of Social Media', photo: '/images/team/vishnu' },
       { name: 'Aditi Sahoo', role: 'Co-Director of Social Media', photo: '/images/team/aditi' },
     ],
   },

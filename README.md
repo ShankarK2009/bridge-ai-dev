@@ -103,5 +103,4 @@ Review these before replacing the Wix site:
 
 - **Privacy policy** describes the embedded Google Form, its fields, and Google’s handling of data and cookies (effective October 13, 2026). Review it before launch.
 - **Footer copyright** uses the organization's canonical name, "Bridge AI Development and Ethics," and © 2026.
-- **"Vishnu llapakurthi"** on the Team page: check the spelling (lowercase L or a capital I?).
 - The three co-founder headshots were 240 px at the source and look soft on large screens. Higher-resolution photos would help.
