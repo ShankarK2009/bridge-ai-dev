@@ -22,6 +22,7 @@ const isUpcoming = UPCOMING_EVENTS.some((upcoming) => upcoming.slug === event.sl
 const { registrationUrl } = event;
 const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
 const pageUrl = `${SITE.url}/event-details/${event.slug}`;
+const shareImageUrl = new URL(withBase(`${event.cover.src}-share.jpg`), Astro.site).href;
 const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
 const shareLinkedIn = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(pageUrl)}`;
 const isVirtual = !event.venue;
@@ -39,7 +40,7 @@ const eventLd = {
   location: isVirtual
     ? { '@type': 'VirtualLocation', name: 'Virtual Event' }
     : { '@type': 'Place', name: event.venue, address: event.address },
-  image: [`${SITE.url}${event.cover.src}-share.jpg`],
+  image: [shareImageUrl],
   organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 };
 ---
@@ -47,7 +48,7 @@ const eventLd = {
 <Base
   title={`${event.title} | Bridge AI Development and Ethics`}
   description={event.summary}
-  image={`${event.cover.src}-share.jpg`}
+  image={shareImageUrl}
   imageAlt={event.cover.alt}
   jsonLd={eventLd}
 >
