@@ -1,0 +1,261 @@
+---
+import Icon from './Icon.astro';
+import { withBase } from '../data/site';
+
+const universities = [
+  { logo: 'carnegie-mellon', name: 'Carnegie Mellon University' },
+  { logo: 'princeton', name: 'Princeton University' },
+  { logo: 'uc-berkeley', name: 'UC Berkeley' },
+  { logo: 'uc-santa-barbara', name: 'UC Santa Barbara' },
+  { logo: 'ucla', name: 'UCLA', compact: true },
+  { logo: 'minnesota-twin-cities', name: 'University of Minnesota Twin Cities' },
+  { logo: 'usc', name: 'University of Southern California', compact: true },
+];
+---
+
+<section class="section container" aria-labelledby="guest-universities-title" aria-roledescription="carousel" data-university-carousel>
+  <div class="guest-universities__header">
+    <div class="guest-universities__intro">
+      <h2 id="guest-universities-title">Where Our Guest Professors Teach</h2>
+      <p>Bridge AIDE has hosted professors from these universities or plans to welcome them at future events.</p>
+    </div>
+    <div class="guest-universities__controls" data-university-controls hidden>
+      <button class="btn guest-universities__playback" type="button" aria-label="Play university logo scrolling" aria-controls="guest-universities-logos" data-university-playback>
+        <span class="guest-universities__play"><Icon name="play" /> Play</span>
+        <span class="guest-universities__pause"><Icon name="pause" /> Pause</span>
+      </button>
+      <button class="btn" type="button" aria-label="Previous university" aria-controls="guest-universities-logos" data-university-previous>
+        <Icon name="arrow-left" />
+      </button>
+      <button class="btn" type="button" aria-label="Next university" aria-controls="guest-universities-logos" data-university-next>
+        <Icon name="arrow-right" />
+      </button>
+    </div>
+  </div>
+  <ul id="guest-universities-logos" class="guest-universities__track" role="list" aria-label="University logos" tabindex="0">
+    {universities.map(({ logo, name, compact }) => (
+      <li class:list={['guest-universities__slide', { 'guest-universities__slide--compact': compact }]}>
+        <img src={withBase(`/images/universities/${logo}.webp`)} alt={name} loading="lazy" decoding="async" />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<script>
+  const carousel = document.querySelector<HTMLElement>('[data-university-carousel]');
+  const track = carousel?.querySelector<HTMLElement>('#guest-universities-logos');
+  const controls = carousel?.querySelector<HTMLElement>('[data-university-controls]');
+  const playback = controls?.querySelector<HTMLButtonElement>('[data-university-playback]');
+  const previous = controls?.querySelector<HTMLButtonElement>('[data-university-previous]');
+  const next = controls?.querySelector<HTMLButtonElement>('[data-university-next]');
+
+  if (carousel && track && controls && playback && previous && next && track.children.length) {
+    const slides = Array.from(track.children);
+    const copies = slides.map((slide) => {
+      const copy = slide.cloneNode(true) as HTMLElement;
+      copy.setAttribute('aria-hidden', 'true');
+      return copy;
+    });
+    track.append(...copies);
+    track.dataset.loop = '';
+
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const speed = 48; // CSS pixels per second.
+    let playing = false;
+    let visible = false;
+    let hovered = false;
+    let frame = 0;
+    let lastTime: number | undefined;
+    let position = 0;
+    let loopWidth = 0;
+
+    const advance = (time: number) => {
+      if (lastTime !== undefined) {
+        // Keep fractional pixels and cap elapsed time after a tab has been inactive.
+        const elapsed = Math.min(time - lastTime, 50);
+        position = (position + elapsed * speed / 1000) % loopWidth;
+        track.scrollLeft = position;
+      }
+      lastTime = time;
+      frame = requestAnimationFrame(advance);
+    };
+
+    const updateAnimation = () => {
+      if (!playing || !visible || hovered || !loopWidth) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else if (!frame) {
+        lastTime = undefined;
+        position = track.scrollLeft;
+        frame = requestAnimationFrame(advance);
+      }
+    };
+
+    const setPlaying = (enabled: boolean) => {
+      playing = enabled;
+      playback.toggleAttribute('data-playing', playing);
+      playback.setAttribute('aria-label', playing ? 'Pause university logo scrolling' : 'Play university logo scrolling');
+      updateAnimation();
+    };
+
+    const move = (direction: -1 | 1) => {
+      setPlaying(false);
+      const width = slides[0].getBoundingClientRect().width;
+      const offset = track.scrollLeft;
+      const index = direction === 1 ? Math.floor((offset + 1) / width) : Math.ceil((offset - 1) / width);
+      const target = (index + direction) * width;
+
+      // Shift to the matching copy when the next tile is beyond the scrollable area.
+      let shift = 0;
+      if (target < 0) shift = loopWidth;
+      if (target > track.scrollWidth - track.clientWidth + 1) shift = -loopWidth;
+      if (shift) track.scrollLeft = offset + shift;
+      track.scrollTo({ left: target + shift, behavior: motion.matches ? 'instant' : 'smooth' });
+    };
+
+    new ResizeObserver(() => {
+      loopWidth = copies[0].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+      position = track.scrollLeft;
+      updateAnimation();
+    }).observe(track);
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      updateAnimation();
+    }).observe(track);
+
+    playback.addEventListener('click', () => setPlaying(!playing));
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    carousel.addEventListener('focusin', (event) => {
+      if (event.target instanceof Element && event.target.matches(':focus-visible')) setPlaying(false);
+    });
+    track.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      hovered = true;
+      updateAnimation();
+    });
+    track.addEventListener('pointerleave', () => {
+      hovered = false;
+      updateAnimation();
+    });
+    track.addEventListener('pointerdown', () => setPlaying(false), { passive: true });
+    motion.addEventListener('change', () => {
+      if (motion.matches) setPlaying(false);
+    });
+    setPlaying(!motion.matches);
+    controls.hidden = false;
+  }
+</script>
+
+<style>
+  .guest-universities__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .guest-universities__intro h2 {
+    font-size: clamp(2.5rem, 1.9rem + 1.8vw, 3.5rem);
+  }
+
+  .guest-universities__intro p {
+    margin-top: var(--space-4);
+    color: var(--ink-2);
+  }
+
+  .guest-universities__controls:not([hidden]) {
+    display: flex;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  .guest-universities__controls .btn:not(.guest-universities__playback) {
+    width: 3rem;
+    padding-inline: 0;
+  }
+
+  .guest-universities__playback {
+    width: 7rem;
+    padding-inline: 0;
+  }
+
+  .guest-universities__playback span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+  }
+
+  .guest-universities__playback:not([data-playing]) .guest-universities__pause,
+  .guest-universities__playback[data-playing] .guest-universities__play {
+    display: none;
+  }
+
+  .guest-universities__playback:hover :global(svg) {
+    transform: none;
+  }
+
+  .guest-universities__controls [data-university-previous]:hover :global(svg) {
+    transform: translateX(-3px);
+  }
+
+  .guest-universities__track {
+    --slides-in-view: 1;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(100% / var(--slides-in-view));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .guest-universities__track[data-loop] {
+    scrollbar-width: none;
+  }
+
+  .guest-universities__slide {
+    display: grid;
+    place-items: center;
+    min-height: clamp(8rem, 6.5rem + 3vw, 10rem);
+    padding: var(--space-5) clamp(var(--space-4), 3vw, var(--space-6));
+    background: #fff;
+    border-inline-end: 1px solid #d5dfeb;
+  }
+
+  .guest-universities__slide img {
+    width: 100%;
+    max-width: 15rem;
+    height: 4rem;
+    object-fit: contain;
+  }
+
+  .guest-universities__slide--compact img {
+    max-width: 10rem;
+  }
+
+  @media (min-width: 600px) {
+    .guest-universities__track {
+      --slides-in-view: 2;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .guest-universities__track {
+      --slides-in-view: 3;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .guest-universities__track {
+      --slides-in-view: 4;
+    }
+  }
+</style>

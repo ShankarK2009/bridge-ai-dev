@@ -1,6 +1,7 @@
 ---
 import { withBase } from '../data/site';
 import Base from '../layouts/Base.astro';
+import GuestUniversities from '../components/GuestUniversities.astro';
 import PageHead from '../components/PageHead.astro';
 import Print from '../components/Print.astro';
 import Icon from '../components/Icon.astro';
@@ -104,6 +105,8 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
       }
     </ol>
   </section>
+
+  <GuestUniversities />
 
   <SubscribeSection />
 </Base>
