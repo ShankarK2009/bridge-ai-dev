@@ -19,7 +19,7 @@ interface Props {
 
 const { event } = Astro.props;
 const isUpcoming = UPCOMING_EVENTS.some((upcoming) => upcoming.slug === event.slug);
-const registrationUrl = isUpcoming ? event.registrationUrl : undefined;
+const { registrationUrl } = event;
 const others = PAST_EVENTS.filter((e) => e.slug !== event.slug);
 const pageUrl = `${SITE.url}/event-details/${event.slug}`;
 const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('Check out this event.')}`;
@@ -57,17 +57,18 @@ const eventLd = {
     </a>
 
     <div class="sheet event__sheet">
-      <div class="event__head">
+      <div class="event__head" data-event-start={isUpcoming ? event.start : undefined}>
         <h1 class:list={['event__title', { 'title--long': event.title.length > 32 }]}>{event.title}</h1>
         {
-          registrationUrl ? (
-            <a class="btn btn--red" href={registrationUrl}>Register for this event</a>
-          ) : (
-            <span class="stamp event__stamp">
-              {isUpcoming ? 'Registration is unavailable' : 'Registration is closed'}
-            </span>
+          isUpcoming && (
+            registrationUrl ? (
+              <a class="btn btn--red" href={registrationUrl} data-registration-action>Register for this event</a>
+            ) : (
+              <span class="stamp event__stamp" data-registration-action>Registration is unavailable</span>
+            )
           )
         }
+        <span class="stamp event__stamp" hidden={isUpcoming} data-registration-closed>Registration is closed</span>
       </div>
 
       <dl class="event__block">
@@ -169,6 +170,20 @@ const eventLd = {
   <SubscribeSection />
 </Base>
 
+<script>
+  import { onEventStart } from '../../scripts/on-event-start';
+
+  const head = document.querySelector<HTMLElement>('.event__head[data-event-start]');
+  const start = head?.dataset.eventStart;
+  const closed = head?.querySelector<HTMLElement>('[data-registration-closed]');
+  if (head && start && closed) {
+    onEventStart(start, () => {
+      head.querySelector('[data-registration-action]')?.remove();
+      closed.hidden = false;
+    });
+  }
+</script>
+
 <style>
   .event {
     padding-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
@@ -192,6 +207,10 @@ const eventLd = {
 
   .event__title {
     max-width: 18ch;
+  }
+
+  .event__stamp[hidden] {
+    display: none;
   }
 
   .event__block {

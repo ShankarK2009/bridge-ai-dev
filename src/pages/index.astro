@@ -9,6 +9,7 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
 import { SITE, withBase } from '../data/site';
 
 const chronological = [...PAST_EVENTS].reverse();
+const lastOpenEvent = UPCOMING_EVENTS.filter((event) => event.registrationUrl).at(-1);
 
 const organization = {
   '@context': 'https://schema.org',
@@ -43,7 +44,10 @@ const organization = {
       </p>
       <div class="btn-row hero__actions">
         <a class="btn" href={withBase('/events')}>
-          {UPCOMING_EVENTS.some((event) => event.registrationUrl) ? 'Register for an event' : 'Explore events'} <Icon name="arrow-right" />
+          <span id="home-events-label" data-event-start={lastOpenEvent?.start}>
+            {lastOpenEvent ? 'Register for an event' : 'Explore events'}
+          </span>
+          <Icon name="arrow-right" />
         </a>
         <a class="btn" href={withBase('/projects')}>Explore projects</a>
       </div>
@@ -165,6 +169,18 @@ const organization = {
     </div>
   </section>
 </Base>
+
+<script>
+  import { onEventStart } from '../scripts/on-event-start';
+
+  const label = document.getElementById('home-events-label');
+  const start = label?.dataset.eventStart;
+  if (label && start) {
+    onEventStart(start, () => {
+      label.textContent = 'Explore events';
+    });
+  }
+</script>
 
 <style>
   /* ---------- Hero sheet ---------- */

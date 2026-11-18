@@ -72,7 +72,7 @@ To replace the form, update `subscribeFormUrl` in `src/data/site.ts` with the fu
 
 ### GitHub Pages (workflow included)
 
-`.github/workflows/deploy.yml` builds and publishes the site on every push to `main` and daily at 06:17 UTC to refresh event listings and registration. Scheduled runs take effect once the workflow is on the default branch; event status stays as of the last successful build, so expiry can lag by about a day (longer if a scheduled run is delayed or disabled). It also supports a manual run through **Actions → Deploy to GitHub Pages → Run workflow**. A push to another branch does not automatically deploy.
+`.github/workflows/deploy.yml` builds and publishes the site on every push to `main` and daily at 06:17 UTC to refresh event listings. With JavaScript enabled, the site hides sign-up links and removes events from Upcoming at their start time. The Past Events archive and the experience with JavaScript disabled use the last successful build. The workflow also supports a manual run through **Actions → Deploy to GitHub Pages → Run workflow**. A push to another branch does not automatically deploy.
 
 1. In the repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Push to `main`. The workflow reads the site's origin and base path using `actions/configure-pages`, then builds links, assets, metadata, and crawler files for that address. With the current settings, the site is served at [shankark2009.github.io/bridge-ai-dev/](https://shankark2009.github.io/bridge-ai-dev/).
