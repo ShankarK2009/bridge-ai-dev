@@ -57,7 +57,7 @@ import { PAST_EVENTS, UPCOMING_EVENTS } from '../data/events';
                   <p>{event.venue ?? 'Virtual Event'}</p>
                   <p>{event.summary}</p>
                   <a class="arrow-link" href={withBase(`/event-details/${event.slug}`)}>
-                    Event details and registration <Icon name="arrow-right" />
+                    {event.registrationUrl ? 'Event details and registration' : 'Event details'} <Icon name="arrow-right" />
                   </a>
                 </li>
               ))}
